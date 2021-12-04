@@ -1,9 +1,9 @@
-{% extends 'dashboard/dashboard_base.html' %}
+{% extends 'author_base.html' %}
 {% load static %}
 {% load only_hours %}
 
 {% block title %}
-    Drafted Articles
+    {{title}}
 {% endblock title %}
 
 {% block stylesheets %}
@@ -14,26 +14,14 @@
 
 {% block content %}
 
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="ik ik-file-text bg-info"></i>
-                        <div class="d-inline">
-                            <h5>Drafted Articles</h5>
-                            <span>List of all your drafted articles.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{% include "includes/header_body.html" %}
 
                 <div class="container mb-3">
                     <div class="row">
                         <div class="col-md-12">
                                 <div class="card shadow-sm">
                                     <div class="card-header">
-                                        <h4 class="title">List Of Drafted Articles</h4>
+                                        <h4 class="title">{{title}}</h4>
                                     </div>
                                   <div class="card-body">
                                     <div class="content">

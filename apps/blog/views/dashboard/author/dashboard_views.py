@@ -140,6 +140,7 @@ class ArticleUpdateView(LoginRequiredMixin, View):
 
         self.context_object["article_update_form"] = article_update_form
         self.context_object["article"] = old_article
+        self.context_object["title"] = 'Update Article'
         return render(request, self.template_name, self.context_object)
 
     def post(self, request, *args, **kwargs):
@@ -340,6 +341,7 @@ class AuthorPublishedArticlesView(LoginRequiredMixin, View):
 
         context_object['published_articles_list'] = published_articles_list
         context_object['total_articles_published'] = total_articles_published
+        context_object['title'] = 'Published Articles'
 
         return render(request, template_name, context_object)
 
@@ -353,7 +355,7 @@ class AuthorDraftedArticlesView(LoginRequiredMixin, View):
         """
            Returns drafted articles by an author.
         """
-        template_name = 'dashboard/author/author_drafted_article_list.html'
+        template_name = 'blog/author/author_drafted_article_list.html'
         context_object = {}
 
         drafted_articles = Article.objects.filter(author=request.user.id,
@@ -372,20 +374,16 @@ class AuthorDraftedArticlesView(LoginRequiredMixin, View):
 
         context_object['drafted_articles_list'] = drafted_articles_list
         context_object['total_articles_drafted'] = total_articles_drafted
+        context_object['title'] = 'Drafted Articles'
 
         return render(request, template_name, context_object)
 
 
 class AuthorDeletedArticlesView(LoginRequiredMixin, View):
-    """
-       Displays deleted articles by an author.
-    """
+
 
     def get(self, request):
-        """
-           Returns deleted articles by an author.
-        """
-        template_name = 'dashboard/author/author_deleted_article_list.html'
+        template_name = 'blog/author/author_deleted_article_list.html'
         context_object = {}
 
         deleted_articles = Article.objects.filter(author=request.user.id,
@@ -404,5 +402,6 @@ class AuthorDeletedArticlesView(LoginRequiredMixin, View):
 
         context_object['deleted_articles_list'] = deleted_articles_list
         context_object['total_articles_deleted'] = total_articles_deleted
+        context_object['title'] = 'Deleted Articles'
 
         return render(request, template_name, context_object)

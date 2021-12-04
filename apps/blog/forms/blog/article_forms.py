@@ -11,8 +11,7 @@ from apps.blog.models.category_models import Category
 
 
 class ArticleCreateForm(forms.ModelForm):
-    category = forms.ModelChoiceField(queryset=Category.objects.filter(
-                                      approved=True),
+    category = forms.ModelChoiceField(queryset=Category.objects.filter(approved=True),
                                       empty_label="Select Category",
                                       widget=forms.Select(attrs=
                                                           {
@@ -59,7 +58,7 @@ class ArticleCreateForm(forms.ModelForm):
             'image_credit': TextInput(attrs={
                 'name': "image_credit",
                 'class': "form-control",
-                'placeholder': "Example: made4dev.com (Premium Programming T-shirts)",
+                'placeholder': "Enter Url of your image",
                 'id': "image_credit"
             }),
 
@@ -73,7 +72,7 @@ class ArticleCreateForm(forms.ModelForm):
             'tags': TextInput(attrs={
                                      'name': "tags",
                                      'class': "form-control",
-                                     'placeholder': "Example: sports, game, politics",
+                                     'placeholder': "tag1, tag2, tag3",
                                      'id': "tags",
                                      'data-role': "tagsinput"
                                      }),
