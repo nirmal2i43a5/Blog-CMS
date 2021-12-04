@@ -1,0 +1,78 @@
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <div class="scrollbar-inner">
+    <!-- Brand -->
+    <div class="sidenav-header  align-items-center">
+      <a class="navbar-brand" href="/">
+        <img src="/static/assets/img/brand/blue.png" class="navbar-brand-img" alt="Argon Design - Jinja Template Logo.">
+      </a>
+    </div>
+    <div class="navbar-inner">
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Nav items -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'blog:home' %}">
+              <i class="fas fa-home text-primary"></i>
+             <span class="nav-link-text">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/">
+              <i class="ni ni-tv-2 text-primary"></i>
+              <span class="nav-link-text">Dashboard</span>
+            </a>
+          </li>
+
+          <div class="nav-item dropdown">
+            
+            <a href="#" class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+               <i class="fas fa-book"></i>
+               <span class="nav-link-text">Articles</span>
+          </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'blog:article_write' %}">Create New Article</a>
+                <a class="dropdown-item" href="{% url 'blog:published_articles' %}">Published Articles</a>
+                <a class="dropdown-item" href="{% url 'blog:drafted_articles' %}">Drafted Articles</a>
+                <a class="dropdown-item" href="{% url 'blog:deleted_articles' %}">Deleted Articles</a>
+            </div>
+        </div>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:category_create' %}">
+              <i class="fas fa-network-wired"></i>
+              <span class="nav-link-text">Category</span>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="/profile.html">
+              <i class="ni ni-single-02 text-yellow"></i>
+              <span class="nav-link-text">Profile</span>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'authentication:login' %}">
+              <i class="ni ni-key-25 text-info"></i>
+              <span class="nav-link-text">Login </span>
+            </a>
+          </li>
+         
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'authentication:logout' %}">
+              <i class="ni ni-user-run text-red"></i>
+              <span class="nav-link-text">Logout</span>
+            </a>
+          </li>            
+        </ul>
+        <!-- Divider -->
+        <!-- Heading -->
+       
+       
+      </div>
+    </div>
+  </div>
+</nav>
