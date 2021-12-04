@@ -14,11 +14,11 @@
           <li class="nav-item">
             <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'blog:home' %}">
               <i class="fas fa-home text-primary"></i>
-             <span class="nav-link-text">Home</span>
+             <span class="nav-link-text">Blog Home</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/">
+            <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'home:dashboard' %}">
               <i class="ni ni-tv-2 text-primary"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
