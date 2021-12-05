@@ -1,122 +1,368 @@
 {% extends 'blog_base.html' %}
-
+{% load static %}
 {% block title %}
-    Home
+Home
 {% endblock title %}
+{% block stylesheet %}
+{{ block.super }}
+<link href="{% static 'dashboard/author/css/dashboard-article.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="/static/assets/css/blog/front-page-category/styles.css" type="text/css">
 
+<link rel="stylesheet" href="/static/assets/css/blog/front-page-category/responsive.css" type="text/css">
+{% endblock stylesheet %}
 
 {% block content %}
 
-    {% if categories %}
+{% if categories %}
 
-    <div class="main-slider">
-		<div class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
-			data-swiper-speed="500" data-swiper-autoplay="5000" data-swiper-margin="0" data-swiper-slides-per-view="4"
-			data-swiper-breakpoints="true" data-swiper-loop="true" >
-			<div class="swiper-wrapper">
-                
-                {% for category in categories %}
-				<div class="swiper-slide">
-					<a class="slider-category" href="{{ category.get_absolute_url }}">
-						<div class="category-image">
-                            <img src="{{ category.image.url }}"
-                                 class="category-image"
-                                 alt="Blog Image"
-                                 width="352" height="235"
-                             >
-                             
-                        </div>
+<header>
+  <div class="main-slider">
+    <div class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
+      data-swiper-speed="500" data-swiper-autoplay="5000" data-swiper-margin="0" data-swiper-slides-per-view="4"
+      data-swiper-breakpoints="true" data-swiper-loop="true">
+      <div class="swiper-wrapper">
 
-						<div class="category">
-							<div class="display-table center-text">
-								<div class="display-table-cell">
-									<h3><b>{{ category.name }}</b></h3>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div><!-- swiper-slide -->
-                {% endfor %}
+        {% for category in categories %}
 
-			</div><!-- swiper-wrapper -->
-		</div><!-- swiper-container -->
 
-	</div><!-- slider -->
-    {% else %}
-        <center><div class="alert alert-warning"><b>No Categories</b></div></center>
-    {% endif %}
+        <div class="swiper-slide">
+          <a class="slider-category" href="{{ category.get_absolute_url }}">
+            <div class="category-image">
+              <img src="{{ category.image.url }}" class="category-image" alt="Blog Image" width="352" height="235">
 
-	<section class="blog-area section">
-		<div class="container infinite-container">
-            {% if articles %}
-			<div class="row infinite-item">
+            </div>
+
+            <div class="category">
+              <div class="display-table center-text">
+                <div class="display-table-cell">
+                  <h3><b>{{ category.name }}</b></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div><!-- swiper-slide -->
+
+        {% endfor %}
+
+      </div><!-- swiper-wrapper -->
+    </div><!-- swiper-container -->
+
+  </div><!-- slider -->
+</header>
+{% else %}
+<center>
+  <div class="alert alert-warning"><b>No Categories</b></div>
+</center>
+{% endif %}
+
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow-sm bg-white">
+        <div class="card-header">
+          <h4 class="title">{{title}}</h4>
+        </div>
+        <div class="card-body">
+          <div class="content">
+            <section class="blog-list px-3 py-5 p-md-5">
+              {% if articles %}
+              <div class="container">
                 {% for article in articles %}
-				<div class="col-lg-4 col-md-6">
-					<div class="card h-100">
-						<div class="single-post post-style-1">
+                <div class="item mb-5">
+                  <div class="media">
+                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ article.image.url }}" alt="image">
+                    <div class="media-body">
+                      <h3 class="title mb-1"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+                      <div class="meta mb-1"><span class="date"><b>Published:</b> <i>{{ article.date_published|date:'M
+                            d, Y'}}</i></span>
+                        <span class="time">{{ article.count_words }} word{{ article.count_words|pluralize }}</span>
+                        <span class="time">{{ article.read_time }} min{{ article.read_time|pluralize }} read</span>
+                        <span class="comment">{{ article.views }} view{{ article.views|pluralize }}</span>
+                        <span class="comment"><a href="#">{{ article.comments.count }} comment{{
+                            article.comments.count|pluralize }}</a></span>
+                        <span class="time">
 
-							<div class="blog-image">
-                                <img src="{{ article.image.url }}"
-                                     alt="Blog Image"
-                                     width="330" height="220"
-                                >
-                            </div>
 
-							<a class="avatar" href="{% url 'blog:author_articles' article.author.username %}">
-                                <img class="profile-image" src="{{ article.author.profile.image.url }}" alt="Profile Image">
-                            </a>
+                        </span>
+                      </div>
+                      <a class="more-link" href="{{ article.get_absolute_url }}">View details &rarr;</a>
+                      <hr class="solid"><!-- Solid divider -->
+                    </div>
+                    <!--//media-body-->
+                  </div>
+                  <!--//media-->
+                </div>
+                <!--//item-->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
 
-							<div class="blog-info">
-
-								<h4 class="title"><a href="{{ article.get_absolute_url }}"><b>{{ article.title }}</b></a></h4>
-
-								<ul class="post-footer">
-                                    <li><a><i class="fas fa-clock"></i>{{ article.read_time }} min{{ article.read_time|pluralize }} read</a></li>
-									<li><a href=""><i class="fas fa-comment"></i>{{ article.comments.count }}</a></li>
-									<li><a><i class="fas fa-eye"></i>{{ article.views }}</a></li>
-								</ul>
-
-							</div><!-- article-info -->
-						</div><!-- single-post -->
-					</div><!-- card -->
-				</div><!-- col-lg-4 col-md-6 -->
+                </div>
                 {% endfor %}
-			</div><!-- row -->
-            {% else %}
-                <div class="alert alert-warning"><b>No Articles</b></div>
-            {% endif %}
-        {# Pagination for article post #}
-            {% if is_paginated %}
+              </div>
+              {% else %}
+              <center>
+                <div class="alert alert-info"><b>No Published Articles</b></div>
+              </center>
+              {% endif %}
+            </section>
 
-                {# Displays previous pages #}
-                {% if page_obj.has_previous %}
-                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                    <a class="btn btn-outline-info mb-4"
-                       href="?page={{ page_obj.previous_page_number }}">Previous
-                    </a>
+            {# Pagination for article post #}
+            <nav aria-label="Page navigation example">
+              {% if published_articles_list.has_other_pages %}
+              <ul class="pagination justify-content-center">
+                {% if published_articles_list.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ published_articles_list.previous_page_number }}"
+                    tabindex="-1">Prev</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <span class="page-link">Prev</span>
+                </li>
+                {% endif %}
+                {% for i in published_articles_list.paginator.page_range %}
+                {% if published_articles_list.number == i %}
+                <li class="page-item active">
+                  <span class="page-link">
+                    {{ i }}
+                    <span class="sr-only">(current)</span>
+                  </span>
+                </li>
+                {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
                 {% endif %}
 
-                {# Displays current page #}
-                {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                    {% endif %}
-                 {% endfor %}
-
-                {# Displays next pages #}
-               {% if page_obj.has_next %}
-                    <a class="btn btn-outline-info mb-4"
-                       href="?page={{ page_obj.next_page_number }}">Next
-                    </a>
-                    <a class="btn btn-outline-info mb-4"
-                       href="?page={{ page_obj.paginator.num_pages }}">Last
-                    </a>
+                {% endfor %}
+                {% if published_articles_list.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ published_articles_list.next_page_number }}">Next</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <span class="page-link">Next</span>
+                </li>
                 {% endif %}
+              </ul>
+              {% endif %}
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-            {% endif %}
-		</div><!-- container -->
-	</section><!-- section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+<div class="container">
+    <div class="row text-center mb-3">
+        <div class="col-md-12">
+            <h2>Top Lists of Safest Car</h2>
+            <p>Lorem Ipsum pagination consumpim in definiction.</p>
+            <hr>
+        </div>
+    </div>
+	<div class="row">
+		<!-- Swiper -->
+  <div class="swiper-container">
+<div class="swiper-wrapper">
+      <div class="swiper-slide">
+          <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+      <div class="swiper-slide">
+          <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+      <div class="swiper-slide">
+          <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
+                                <div class="card-body">
+                                   <h5>Renault KWID</h5>
+                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
+                                 
+                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+      </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+  </div>
 
+	</div>
+</div>
+<style>
+  .divider {border: 1px solid #ccc;}
+img {width:100%;}
+
+     .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+</style>
+<script>
+   var swiper = new Swiper('.swiper-container', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+</script>
 {% endblock content %}
+{% block javascripts %}
+
+<link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">
+{% endblock javascripts %}

@@ -39,9 +39,14 @@
 
 </head>
 
-<body class="">
+<body>
 
+  <script src="{% static '/assets/js/common-js/jquery-3.1.1.min.js' %}"></script>
+  <script src="{% static '/assets/js/common-js/tether.min.js' %}"></script>
 
+  <script src="{% static '/assets/js/bootstrap/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">  
+  <script src="{% static '/assets/js/common-js/scripts.js' %}"></script>
   <div class="main-content" id="panel">
     {% include "includes/blog_navbar.html" %}
 
@@ -54,11 +59,7 @@
 
   <!-- Specific JS goes HERE --> 
   {% block javascripts %}
-  <script src="{% static '/assets/js/common-js/jquery-3.1.1.min.js' %}"></script>
-  <script src="{% static '/assets/js/common-js/tether.min.js' %}"></script>
 
-  <script src="{% static '/assets/js/bootstrap/bootstrap.min.js' %}"></script>
-  <script src="{% static '/assets/js/common-js/scripts.js' %}"></script>
 
   {% endblock javascripts %}
 
