@@ -5,21 +5,21 @@ Home
 {% endblock title %}
 {% block stylesheet %}
 {{ block.super }}
-<link href="{% static 'dashboard/author/css/dashboard-article.css' %}" rel="stylesheet" />
 <link rel="stylesheet" href="/static/assets/css/blog/front-page-category/styles.css" type="text/css">
 
 <link rel="stylesheet" href="/static/assets/css/blog/front-page-category/responsive.css" type="text/css">
+<link href="{% static 'dashboard/author/css/dashboard-article.css' %}" rel="stylesheet" />
+
 {% endblock stylesheet %}
 
 {% block content %}
 
 {% if categories %}
 
-<header>
   <div class="main-slider">
     <div class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
-      data-swiper-speed="500" data-swiper-autoplay="5000" data-swiper-margin="0" data-swiper-slides-per-view="4"
-      data-swiper-breakpoints="true" data-swiper-loop="true">
+    data-swiper-speed="500" data-swiper-autoplay="10000" data-swiper-margin="0" data-swiper-slides-per-view="4"
+    data-swiper-breakpoints="true" data-swiper-loop="true" style="width: 300.25px;">
       <div class="swiper-wrapper">
 
         {% for category in categories %}
@@ -27,8 +27,10 @@ Home
 
         <div class="swiper-slide">
           <a class="slider-category" href="{{ category.get_absolute_url }}">
-            <div class="category-image">
-              <img src="{{ category.image.url }}" class="category-image" alt="Blog Image" width="352" height="235">
+            <div class="blog-image">
+              <img src="{{ category.image.url }}" class="category-image" alt="Blog Image" 
+              width="352" height="235"
+               >
 
             </div>
 
@@ -48,7 +50,6 @@ Home
     </div><!-- swiper-container -->
 
   </div><!-- slider -->
-</header>
 {% else %}
 <center>
   <div class="alert alert-warning"><b>No Categories</b></div>
@@ -73,13 +74,11 @@ Home
                     <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ article.image.url }}" alt="image">
                     <div class="media-body">
                       <h3 class="title mb-1"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
-                      <div class="meta mb-1"><span class="date"><b>Published:</b> <i>{{ article.date_published|date:'M
-                            d, Y'}}</i></span>
+                      <div class="meta mb-1"><span class="date"><b>Published:</b> <i>{{ article.date_published|date:'M d, Y'}}</i></span>
                         <span class="time">{{ article.count_words }} word{{ article.count_words|pluralize }}</span>
                         <span class="time">{{ article.read_time }} min{{ article.read_time|pluralize }} read</span>
                         <span class="comment">{{ article.views }} view{{ article.views|pluralize }}</span>
-                        <span class="comment"><a href="#">{{ article.comments.count }} comment{{
-                            article.comments.count|pluralize }}</a></span>
+                        <span class="comment"><a href="#">{{ article.comments.count }} comment{{article.comments.count|pluralize }}</a></span>
                         <span class="time">
 
 
@@ -153,208 +152,73 @@ Home
     </div>
   </div>
 </div>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
-<div class="container">
-    <div class="row text-center mb-3">
-        <div class="col-md-12">
-            <h2>Top Lists of Safest Car</h2>
-            <p>Lorem Ipsum pagination consumpim in definiction.</p>
-            <hr>
-        </div>
-    </div>
-	<div class="row">
-		<!-- Swiper -->
-  <div class="swiper-container">
-<div class="swiper-wrapper">
-      <div class="swiper-slide">
-          <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-      </div>
-      <div class="swiper-slide">
-          <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-      </div>
-      <div class="swiper-slide">
-          <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img"><img src="https://img.gaadicdn.com/images/carexteriorimages/upcoming/360x240/Jeep/Jeep-Renegade/047.jpg"></div>
-                                <div class="card-body">
-                                   <h5>Renault KWID</h5>
-                                   <h4 class="pt-1 pb-2">Rs. 5.44-6.77 Lac</h4>
-                                 
-                                   <button type= "button" class="btn btn-outline-danger btn-block btn-sm">Lets Judge it.</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-      </div>
-    </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-    <!-- Add Arrows -->
-    <div class="swiper-button-next"></div>
+<!-- pagination -->
+      <div class="swiper-pagination"></div>
 <div class="swiper-button-prev"></div>
-  </div>
-
-	</div>
-</div>
+<div class="swiper-button-next"></div>
 <style>
-  .divider {border: 1px solid #ccc;}
-img {width:100%;}
+ 		/* now move prev button more to the left */
+     .swiper-button-prev {
+			/* but first hide on small viewports */
+			display: none;
 
-     .swiper-container {
-      width: 100%;
-      height: 100%;
-    }
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
+			left: 0;
+			top: 0;
+
+			margin-top: 0;
+
+			/* subtract .swiper-wrapper bottom-margin to vertically center arrow */
+			height: calc(100% - 3em);
+		}
+
+		@media (min-width: 37.5em) {
+			.swiper-button-prev {
+				/* show on larger viewports */
+				display: block;
+			}
+		}
+
+		.swiper-button-next {
+			/* hide on small viewports */
+			display: none;
+
+			right: 0;
+			top: 0;
+
+			margin-top: 0;
+
+			/* subtract .swiper-wrapper bottom-margin to vertically center arrow */
+			height: calc(100% - 3em);
+		}
+
+		@media (min-width: 37.5em) {
+			.swiper-button-next {
+				/* show on larger viewports */
+				display: block;
+			}
+		}
+    
+
 </style>
 <script>
    var swiper = new Swiper('.swiper-container', {
+
+    direction: 'horizontal',
+    spaceBetween: 5,
+    loop: true,
+    slidesPerView: 'auto', 
+
+    centeredSlides: true,
+    freeMode: false,
+    pagination: {
+      el: '.swiper-pagination',
+      
+      clickable: true,
+    },
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -364,5 +228,7 @@ img {width:100%;}
 {% endblock content %}
 {% block javascripts %}
 
-<link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">
+<link rel="stylesheet" href="{% static 'assets/js/common-js/swiper.js' %}" type="text/css">
 {% endblock javascripts %}
+
+
