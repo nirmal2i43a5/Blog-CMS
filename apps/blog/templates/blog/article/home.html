@@ -47,6 +47,7 @@ Home
         {% endfor %}
 
       </div><!-- swiper-wrapper -->
+    
     </div><!-- swiper-container -->
 
   </div><!-- slider -->
@@ -84,6 +85,13 @@ Home
 
                         </span>
                       </div>
+                      <ul class="tags my-2">
+                        {% for tag in article.tags.all %}
+                        <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="javascript:void()">{{ tag.name }}</a></li>
+
+                         <!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
+                        {% endfor %}
+                      </ul>
                       <a class="more-link" href="{{ article.get_absolute_url }}">View details &rarr;</a>
                       <hr class="solid"><!-- Solid divider -->
                     </div>
@@ -152,56 +160,28 @@ Home
     </div>
   </div>
 </div>
+<div class="swiper-button-prev"></div>
+<div class="swiper-button-next"></div>
 <!------ Include the above in your HEAD tag ---------->
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
 <!-- pagination -->
       <div class="swiper-pagination"></div>
-<div class="swiper-button-prev"></div>
-<div class="swiper-button-next"></div>
+
 <style>
- 		/* now move prev button more to the left */
-     .swiper-button-prev {
-			/* but first hide on small viewports */
-			display: none;
-
-			left: 0;
-			top: 0;
-
-			margin-top: 0;
-
-			/* subtract .swiper-wrapper bottom-margin to vertically center arrow */
-			height: calc(100% - 3em);
-		}
-
-		@media (min-width: 37.5em) {
-			.swiper-button-prev {
-				/* show on larger viewports */
-				display: block;
-			}
-		}
-
-		.swiper-button-next {
-			/* hide on small viewports */
-			display: none;
-
-			right: 0;
-			top: 0;
-
-			margin-top: 0;
-
-			/* subtract .swiper-wrapper bottom-margin to vertically center arrow */
-			height: calc(100% - 3em);
-		}
-
-		@media (min-width: 37.5em) {
-			.swiper-button-next {
-				/* show on larger viewports */
-				display: block;
-			}
-		}
-    
+  .swiper-wrapper {
+    /* now pagination is below slides */
+    margin-bottom: 3em;
+    /* just enough width so slides handing off screen are partially 
+    visible */
+    width: 73.8%;
+ }
+ @media (min-width: 37.5em) {
+    .swiper-wrapper {
+       width: 100%;
+    }
+ }
 
 </style>
 <script>

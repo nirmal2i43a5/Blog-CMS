@@ -3,6 +3,7 @@
 '
 {% block stylesheet %}
     {{ block.super }}
+	
 	<link rel="stylesheet" href="/static/assets/css/blog/post-detail/styles.css" type="text/css">
 
 	<link rel="stylesheet" href="/static/assets/css/blog/post-detail/responsive.css" type="text/css">
@@ -139,36 +140,27 @@
 			<div class="row">
             {% for related_article in related_articles %}
 				<div class="col-lg-4 col-md-6">
-					<div class="card h-100">
-						<div class="single-post post-style-1">
-
-							<div class="blog-image">
-                                <img src="{{ related_article.image.url }}"
-                                     width="330" height="220"
-                                     alt="Blog Image">
-                            </div>
-
-							<!-- <a class="avatar" href="{% url 'blog:author_articles' related_article.author.username %}">
-                                <img class="profile-image" src="{{ related_article.author.profile.image.url }}" alt="Profile Image"></a> -->
-
-							<div class="blog-info">
-
-								<h4 class="title">
-									<a href="{{ related_article.get_absolute_url }}">
-                                    <b>{{ related_article.title }}</b></a>
-								</h4>
-
-								<!-- <ul class="post-footer">
-									<li>
-										<i class="fas fa-clock"></i>{{ article.read_time }} min read
-									</li>
-									<li><i class="fas fa-comment"></i>{{ article.comments.count }}</li>
-									<li><i class="fas fa-eye"></i>{{ article.views }}</li>
-								</ul> -->
-
-							</div><!-- article-info -->
-						</div><!-- single-post -->
-					</div><!-- card -->
+					<div class="card" style="width: 22rem;">
+						<img src="{{ related_article.image.url }}"
+						width="330" height="220"
+						alt="Blog Image">
+						<div class="card-body bg-white">
+						  <p class="card-text mb-1">
+							{{related_article.date_published}}
+						  </p>
+						  <h5 class="card-title">
+							<a href="{{ related_article.get_absolute_url }}">
+								<b>{{ related_article.title }}</b></a>
+							</h5>
+						  
+						  <ul class="tags">
+							{% for tag in article.tags.all %}
+							<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li>
+							{% endfor %}
+						</ul>
+						</div>
+					</div>
+				
 				</div><!-- col-md-6 col-sm-12 -->
              {% endfor %}
 			</div><!-- row -->
@@ -219,4 +211,18 @@
 
 		</div><!-- container -->
 	</section>
+<style>
+	.card {
+		position: relative;
+		height: auto;
+		overflow: hidden;
+		border-radius: 15px;
+		margin: 0 auto;
+		box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+		transition: .5s;
+	  }
+	  .card:hover {
+		transform:scale(1.1);
+	  }
+</style>
 {% endblock content %}
