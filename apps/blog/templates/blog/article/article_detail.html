@@ -140,24 +140,33 @@
 			<div class="row">
             {% for related_article in related_articles %}
 				<div class="col-lg-4 col-md-6">
-					<div class="card" style="width: 22rem;">
+					<div class="card">
 						<img src="{{ related_article.image.url }}"
 						width="330" height="220"
 						alt="Blog Image">
 						<div class="card-body bg-white">
-						  <p class="card-text mb-1">
+						  <p class="card-title text-sm">
 							{{related_article.date_published}}
 						  </p>
-						  <h5 class="card-title">
+						  <h5 class="card-text">
 							<a href="{{ related_article.get_absolute_url }}">
 								<b>{{ related_article.title }}</b></a>
 							</h5>
-						  
-						  <ul class="tags">
-							{% for tag in article.tags.all %}
-							<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li>
-							{% endfor %}
-						</ul>
+							<hr>
+							<div class="d-flex justify-content-between">
+								<div>
+									<i class="ion-ios-clock"></i> {{ article.read_time }} min read
+
+								</div>
+								<div>
+								<i class="ion-chatbubble"></i> {{ article.comments.count }} comments
+
+								</div>
+								<div>
+								<i class="ion-eye"></i> {{ article.views }} views
+
+								</div>
+								</div>
 						</div>
 					</div>
 				
@@ -214,7 +223,8 @@
 <style>
 	.card {
 		position: relative;
-		height: auto;
+		width: 20rem;
+		height:100%;
 		overflow: hidden;
 		border-radius: 15px;
 		margin: 0 auto;

@@ -17,7 +17,7 @@ Home
 {% if categories %}
 
   <div class="main-slider">
-    <div class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
+    <div id="swiper1" class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
     data-swiper-speed="500" data-swiper-autoplay="10000" data-swiper-margin="0" data-swiper-slides-per-view="4"
     data-swiper-breakpoints="true" data-swiper-loop="true" style="width: 300.25px;">
       <div class="swiper-wrapper">
@@ -47,10 +47,16 @@ Home
         {% endfor %}
 
       </div><!-- swiper-wrapper -->
-    
+          <!-- pagination -->
+          <div class="swiper-pagination"></div>
     </div><!-- swiper-container -->
 
+  
   </div><!-- slider -->
+      <!-- prev next button -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
 {% else %}
 <center>
   <div class="alert alert-warning"><b>No Categories</b></div>
@@ -160,55 +166,83 @@ Home
     </div>
   </div>
 </div>
-<div class="swiper-button-prev"></div>
-<div class="swiper-button-next"></div>
-<!------ Include the above in your HEAD tag ---------->
+<!-- footer-->
+{% include "includes/blog_footer.html" %}
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
 <!-- pagination -->
-      <div class="swiper-pagination"></div>
 
 <style>
-  .swiper-wrapper {
-    /* now pagination is below slides */
-    margin-bottom: 3em;
-    /* just enough width so slides handing off screen are partially 
-    visible */
-    width: 73.8%;
+  .main-slider {
+    position: relative;
  }
  @media (min-width: 37.5em) {
-    .swiper-wrapper {
-       width: 100%;
+    .main-slider  {
+       margin-left: auto;
+       margin-right: auto;
+       width: 92%;
+       /* make room for arrows */
+       padding-left: 2em;
+       padding-right: 2em;
     }
  }
-
+ @media (min-width: 43.75em) {
+    .main-slider  {
+       width: 95%;
+    }
+ }
+ .swiper-wrapper {
+  /* now pagination is below slides */
+  margin-bottom: 3em;
+  /* just enough width so slides handing off screen are partially 
+  visible */
+  width: 73.8%;
+}
+@media (min-width: 37.5em) {
+  .swiper-wrapper {
+     width: 100%;
+  }
+}
+@media (min-width: 37.5em) {
+  .swiper-slide.swiper-slide  {
+     /* going for a 2 column layout here */
+     width: 100%;
+     /* centeredSlides set to true */
+     /* reposition so first slide appears on left */
+     transform: translateX(-50%);
+  }
+}
+.swiper-button-prev, .swiper-button-next{
+  top:30%;
+}
 </style>
-<script>
-   var swiper = new Swiper('.swiper-container', {
 
-    direction: 'horizontal',
-    spaceBetween: 5,
-    loop: true,
-    slidesPerView: 'auto', 
 
-    centeredSlides: true,
-    freeMode: false,
-    pagination: {
-      el: '.swiper-pagination',
-      
-      clickable: true,
-    },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
-</script>
 {% endblock content %}
 {% block javascripts %}
+<script>
+  
+  var swiper = new Swiper('.swiper-container', {
 
+   direction: 'horizontal',
+   spaceBetween: 1,
+   loop: true,
+   slidesPerView: 'auto', 
+
+   centeredSlides: true,
+   freeMode: false,
+   pagination: {
+     el: '.swiper-pagination',
+     
+     clickable: true,
+   },
+     navigation: {
+       nextEl: '.swiper-button-next',
+       prevEl: '.swiper-button-prev',
+     },
+   });
+</script>
 <link rel="stylesheet" href="{% static 'assets/js/common-js/swiper.js' %}" type="text/css">
 {% endblock javascripts %}
-
 

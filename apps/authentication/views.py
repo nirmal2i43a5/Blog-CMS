@@ -15,9 +15,12 @@ def login_view(request):
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
-            if user is not None:
+            if user.is_superuser:
+                login(request,user)
+                return redirect('home:dashboard')
+            elif user is not None:
                 login(request, user)
-                return redirect("home:dashboard")
+                return redirect("blog:home")
             else:
                 msg = 'Invalid credentials'
         else:
@@ -84,7 +87,6 @@ class UserRegisterView(View):
     def post(self, request, *args, **kwargs):
 
         register_form = UserRegisterForm(request.POST)
-
         if register_form.is_valid():
             user = register_form.save(commit=False)
             user.is_active = False
