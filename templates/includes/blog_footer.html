@@ -1,56 +1,52 @@
-<footer>
 
-    <div class="container">
+<section class="newsletter">
+    <div class="container" style="background-color: white;padding-bottom:30px;">
         <div class="row">
-
-            <div class="col-lg-4 col-md-6">
-                <div class="footer-section">
-
-                    <a class="logo" href="#"><img src="images/logo.png" alt="Logo Image"></a>
-                    <p class="copyright">Sites name @ 2017. All rights reserved.</p>
-                    <ul class="icons">
-                        <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-                        <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-                        <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-                        <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
-                        <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
-                    </ul>
-
-                </div><!-- footer-section -->
-            </div><!-- col-lg-4 col-md-6 -->
-
-            <div class="col-lg-4 col-md-6">
-                    <div class="footer-section">
-                    <h4 class="title "><b>CATAGORIES</b></h4>
-                    {% for category in categories %}
-
-                    <ul>
-                        <li>
-
-                            <a href="#" class="text-uppercase">{{category.name}}</a>
-                          
-                    </li>
-
-                    </ul>
-                    {% endfor %}
-                    
-                </div><!-- footer-section -->
-            </div><!-- col-lg-4 col-md-6 -->
-
-            <div class="col-lg-4 col-md-6">
-                <div class="footer-section">
-
-                    <h4 class="title"><b>SUBSCRIBE</b></h4>
-                    <div class="input-area">
-                        <form>
-                            <input class="email-input" type="text" placeholder="Enter your email">
-                            <button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
-                        </form>
-                    </div>
-
-                </div><!-- footer-section -->
-            </div><!-- col-lg-4 col-md-6 -->
-
-        </div><!-- row -->
-    </div><!-- container -->
-</footer>
+            <div class="col-sm-12">
+                <div class="content">
+                    <form>
+                        <h5 class="mt-4">SUBSCRIBE TO OUR NEWSLETTER</h5><hr>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                            <span class="input-group-btn">
+                                <button class="btn" type="submit">Subscribe Now</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .newsletter {
+        padding: 80px 0;
+        background: #f2f2f2;
+        }
+        
+        .newsletter .content {
+        max-width: 650px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 2; }
+        .newsletter .content h2 {
+        color: #243c4f;
+        margin-bottom: 40px; }
+        .newsletter .content .form-control {
+        height: 50px;
+        border-color: black;
+        border-radius:0;
+        }
+        .newsletter .content.form-control:focus {
+        box-shadow: none;
+        border: 2px solid #243c4f;
+        }
+        .newsletter .content .btn {
+        min-height: 50px; 
+        border-radius:0;
+        background: #5E72E4;
+        color: #fff;
+        font-weight:300;
+        }
+</style>

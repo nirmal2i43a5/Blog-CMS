@@ -11,18 +11,7 @@ from apps.blog.models.category_models import Category
 
 
 class ArticleCreateForm(forms.ModelForm):
-    category = forms.ModelChoiceField(queryset=Category.objects.filter(approved=True),
-                                      empty_label="Select Category",
-                                      widget=forms.Select(attrs=
-                                                          {
-                                                              "class": "form-control selectpicker",
-                                                              "type": "text",
-                                                              "name": "article-category",
-                                                              "id": "articleCategory",
-                                                              "data-live-search": "true"
-                                                          }
-                                      )
-                                    )
+
 
     class Meta:
 
@@ -77,33 +66,24 @@ class ArticleCreateForm(forms.ModelForm):
                                      'data-role': "tagsinput"
                                      }),
 
-            'status': Select(choices=STATUS_CHOICES,
-                             attrs=
-                             {
-                                 "class": "form-control selectpicker",
-                                 "name": "status", "type": "text",
-                                 "id": "articleStatus",
-                                 "data-live-search": "true",
-                                 "title": "Select Status"
-                             }
-                             ),
+           
         }
 
 
 class ArticleUpdateForm(forms.ModelForm):
-    category = forms.ModelChoiceField(queryset=Category.objects.filter(
-                                      approved=True),
-                                      empty_label="Select Category",
-                                      widget=forms.Select(attrs=
-                                                          {
-                                                              "class": "form-control selectpicker",
-                                                              "type": "text",
-                                                              "name": "article-category",
-                                                              "id": "articleCategory",
-                                                              "data-live-search": "true"
-                                                          }
-                                      )
-                                    )
+    # category = forms.ModelChoiceField(queryset=Category.objects.filter(
+    #                                   approved=True),
+    #                                   empty_label="Select Category",
+    #                                   widget=forms.Select(attrs=
+    #                                                       {
+    #                                                           "class": "form-control selectpicker",
+    #                                                           "type": "text",
+    #                                                           "name": "article-category",
+    #                                                           "id": "articleCategory",
+    #                                                           "data-live-search": "true"
+    #                                                       }
+    #                                   )
+    #                                 )
 
     class Meta:
         # Article status constants
@@ -133,16 +113,16 @@ class ArticleUpdateForm(forms.ModelForm):
                 'id': "image_credit"
             }),
 
-            'status': Select(choices=STATUS_CHOICES,
-                             attrs=
-                             {
-                                 "class": "form-control selectpicker",
-                                 "name": "status", "type": "text",
-                                 "id": "articleStatus",
-                                 "data-live-search": "true",
-                                 "title": "Select Status"
-                             }
-                             ),
+            # 'status': Select(choices=STATUS_CHOICES,
+            #                  attrs=
+            #                  {
+            #                      "class": "form-control selectpicker",
+            #                      "name": "status", "type": "text",
+            #                      "id": "articleStatus",
+            #                      "data-live-search": "true",
+            #                      "title": "Select Status"
+            #                  }
+            #                  ),
             'body': forms.CharField(widget=CKEditorWidget(config_name="default", attrs={
                        "rows": 5, "cols": 20,
                        'id': 'content',

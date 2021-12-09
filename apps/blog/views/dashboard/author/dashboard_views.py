@@ -136,7 +136,7 @@ class ArticleUpdateView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
         old_article = get_object_or_404(Article, slug=self.kwargs.get("slug"))
-        article_update_form = ArticleUpdateForm(instance=old_article, initial={'tags': old_article.tags.names})
+        article_update_form = ArticleUpdateForm(instance=old_article)
 
         self.context_object["article_update_form"] = article_update_form
         self.context_object["article"] = old_article

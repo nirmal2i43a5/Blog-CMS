@@ -117,7 +117,8 @@
                         <!-- tags -->
 							<ul class="tags">
                                 {% for tag in article.tags.all %}
-								<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li>
+								<!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
+								<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="javascript:void(0)">{{ tag.name }}</a></li>
                                 {% endfor %}
 							</ul>
 
@@ -172,6 +173,7 @@
 				
 				</div><!-- col-md-6 col-sm-12 -->
              {% endfor %}
+			 
 			</div><!-- row -->
              {% else %}
                 <div class="alert alert-warning"><b>No Related Articles</b></div>
@@ -220,6 +222,7 @@
 
 		</div><!-- container -->
 	</section>
+	{% include "includes/blog_footer.html" %}
 <style>
 	.card {
 		position: relative;
@@ -235,4 +238,5 @@
 		transform:scale(1.1);
 	  }
 </style>
+
 {% endblock content %}

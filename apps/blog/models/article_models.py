@@ -13,7 +13,17 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from apps.blog.utils.blog_utils import count_words, read_time
 from apps.blog.models.category_models import Category
 
+class ListAsQuerySet(list):
+    
+    def __init__(self, *args, model, **kwargs):
+        self.model = model
+        super().__init__(*args, **kwargs)
 
+    def filter(self, *args, **kwargs):
+        return self  # filter ignoring, but you can implement custom filter
+
+    def order_by(self, *args, **kwargs):
+        return self
 class Article(models.Model):
 
     # Article status constants

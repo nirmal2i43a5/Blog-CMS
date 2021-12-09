@@ -15,7 +15,7 @@ from crispy_forms.helper import FormHelper
 
 # Blog application imports.
 from apps.blog.models.article_models import Article, Category
-
+from apps.blog.models.article_models import ListAsQuerySet
 
 class CategoryArticlesListView(ListView):
     model = Article
@@ -30,7 +30,20 @@ class CategoryArticlesListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoryArticlesListView, self).get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
+        articles = category.articles.filter(category=category, status=Article.PUBLISHED, deleted=False)
+        all_tags = []#tags for articles of respective category
+        
+        
+        for article in articles:
+            tags = article.tags.all()
+            for tag in tags:
+                all_tags.append(tag.name)
+                
+        tags_qs = ListAsQuerySet(all_tags, model=Article)
+        print(tags_qs)
+        
         context['category'] = category
+        context['tags'] = tags_qs
         return context
 
 
