@@ -216,7 +216,7 @@ class UserRegisterForm(UserCreationForm):
                                               ),
                              help_text='Required. Input a valid email address.'
                              )
-    password1 = forms.CharField(widget=
+    password1 = forms.CharField(label='Password', widget=
                                 forms.PasswordInput(attrs={
                                  "name": "password1", "class": "input100",
                                  "placeholder": "Password"
@@ -224,7 +224,7 @@ class UserRegisterForm(UserCreationForm):
                                                     ),
                                 )
 
-    password2 = forms.CharField(widget=
+    password2 = forms.CharField(label = 'Confirm Password', widget=
                                 forms.PasswordInput(attrs={
                                  "name": "password2", "class": "input100",
                                  "placeholder": "Confirm Password"

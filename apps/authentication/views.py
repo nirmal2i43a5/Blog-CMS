@@ -88,13 +88,14 @@ class UserRegisterView(View):
 
         register_form = UserRegisterForm(request.POST)
         if register_form.is_valid():
+            
             user = register_form.save(commit=False)
-            user.is_active = False
+            user.is_active = False#User cannot login without email subscription
             user.save()
 
             current_site = get_current_site(request)
-            subject = 'Activate Your Blog Account'
-            message = render_to_string('account/account_activation_email.html',
+            subject = 'Activate Your E-StudyBlog Account'
+            message = render_to_string('authentication/account_activation_email.html',
             {
                 'user': user,
                 'domain': current_site.domain,
@@ -103,7 +104,7 @@ class UserRegisterView(View):
             })
             user.email_user(subject, message)
 
-            return redirect('blog:account_activation_sent')
+            return redirect('authentication:account_activation_sent')
 
         else:
             messages.error(request, "Please provide valid information.")
@@ -114,7 +115,7 @@ class UserRegisterView(View):
 class AccountActivationSentView(View):
 
     def get(self, request):
-        return render(request, 'account/account_activation_sent.html')
+        return render(request, 'authentication/account_activation_sent.html')
 
 
 class ActivateView(View):
@@ -141,9 +142,9 @@ class ActivateView(View):
                                       f"successfully"
                              )
 
-            return redirect('blog:login')
+            return redirect('authentication:login')
         else:
-            return render(request, 'account/account_activation_invalid.html')
+            return render(request, 'authentication/account_activation_invalid.html')
 
 
 
@@ -152,7 +153,7 @@ class UserLogoutView(View):
     """
      Logs user out of the dashboard.
     """
-    # template_name = 'account/logout.html'
+    # template_name = 'authentication/logout.html'
 
     def get(self, request):
         logout(request)

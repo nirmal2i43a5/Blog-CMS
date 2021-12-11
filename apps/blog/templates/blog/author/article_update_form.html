@@ -12,7 +12,13 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
         <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+                <link href="{% static 'ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %}" rel="stylesheet">
+
+                <script src="{% static 'ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+            
 {% endblock stylesheets %}
+
+
 
 {% block content %}
 {% include "includes/header_body.html" %}

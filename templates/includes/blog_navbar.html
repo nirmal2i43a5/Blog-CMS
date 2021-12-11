@@ -42,18 +42,14 @@
     border-radius: 0;
   }
 
-  .navbar .navbar-brand {
-    padding-left: 0;
-    font-size: 20px;
-    padding-right: 50px;
-  }
+
 
   .navbar .navbar-nav>a {
     margin: 0 0.25rem;
   }
 
-  .navbar a,
-  .navbar a:active {
+  .navbar .navbar-nav a,
+  .navbar .navbar-nav a:active {
     color: #fff;
     font-size: 15px;
     background: transparent;
@@ -70,8 +66,8 @@
   color: #5E72E4;
   border-radius: 0%;
 }
-  .navbar a:hover,
-  .navbar a:focus {
+  .navbar .navbar-nav a:hover,
+  .navbar .navbar-nav a:focus {
     color: #fff;
     background-color: #fff;
     color: #5E72E4;
@@ -152,7 +148,10 @@
 
 
     <nav class="navbar navbar-expand-lg">
-      <a href="#" class="navbar-brand">Brand<b>Name</b></a>
+      <div class="title">
+        <a href="{% url 'blog:home' %}" class="text-white navbar-brand">E - <b>StudyBlog</b></a>
+
+      </div>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon" style="color:black;"></span>
       </button>
