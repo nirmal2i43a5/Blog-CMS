@@ -1,7 +1,7 @@
 {% extends "account_base.html" %}
 
 {% block title %}
-    Account Activation Sent
+    {{title}}
 {% endblock title %}
 
 {% block content %}
@@ -22,8 +22,8 @@
                         </div>
                     <hr />
                     <div class="text-center font-weight-bold">
-                      <a class="small text-info" href="{% url 'blog:home' %}">
-                          Home
+                      <a class="btn btn-primary" href="{% url 'blog:home' %}">
+                         <i class="fas fa-home"></i> Go Back Home
                       </a>
                     </div>
                 </div>

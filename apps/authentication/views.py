@@ -15,9 +15,15 @@ def login_view(request):
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
+            
+            if user.is_authenticated:
+                login(request,user)
+                return redirect('blog:home')
+            
             if user.is_superuser:
                 login(request,user)
                 return redirect('home:dashboard')
+            
             elif user is not None:
                 login(request, user)
                 return redirect("blog:home")
@@ -94,7 +100,7 @@ class UserRegisterView(View):
             user.save()
 
             current_site = get_current_site(request)
-            subject = 'Activate Your E-StudyBlog Account'
+            subject = 'Activate Your Study Better Way Account'
             message = render_to_string('authentication/account_activation_email.html',
             {
                 'user': user,
@@ -115,7 +121,10 @@ class UserRegisterView(View):
 class AccountActivationSentView(View):
 
     def get(self, request):
-        return render(request, 'authentication/account_activation_sent.html')
+        context = {
+            'title':'Account Activation Sent'
+        }
+        return render(request, 'authentication/account_activation_sent.html',context)
 
 
 class ActivateView(View):
@@ -130,7 +139,7 @@ class ActivateView(View):
         if user is not None and account_activation_token.check_token(user,
                                                                      token):
             user.is_active = True
-            user.profile.email_confirmed = True
+            user.email = True
             user.save()
 
             login(request, user)
