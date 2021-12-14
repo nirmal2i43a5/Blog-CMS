@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 """
-Copyright (c) 2019 - present AppSeed.us
+
 """
 
 from django.urls import path
@@ -8,7 +8,9 @@ from .views import (login_view,
                     UserRegisterView,
                     UserLogoutView,
                       ActivateView,
-                AccountActivationSentView,)
+                AccountActivationSentView,
+                SubscriptionView
+                )
 
 app_name = 'authentication'
 urlpatterns = [
@@ -24,5 +26,6 @@ urlpatterns = [
          view=ActivateView.as_view(),
          name='activate'
          ),
+     path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
 
 ]

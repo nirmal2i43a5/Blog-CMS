@@ -1,0 +1,31 @@
+{% extends "account_base.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock title %}
+
+{% block content %}
+
+        <div class="container">
+
+        <div class="card shadow-sm">
+
+                <h4 class="card-header">Subscription Success</h4>
+
+                <div class="card-body">
+                        <div class="alert alert-success font-weight-bold text-dark text-center">
+
+                            Thank you for your subscriptions.
+                            <br >
+                           You will receives all the notification via this email for any updated.
+                        </div>
+                    <hr />
+                    <div class="text-center font-weight-bold">
+                      <a class="btn btn-primary" href="{% url 'blog:home' %}">
+                         <i class="fas fa-home"></i> Go Back Home
+                      </a>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock content %}

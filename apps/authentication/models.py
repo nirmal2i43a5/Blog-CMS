@@ -1,8 +1,11 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
+
 
 from django.db import models
 
 # Create your models here.
+class Subscription(models.Model):
+    email = models.EmailField(max_length=254)
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f'{self.email} on {self.created_at}'

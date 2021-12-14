@@ -2,7 +2,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,logout
 from .forms import LoginForm, SignUpForm
-
+from django.views.generic import CreateView
+from .models import Subscription
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -169,3 +170,31 @@ class UserLogoutView(View):
         messages.success(request, "You have successfully logged out.")
         return redirect('authentication:login')
 
+
+
+class SubscriptionView(View):
+    def post(self, request, *args, **kwargs):
+        user_email = request.POST['email']
+        subscription = Subscription()
+        subscription.email = user_email
+        subscription.save()
+        # messages.success(request,"Subscribed Successfully!")
+        return render(request, 'authentication/subscription_success.html')
+
+        # current_site = get_current_site(request)
+        # subject = 'Activate Your Study Better Way Account'
+        # message = render_to_string('authentication/account_activation_email.html',
+        # {
+        #     'user': subscription,
+        #     'domain': current_site.domain,
+        #     'uid': urlsafe_base64_encode(force_bytes(subscription.pk)),
+        #     'token': account_activation_token.make_token(subscription),
+        # })
+        # subscription.email_user(subject, message)
+
+        # return redirect('authentication:account_activation_sent')
+
+        # else:
+        #     messages.error(request, "Please provide valid information.")
+        #     # Redirect user to register page
+        #     return render(request, self.template_name, self.context_object)

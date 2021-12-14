@@ -5,6 +5,7 @@ import operator
 # Core Django imports.
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.query import QuerySet
 from django.views.generic import (
     DetailView,
     ListView,
@@ -14,6 +15,7 @@ from django.views.generic import (
 from apps.blog.models.article_models import Article
 from apps.blog.models.category_models import Category
 from apps.blog.forms.blog.comment_forms import CommentForm
+from apps.blog.models.article_models import ListAsQuerySet
 
 
 class ArticleListView(ListView):
@@ -24,7 +26,16 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        all_tags = []
+        for article in Article.objects.filter(status=Article.PUBLISHED, deleted=False):
+            tags = article.tags.all()
+            for tag in tags:
+                all_tags.append(tag.name)
+                
+        tags_qs = ListAsQuerySet(all_tags, model=Article)
+        print(tags_qs)
         context['categories'] = Category.objects.filter(approved=True)
+        context['tags'] = tags_qs
         return context
 
 
