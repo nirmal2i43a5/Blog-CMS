@@ -17,25 +17,40 @@ from apps.blog.models.category_models import Category
 from apps.blog.forms.blog.comment_forms import CommentForm
 from apps.blog.models.article_models import ListAsQuerySet
 
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 class ArticleListView(ListView):
     context_object_name = "articles"
-    paginate_by = 12
+    paginate_by = 2
     queryset = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
     template_name = "blog/article/home.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        articles = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
+        page = self.request.GET.get('page', 1)
+
+        paginator = Paginator(articles, 2)
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            articles = paginator.page(1)
+        except EmptyPage:
+            articles = paginator.page(paginator.num_pages)
         all_tags = []
         for article in Article.objects.filter(status=Article.PUBLISHED, deleted=False):
             tags = article.tags.all()
             for tag in tags:
                 all_tags.append(tag.name)
                 
+            
         tags_qs = ListAsQuerySet(all_tags, model=Article)
         print(tags_qs)
         context['categories'] = Category.objects.filter(approved=True)
         context['tags'] = tags_qs
+        context['articles'] = articles
         return context
 
 
