@@ -1,6 +1,6 @@
 # Core Django imports.
 from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
@@ -14,8 +14,10 @@ from crispy_forms.helper import FormHelper
 
 
 # Blog application imports.
+
 from apps.blog.models.article_models import Article, Category
 from apps.blog.models.article_models import ListAsQuerySet
+from django.contrib.auth.decorators import permission_required
 
 class CategoryArticlesListView(ListView):
     model = Article
@@ -56,12 +58,14 @@ class CategoriesListView(ListView):
     def get_queryset(self):
         return Category.objects.order_by('-date_created')
 
-
-class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+from django.utils.decorators import method_decorator
+# @method_decorator(permission_required('blog.add_category',raise_exception=True),name = 'dispatch')
+class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin,CreateView):
     model = Category
     fields = ["name", "image"]
     template_name = 'blog/category/category_form.html'
-    success_url = reverse_lazy('blog:categories_list')    
+    success_url = reverse_lazy('blog:categories_list')  
+    permission_required='blog.add_category'  
 
 
     # def form_valid(self, form):
@@ -90,3 +94,5 @@ class CategoryUpdateCreateView(LoginRequiredMixin, SuccessMessageMixin,
     template_name = 'blog/category/category_form.html'
     success_url = reverse_lazy("blog:categories_list")
     success_message = "Category Updated Successfully"
+    permission_required='blog.change_category'
+    

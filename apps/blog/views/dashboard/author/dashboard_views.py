@@ -315,12 +315,13 @@ class AuthorWrittenArticlesView(LoginRequiredMixin, View):
         return render(request, template_name, context_object)
 
 
-class AuthorPublishedArticlesView(LoginRequiredMixin,View,PermissionRequiredMixin):
+class AuthorPublishedArticlesView(LoginRequiredMixin,PermissionRequiredMixin,View):
     """
        Displays published articles by an author.
     """
-    # permission_required = "employee.add_employee"
-    @method_decorator(permission_required('blog.article.view_article',raise_exception=True))
+    permission_required = "blog.view_article"
+    
+    # @method_decorator(permission_required('blog.view_article',raise_exception=True))
     def get(self, request):
         
         """
@@ -350,12 +351,12 @@ class AuthorPublishedArticlesView(LoginRequiredMixin,View,PermissionRequiredMixi
         return render(request, template_name, context_object)
 
 
-class AuthorDraftedArticlesView(LoginRequiredMixin, View):
+class AuthorDraftedArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View):
     """
        Displays drafted articles by an author.
     """
     
-    @method_decorator(permission_required('blog.article.view_article',raise_exception=True))
+    permission_required = "blog.view_article"
     def get(self, request):
         
         """
@@ -386,9 +387,8 @@ class AuthorDraftedArticlesView(LoginRequiredMixin, View):
         return render(request, template_name, context_object)
 
 
-class AuthorDeletedArticlesView(LoginRequiredMixin, View):
-
-
+class AuthorDeletedArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View):
+    permission_required = "blog.view_article"
     def get(self, request):
         template_name = 'blog/author/author_deleted_article_list.html'
         context_object = {}

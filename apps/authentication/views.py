@@ -137,21 +137,15 @@ class ActivateView(View):
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
 
-        if user is not None and account_activation_token.check_token(user,
-                                                                     token):
+        if user is not None and account_activation_token.check_token(user,token):
             user.is_active = True
-            user.email = True
             user.save()
-
             login(request, user)
-
             username = user.username
-
             messages.success(request, f"Congratulations {username} !!! "
                                       f"Your account was created and activated "
                                       f"successfully"
                              )
-
             return redirect('authentication:login')
         else:
             return render(request, 'authentication/account_activation_invalid.html')

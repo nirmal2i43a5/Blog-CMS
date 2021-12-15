@@ -1,25 +1,54 @@
-# -*- encoding: utf-8 -*-
-"""
 
-"""
 
 from django import template
 from django.contrib.auth.decorators import login_required,permission_required
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
+from django.shortcuts import render
 from django.urls import reverse
-
+from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
+from apps.blog.models import Article
 
 @login_required(login_url="/login/")
-@permission_required('blog.article.view_article',raise_exception=True)
-def index(request):
+def author_dashboard(request):
     context = {'segment': 'index'}
 
     html_template = loader.get_template('home/author_dashboard.html')
     return HttpResponse(html_template.render(context, request))
 
+class DashboardHomeView(LoginRequiredMixin,PermissionRequiredMixin,View):
+    permission_required = 'blog.view_article'
+    context = {}
+    template_name = 'home/author_dashboard.html'
 
+ 
+    def get(self, request, *args, **kwargs):
+        """
+        Returns the author details
+        """
+
+        articles_list = Article.objects.filter(author=request.user)
+
+        total_articles_written = articles_list.count()
+        total_articles_published = articles_list.filter(status=Article.PUBLISHED, deleted=False).count()
+        total_articles_views = sum(article.views for article in articles_list)
+        total_articles_comments = sum(
+            article.comments.count() for article in articles_list)
+
+        recent_published_articles_list = articles_list.filter(
+            status=Article.PUBLISHED, deleted=False).order_by("-date_published")[:5]
+
+        self.context['total_articles_written'] = total_articles_written
+        self.context['total_articles_published'] = total_articles_published
+        self.context['total_articles_views'] = total_articles_views
+        self.context['total_articles_comments'] = total_articles_comments
+        self.context['recent_published_articles_list'] = recent_published_articles_list
+
+        return render(request, self.template_name, self.context)
+    
+    
 @login_required(login_url="/login/")
 def pages(request):
     context = {}

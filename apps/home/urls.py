@@ -4,15 +4,15 @@
 """
 
 from django.urls import path, re_path
-from apps.home import views
+from .views import (DashboardHomeView,pages)
 
 app_name = 'home'
 urlpatterns = [
 
     # The home page
-    path('', views.index, name='dashboard'),
+    path('', DashboardHomeView.as_view(), name='dashboard'),
 
     # Matches any html file
-    re_path(r'^.*\.*', views.pages, name='pages'),
+    re_path(r'^.*\.*', pages, name='pages'),
 
 ]
