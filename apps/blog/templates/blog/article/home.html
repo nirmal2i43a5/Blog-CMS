@@ -5,6 +5,10 @@ Home
 {% endblock title %}
 {% block stylesheet %}
 {{ block.super }}
+
+<!-- <link rel="stylesheet" href="/static/assets/scss/core/pagination/_pagination.scss" type="text/scss"> -->
+  <!-- Argon CSS -->
+  <!-- <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css"> -->
 <link rel="stylesheet" href="/static/assets/css/blog/front-page-category/styles.css" type="text/css">
 
 <link rel="stylesheet" href="/static/assets/css/blog/front-page-category/responsive.css" type="text/css">
@@ -121,11 +125,11 @@ Home
 
             {# Pagination for article post #}
             <nav aria-label="Page navigation example">
-              {% if published_articles_list.has_other_pages %}
+              {% if articles.has_other_pages %}
               <ul class="pagination justify-content-center">
-                {% if published_articles_list.has_previous %}
+                {% if articles.has_previous %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{ published_articles_list.previous_page_number }}"
+                  <a class="page-link" href="?page={{ articles.previous_page_number }}"
                     tabindex="-1">Prev</a>
                 </li>
                 {% else %}
@@ -133,8 +137,8 @@ Home
                   <span class="page-link">Prev</span>
                 </li>
                 {% endif %}
-                {% for i in published_articles_list.paginator.page_range %}
-                {% if published_articles_list.number == i %}
+                {% for i in articles.paginator.page_range %}
+                {% if articles.number == i %}
                 <li class="page-item active">
                   <span class="page-link">
                     {{ i }}
@@ -148,9 +152,9 @@ Home
                 {% endif %}
 
                 {% endfor %}
-                {% if published_articles_list.has_next %}
+                {% if articles.has_next %}
                 <li class="page-item">
-                  <a class="page-link" href="?page={{ published_articles_list.next_page_number }}">Next</a>
+                  <a class="page-link" href="?page={{ articles.next_page_number }}">Next</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
@@ -171,13 +175,15 @@ Home
          
 
           <div class="subscribe-area">
+            <br>
 
               <h4 class="title"><b>SUBSCRIBE NOW</b></h4>
+              <br>
            
                   <form method="POST" action="{% url 'authentication:user_subscription' %}">
                       {% csrf_token %}
                       <div class="input-area">
-                      <input class="email-input" name="email" type="text" placeholder="Enter your email" required>
+                      <input class="email-input" name="email" type="email" placeholder="Enter your email" required>
                        </div>
 
                       <button class="btn  px-3 mt-2 text-white" style="background-color: #5E72E4;" type="submit">SUBSCRIBE</button>
@@ -257,6 +263,7 @@ Home
 .swiper-button-prev, .swiper-button-next{
   top:30%;
 }
+
 </style>
 
 

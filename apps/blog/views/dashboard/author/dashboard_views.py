@@ -1,12 +1,13 @@
 # Django imports.
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
 from django.views.generic import View
-
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import  permission_required
 # Blog app imports.
 from apps.blog.forms.blog.article_forms import ArticleUpdateForm, ArticleCreateForm
 from apps.blog.models.article_models import Article
@@ -21,6 +22,7 @@ class DashboardHomeView(LoginRequiredMixin, View):
     context = {}
     template_name = 'dashboard/author/dashboard_home.html'
 
+ 
     def get(self, request, *args, **kwargs):
         """
         Returns the author details
@@ -313,12 +315,14 @@ class AuthorWrittenArticlesView(LoginRequiredMixin, View):
         return render(request, template_name, context_object)
 
 
-class AuthorPublishedArticlesView(LoginRequiredMixin, View):
+class AuthorPublishedArticlesView(LoginRequiredMixin,View,PermissionRequiredMixin):
     """
        Displays published articles by an author.
     """
-
+    # permission_required = "employee.add_employee"
+    @method_decorator(permission_required('blog.article.view_article',raise_exception=True))
     def get(self, request):
+        
         """
            Returns published articles by an author.
         """
@@ -327,7 +331,7 @@ class AuthorPublishedArticlesView(LoginRequiredMixin, View):
 
         published_articles = Article.objects.filter(author=request.user.id,
                                                     status=Article.PUBLISHED, deleted=False).order_by('-date_published')
-        total_articles_published = len(published_articles)
+        total_articles_published = published_articles.count()
 
         page = request.GET.get('page', 1)
 
@@ -350,11 +354,14 @@ class AuthorDraftedArticlesView(LoginRequiredMixin, View):
     """
        Displays drafted articles by an author.
     """
-
+    
+    @method_decorator(permission_required('blog.article.view_article',raise_exception=True))
     def get(self, request):
+        
         """
            Returns drafted articles by an author.
         """
+        
         template_name = 'blog/author/author_drafted_article_list.html'
         context_object = {}
 

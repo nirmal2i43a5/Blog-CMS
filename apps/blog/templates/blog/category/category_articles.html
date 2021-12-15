@@ -110,7 +110,7 @@ Categories
                             <form method="POST" action="{% url 'authentication:user_subscription' %}">
                                 {% csrf_token %}
                                 <div class="input-area">
-                                <input class="email-input" name="email" type="text" placeholder="Enter your email" required>
+                                <input class="email-input" name="email" type="email" placeholder="Enter your email" required>
                                  </div>
 
                                 <button class="btn  px-3 mt-2 text-white" style="background-color: #5E72E4;" type="submit">SUBSCRIBE</button>

@@ -57,7 +57,7 @@
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                               <div class="modal-header">
-                                                  <h5 class="modal-title" id="exampleModalLabel"><b>Ready to Delete Article?</b></h5>
+                                                  <h5 class="modal-title" id="exampleModalLabel"><b>Delete article.</b></h5>
                                                 <button
                                                   class="close"
                                                   type="button"
@@ -68,7 +68,7 @@
                                                 </button>
                                               </div>
                                               <div class="modal-body">
-                                                Select "Delete Article" below if you want to delete the article.
+                                                Are you sure want  to delete article?
                                               </div>
                                               <div class="modal-footer">
                                                 <button
@@ -78,7 +78,7 @@
                                                 >
                                                   Cancel
                                                 </button>
-                                                <a class="btn btn-danger" href="{% url 'blog:article_delete' slug=article.slug %}">Delete Article</a>
+                                                <a class="btn btn-danger" href="{% url 'blog:article_delete' slug=article.slug %}">Confirm</a>
                                               </div>
                                             </div>
                                           </div>

@@ -17,11 +17,11 @@ def login_view(request):
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             
-            if user.is_authenticated:
+            if request.user.is_authenticated:
                 login(request,user)
                 return redirect('blog:home')
             
-            if user.is_superuser:
+            if request.user.is_superuser:
                 login(request,user)
                 return redirect('home:dashboard')
             
