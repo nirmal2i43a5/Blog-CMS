@@ -31,7 +31,7 @@
                <i class="fas fa-book"></i>
                <span class="nav-link-text">Articles</span>
           </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu ml-4 mr-2" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{% url 'blog:article_write' %}">Create New Article</a>
                 <a class="dropdown-item" href="{% url 'blog:published_articles' %}">Published Articles</a>
                 <a class="dropdown-item" href="{% url 'blog:drafted_articles' %}">Drafted Articles</a>
@@ -53,6 +53,16 @@
             </a>
           </li>
          
+
+          
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'authentication:logout' %}">
+              <i class="ni ni-user-run text-red"></i>
+              <span class="nav-link-text">Logout</span>
+            </a>
+          </li>   
+          {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'authentication:login' %}">
               <i class="ni ni-key-25 text-info"></i>
@@ -61,14 +71,12 @@
               <span class="nav-link-text">Login </span>
             </a>
           </li>
+          {% endif %}
+            
+        
          
 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'authentication:logout' %}">
-              <i class="ni ni-user-run text-red"></i>
-              <span class="nav-link-text">Logout</span>
-            </a>
-          </li>            
+                  
         </ul>
         <!-- Divider -->
         <!-- Heading -->
