@@ -2,7 +2,7 @@
 
 from django import template
 from django.contrib.auth.decorators import login_required,permission_required
-
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render
@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from apps.blog.models import Article
+from apps.authentication.models import Subscription
+
 
 @login_required(login_url="/login/")
 def author_dashboard(request):
@@ -47,6 +49,17 @@ class DashboardHomeView(LoginRequiredMixin,PermissionRequiredMixin,View):
         self.context['recent_published_articles_list'] = recent_published_articles_list
 
         return render(request, self.template_name, self.context)
+    
+
+
+@csrf_exempt
+def check_email_exist(request):
+    email = request.POST.get('email')
+    subscription_email = Subscription.objects.filter(email = email).exists()
+    if subscription_email:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
     
     
 @login_required(login_url="/login/")

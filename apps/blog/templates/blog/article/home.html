@@ -183,10 +183,11 @@ Home
                   <form method="POST" action="{% url 'authentication:user_subscription' %}">
                       {% csrf_token %}
                       <div class="input-area">
-                      <input class="email-input" name="email" type="email" placeholder="Enter your email" required>
+                      <input class="email-input" name="email" id = "id_email" type="email" placeholder="Enter your email" required>
                        </div>
 
-                      <button class="btn  px-3 mt-2 text-white" style="background-color: #5E72E4;" type="submit">SUBSCRIBE</button>
+                      <button class="btn  px-3 mt-4 text-white" style="background-color: #5E72E4;" type="submit">SUBSCRIBE</button>
+                      <span class="text-secondary mt-2"><i class = "fas fa-lock"></i> No spam. Unsubscribe any time. </span>
                   </form>
 
           </div><!-- subscribe-area -->
@@ -332,6 +333,8 @@ Home
 
   
   $(document).ready(function () {
+
+
       $("#myInput").on("keyup", function () {
           var value = $(this).val().toLowerCase();
           let isFound = false;
@@ -342,6 +345,42 @@ Home
               $(this).closest('.card').toggle(isFound);
           });
       });
+      $("#id_email").keyup(function(){
+        var email=$(this).val();
+
+       if(email!=""){
+            $.ajax({
+                url:"{% url 'home:check_email_exist' %}",
+                type:'POST',
+                data:{email:email},
+                success: function(response){
+                  console.log(response)
+                  var filter = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if(response=="True"){
+                        $(".email_error").remove();
+                        $("<span class='email_error' style='padding: 5px;margin-top:3rem;color: red;font-weight: bold;'>Email already exists.Use another.</span>").insertAfter("#id_email");
+                    }
+                    else if(filter.test(email)){//for email 
+                      $(".email_error").remove();
+                      $("<span class='email_error' style='padding: 5px;margin-top:3rem;color: green;font-weight: bold;'></span>").insertAfter("#id_email");
+                  }
+                   
+                   
+                }
+                ,
+                error: function(){
+                  console.log("failed")
+                }
+             
+            })
+           
+        }
+        else{
+          $(".email_error").remove();
+        }
+
+    });
+
   });
 </script>
 

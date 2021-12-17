@@ -9,7 +9,8 @@ from .views import (login_view,
                     UserLogoutView,
                       ActivateView,
                 AccountActivationSentView,
-                SubscriptionView
+                SubscriptionView,
+                SubscriptionActivateView
                 )
 
 app_name = 'authentication'
@@ -27,5 +28,9 @@ urlpatterns = [
          name='activate'
          ),
      path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
+      path(route='subscription_activate/<uidb64>/<token>/',
+         view=SubscriptionActivateView.as_view(),
+         name='subscription_activate'
+         ),
 
 ]

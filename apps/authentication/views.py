@@ -2,14 +2,24 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login,logout
 from .forms import LoginForm, SignUpForm
-from django.views.generic import CreateView
 from .models import Subscription
+from django.utils.encoding import force_bytes, force_text
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.views.generic import View
+from apps.blog.token import account_activation_token
+from apps.authentication.forms import UserRegisterForm
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 def login_view(request):
+    
     form = LoginForm(request.POST or None)
-
-    msg = None
-
     if request.method == "POST":
 
         if form.is_valid():
@@ -21,67 +31,21 @@ def login_view(request):
                 
                 user = get_object_or_404(User, email = email)
                 user = authenticate(username=user.username, password=password)
-            
                 if request.user.is_authenticated:
                     login(request,user)
                     return redirect('blog:home')    
-                
                 if request.user.is_superuser:
                     login(request,user)
                     return redirect('home:dashboard')
-                
                 elif user is not None:
                     login(request, user)
                     return redirect("blog:home")
                 else:
                     messages.error(request,"Invalid credentials.")
             else:
-                messages.error(request,"Invalid Email.Please enter valid email address.")
+                messages.error(request,"Invalid Email address.")
 
     return render(request, "authentication/login.html", {"form": form})
-
-
-# def register_user(request):
-#     msg = None
-#     success = False
-
-#     if request.method == "POST":
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get("username")
-#             raw_password = form.cleaned_data.get("password1")
-#             user = authenticate(username=username, password=raw_password)
-
-#             msg = 'User created - please <a href="/login">login</a>.'
-#             success = True
-
-#             # return redirect("/login/")
-
-#         else:
-#             msg = 'Form is not valid'
-#     else:
-#         form = SignUpForm()
-
-#     return render(request, "accounts/register.html", {"form": form, "msg": msg, "success": success})
-
-
-
-
-# Django imports.
-from django.utils.encoding import force_bytes, force_text
-from django.contrib.sites.shortcuts import get_current_site
-from django.contrib.auth import login
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
-from django.contrib.auth.models import User
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.views.generic import View
-
-# Blog app imports.
-from apps.blog.token import account_activation_token
-from apps.authentication.forms import UserRegisterForm
 
 
 class UserRegisterView(View):
@@ -174,11 +138,26 @@ class UserLogoutView(View):
 class SubscriptionView(View):
     def post(self, request, *args, **kwargs):
         user_email = request.POST['email']
-        subscription = Subscription()
-        subscription.email = user_email
-        subscription.save()
-        # messages.success(request,"Subscribed Successfully!")
-        return render(request, 'authentication/subscription_success.html')
+        user = Subscription.objects.create(email = user_email)
+        current_site = get_current_site(request)
+        subject = 'Activate Your Newsletters Subscription Account for  Study Better Way'
+        message = render_to_string('authentication/subscription_email_activate.html',
+        {
+              'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        email_from = settings.EMAIL_HOST_USER
+        email_to = [user.email,]
+        send_mail(subject,message,email_from, email_to)
+
+        messages.success(request,"Subscribed Successfully!")
+        return render(request, 'authentication/account_activation_sent.html')
+
+
+
+
 
         # current_site = get_current_site(request)
         # subject = 'Activate Your Study Better Way Account'
@@ -197,3 +176,24 @@ class SubscriptionView(View):
         #     messages.error(request, "Please provide valid information.")
         #     # Redirect user to register page
         #     return render(request, self.template_name, self.context_object)
+        
+        
+class SubscriptionActivateView(View):
+    
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = Subscription.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user,token):
+            user.is_active = True
+            user.save()
+            messages.success(request, f"Congratulations {user.email} !!! "
+                                      f"Your account was activated "
+                                      f"successfully"
+                             )
+            return render(request, 'authentication/subscription_success.html')
+        else:
+            return render(request, 'authentication/account_activation_invalid.html')
