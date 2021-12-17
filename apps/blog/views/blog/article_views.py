@@ -115,9 +115,8 @@ class ArticleSearchListView(ListView):
             Add categories to context data
         """
         context = super(ArticleSearchListView, self).get_context_data(**kwargs)
-        
         all_tags = []
-        search_articles = self.object_list
+        search_articles = self.object_list#return object from get_queryset [object_list is default use keyword while getting object]
         for article in search_articles:
             tags = article.tags.all()
             for tag in tags:
