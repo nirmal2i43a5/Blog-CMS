@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(
-        widget=forms.TextInput(
+    email = forms.CharField(
+        widget=forms.EmailInput(
             attrs={
-                "placeholder": "Username",
+                "placeholder": "Enter Email",
                 "class": "form-control"
             }
         ))

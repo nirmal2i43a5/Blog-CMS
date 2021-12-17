@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login,logout
 from .forms import LoginForm, SignUpForm
 from django.views.generic import CreateView
@@ -13,25 +13,30 @@ def login_view(request):
     if request.method == "POST":
 
         if form.is_valid():
-            username = form.cleaned_data.get("username")
+            email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
             
-            if request.user.is_authenticated:
-                login(request,user)
-                return redirect('blog:home')    
+            user = User.objects.filter(email = email)
+            if user.exists():
+                
+                user = get_object_or_404(User, email = email)
+                user = authenticate(username=user.username, password=password)
             
-            if request.user.is_superuser:
-                login(request,user)
-                return redirect('home:dashboard')
-            
-            elif user is not None:
-                login(request, user)
-                return redirect("blog:home")
+                if request.user.is_authenticated:
+                    login(request,user)
+                    return redirect('blog:home')    
+                
+                if request.user.is_superuser:
+                    login(request,user)
+                    return redirect('home:dashboard')
+                
+                elif user is not None:
+                    login(request, user)
+                    return redirect("blog:home")
+                else:
+                    messages.error(request,"Invalid credentials.")
             else:
-                messages.error(request,"Invalid Credentials.")
-        else:
-            messages.error(request,"Error validating the form.")
+                messages.error(request,"Invalid Email.Please enter valid email address.")
 
     return render(request, "authentication/login.html", {"form": form})
 
