@@ -19,7 +19,7 @@ def login_view(request):
             
             if request.user.is_authenticated:
                 login(request,user)
-                return redirect('blog:home')
+                return redirect('blog:home')    
             
             if request.user.is_superuser:
                 login(request,user)
@@ -29,11 +29,11 @@ def login_view(request):
                 login(request, user)
                 return redirect("blog:home")
             else:
-                msg = 'Invalid credentials'
+                messages.error(request,"Invalid Credentials.")
         else:
-            msg = 'Error validating the form'
+            messages.error(request,"Error validating the form.")
 
-    return render(request, "authentication/login.html", {"form": form, "msg": msg})
+    return render(request, "authentication/login.html", {"form": form})
 
 
 # def register_user(request):

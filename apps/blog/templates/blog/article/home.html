@@ -68,12 +68,12 @@ Home
 {% endif %}
 
 <div class="container mb-3">
-  <div class="row">
+  <div class="row" id="filter_div">
     <div class="col-md-8">
       <div class="card shadow-sm bg-white">
-        <div class="card-header">
+        <!-- <div class="card-header">
           <h4 class="title">{{title}}</h4>
-        </div>
+        </div> -->
         <div class="card-body">
           <div class="content">
             <section class="blog-list px-3">
@@ -301,6 +301,7 @@ Home
 
 {% endblock content %}
 {% block javascripts %}
+
 <script>
   
   var swiper = new Swiper('.swiper-container', {
@@ -323,6 +324,27 @@ Home
      },
    });
 </script>
-<link rel="stylesheet" href="{% static 'assets/js/common-js/swiper.js' %}" type="text/css">
+
+
+
+
+<script>
+
+  
+  $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          let isFound = false;
+          $("#filter_div *").filter(function () {
+              if ($(this).find('.card-body .content .blog-list .container .item').text().toLowerCase().includes(value)) {
+                  isFound = true;
+              }
+              $(this).closest('.card').toggle(isFound);
+          });
+      });
+  });
+</script>
+
+
 {% endblock javascripts %}
 

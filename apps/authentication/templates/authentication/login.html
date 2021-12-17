@@ -20,10 +20,7 @@
             <div class="card-body px-lg-5 pb-lg-5">
               <div class="text-center text-muted mb-4">
 
-                {% if msg %}
-                  <p>{{ msg }}</p>
-               
-                {% endif %}  
+              {% include "includes/messages.html" %}
 
               </div>
 
@@ -32,6 +29,8 @@
                 {% csrf_token %}
 
                 <div class="form-group mb-3">
+                  <label for="username">Username/Email*</label>
+
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
@@ -40,6 +39,7 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="password">Password*</label>
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
@@ -62,7 +62,7 @@
                   <a href="{% url 'authentication:register' %}"><small>Register</small></a>
                 </div>
                 <div class="col-6 text-right">
-                  <a href=""><small>Forget Password</small></a>
+                  <a href="{% url 'password_reset' %}"><small>Forget Password</small></a>
                 </div>
               </div>
             </div>
