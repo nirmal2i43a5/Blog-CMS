@@ -47,7 +47,6 @@ class ArticleListView(ListView):
                 
             
         tags_qs = ListAsQuerySet(all_tags, model=Article)
-        print(tags_qs)
         context['categories'] = Category.objects.filter(approved=True)
         context['tags'] = tags_qs
         context['articles'] = articles
@@ -68,7 +67,7 @@ class ArticleDetailView(DetailView):
         kwargs['related_articles'] = \
             Article.objects.filter(category=self.object.category, status=Article.PUBLISHED).order_by('?')[:3]
         kwargs['article'] = self.object
-        kwargs['comment_form'] = CommentForm()
+        # kwargs['comment_form'] = CommentForm()
         return super().get_context_data(**kwargs)
 
 

@@ -9,12 +9,12 @@
                         {% csrf_token %}
                         <h5 class="mt-4">SUBSCRIBE TO OUR NEWSLETTER</h5><hr>
                         <div class="input-group">
-                            <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                            <input type="email" name="email" id="id_email" class="form-control" placeholder="Enter your email" required>
                             <span class="input-group-btn">
                                 <button class="btn" type="submit">Subscribe Now</button>
                             </span>
                         </div>
-                        
+                        <span id="email_msg"></span>
                         {% include "includes/messages.html" %}
                     </form>
                 </div>
@@ -54,3 +54,45 @@
         font-weight:300;
         }
 </style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#id_email").keyup(function(){
+          var email=$(this).val();
+    
+         if(email!=""){
+              $.ajax({
+                  url:"/dashboard/check_email_exist/",
+                  type:'POST',
+                  data:{email:email},
+                  success: function(response){
+                    console.log(response)
+                    var filter = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                      if(response=="True"){
+                          $(".email_error").remove();
+                          $("<span class='email_error' style='padding: 5px;float:left;color: red;font-weight: bold;'>Email already exists.Please, use another email.</span>").insertAfter("#email_msg");
+                      }
+                      else if(filter.test(email)){//for email 
+                        $(".email_error").remove();
+                        $("<span class='email_error' style='padding: 5px;margin-top:3rem;color: green;font-weight: bold;'></span>").insertAfter("#id_email");
+                    }
+                     
+                     
+                  }
+                  ,
+                  error: function(){
+                    console.log("failed")
+                  }
+               
+              })
+             
+          }
+          else{
+            $(".email_error").remove();
+          }
+    
+      });
+    
+    });
+</script>
