@@ -6,7 +6,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+handler404 = 'apps.home.views.error_404'
+
 urlpatterns = [
+
     path('admin/', admin.site.urls),         
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path("", include("apps.authentication.urls",namespace='authentication')), 

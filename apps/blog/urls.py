@@ -47,14 +47,10 @@ from apps.blog.views.dashboard.author.author_profile_views import (
     AuthorProfileView,
 )
 
-
-
-
-# Specifies the app name for name spacing.
 app_name = "blog"
 
-# article/urls.py
 urlpatterns = [
+    
   path('',ArticleListView.as_view(), name = "home"),
   
 

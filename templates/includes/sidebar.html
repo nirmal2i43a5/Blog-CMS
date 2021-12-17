@@ -1,9 +1,10 @@
+{% load static %}
 <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
   <div class="scrollbar-inner">
     <!-- Brand -->
     <div class="sidenav-header  align-items-center">
       <a class="navbar-brand" href="/">
-        <img src="/static/assets/img/brand/blue.png" class="navbar-brand-img" alt="Argon Design - Jinja Template Logo.">
+        <img src="{% static 'assets/img/logo.png' %}" style="max-height: 4rem;max-width:100%;" class="navbar-brand-img">
       </a>
     </div>
     <div class="navbar-inner">

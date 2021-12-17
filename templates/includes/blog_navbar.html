@@ -149,7 +149,9 @@
 
     <nav class="navbar navbar-expand-lg fixed-top ">
       <div class="title">
-        <a href="{% url 'blog:home' %}" class="text-white navbar-brand"><b>Study Better Way</b></a>
+
+        <img src="{% static 'assets/img/logo.png' %}" height = "50px"  class="navbar-brand" alt="">
+        <!-- <a href="{% url 'blog:home' %}" class="text-white navbar-brand"><b>Study Better Way</b></a> -->
 
       </div>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -157,8 +159,8 @@
       </button>
       <!-- Collection of nav links, forms, and other content for toggling -->
       <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
-        <div class="navbar-nav">
-          <a href="#" class="nav-item nav-link active"><i class = "fas fa-sm fa-home"></i> Home</a>
+        <div class="navbar-nav ml-4 mt-1">
+          <a href="#" class="nav-item nav-link active position-relative "><i class = "fas fa-sm fa-home"></i> Home</a>
           <a href="#" class="nav-item nav-link">About</a>
           <div class="nav-item dropdown">
             <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
