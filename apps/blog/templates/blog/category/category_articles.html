@@ -1,5 +1,5 @@
 {% extends 'blog_base.html' %}
-
+{% load static %}
 {% block title %}
 Categories
 {% endblock title %}
@@ -103,20 +103,7 @@ Categories
 
                    
 
-                    <div class="subscribe-area">
-
-                        <h4 class="title"><b>SUBSCRIBE NOW</b></h4>
-                     
-                            <form method="POST" action="{% url 'authentication:user_subscription' %}">
-                                {% csrf_token %}
-                                <div class="input-area">
-                                <input class="email-input" name="email" type="email" placeholder="Enter your email" required>
-                                 </div>
-
-                                <button class="btn  px-3 mt-2 text-white" style="background-color: #5E72E4;" type="submit">SUBSCRIBE</button>
-                            </form>
-
-                    </div><!-- subscribe-area -->
+                   {% include "includes/sidebar_email_subscription.html" %}
                     <!-- <div class="about-area">
                         <h4 class="title"><b>ABOUT ME</b></h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -159,3 +146,9 @@ Categories
 	  }
 </style>
 {% endblock content %}
+
+{% block javascripts %}
+    
+<script src="{% static 'blog/js/scripts.js' %}"></script>
+{% endblock javascripts %}
+    

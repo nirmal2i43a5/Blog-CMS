@@ -1,0 +1,18 @@
+<div class="subscribe-area">
+    <br>
+
+      <h4 class="title" ><b>SUBSCRIBE NOW</b></h4>
+      <hr id="email_msg">
+  
+   
+          <form method="POST" action="{% url 'authentication:user_subscription' %}">
+              {% csrf_token %}
+              <div class="input-area">
+              <input class="email-input" name="email" id = "id_email" type="email" placeholder="Enter your email" required>
+               </div>
+
+              <button class="btn  px-3 mt-2 text-white" style="background-color: #5E72E4;" type="submit">SUBSCRIBE</button>
+              <span class="text-secondary mt-2"><i class = "fas fa-lock"></i> No spam. Unsubscribe any time. </span>
+          </form>
+
+  </div><!-- subscribe-area -->

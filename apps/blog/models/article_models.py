@@ -73,6 +73,6 @@ class Article(models.Model):
         super(Article, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('blog:article_detail', kwargs={'username': self.author.username.lower(), 'slug': self.slug})
+        return reverse('blog:article_detail', kwargs={ 'slug': self.slug})
 
 

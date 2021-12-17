@@ -6,6 +6,7 @@ import operator
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.query import QuerySet
+from django.http import request
 from django.views.generic import (
     DetailView,
     ListView,
@@ -23,7 +24,7 @@ from django.core.paginator import PageNotAnInteger
 
 class ArticleListView(ListView):
     context_object_name = "articles"
-    paginate_by = 2
+    paginate_by = 12
     queryset = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
     template_name = "blog/article/home.html"
 
@@ -31,8 +32,7 @@ class ArticleListView(ListView):
         context = super().get_context_data(**kwargs)
         articles = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
         page = self.request.GET.get('page', 1)
-
-        paginator = Paginator(articles, 2)
+        paginator = Paginator(articles, 12)
         try:
             articles = paginator.page(page)
         except PageNotAnInteger:
@@ -48,7 +48,7 @@ class ArticleListView(ListView):
             
         tags_qs = ListAsQuerySet(all_tags, model=Article)
         context['categories'] = Category.objects.filter(approved=True)
-        context['tags'] = tags_qs
+        context['tags'] = set(tags_qs)#create unique tag
         context['articles'] = articles
         return context
 
@@ -74,8 +74,8 @@ class ArticleDetailView(DetailView):
 class ArticleSearchListView(ListView):
     model = Article
     paginate_by = 12
-    context_object_name = 'search_results'
-    template_name = "blog/article/article_search_list.html"
+    context_object_name = 'articles'
+    template_name = "blog/article/home.html"
 
     def get_queryset(self):
         """
@@ -90,35 +90,43 @@ class ArticleSearchListView(ListView):
         into separate words and chain them.
         """
 
-        query = self.request.GET.get('q')
-
+        query = self.request.GET.get('query')
         if query:
-            query_list = query.split()
-            search_results = Article.objects.filter(
-                reduce(operator.and_,
-                       (Q(title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Q(slug__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Q(body__icontains=q) for q in query_list))
+            articles = Article.objects.filter(
+                Q(title__icontains = query)
+                |Q(tags__name__icontains = query)
+                |Q(slug__icontains = query)
+                # |Q(body__icontains = query)
             )
 
-            if not search_results:
+            if not articles:
                 messages.info(self.request, f"No results for '{query}'")
-                return search_results.filter(status=Article.PUBLISHED, deleted=False)
+                return articles.filter(status=Article.PUBLISHED, deleted=False)
             else:
                 messages.success(self.request, f"Results for '{query}'")
-                return search_results.filter(status=Article.PUBLISHED, deleted=False)
+                return articles.filter(status=Article.PUBLISHED, deleted=False)
         else:
             messages.error(self.request, f"Sorry you did not enter any keyword")
             return []
+
 
     def get_context_data(self, **kwargs):
         """
             Add categories to context data
         """
         context = super(ArticleSearchListView, self).get_context_data(**kwargs)
+        
+        all_tags = []
+        search_articles = self.object_list
+        for article in search_articles:
+            tags = article.tags.all()
+            for tag in tags:
+                all_tags.append(tag.name)
+                
+            
+        tags_qs = ListAsQuerySet(all_tags, model=Article)
         context['categories'] = Category.objects.filter(approved=True)
+        context['tags'] = set(tags_qs)
         return context
 
 
