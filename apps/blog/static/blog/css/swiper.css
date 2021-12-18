@@ -1,0 +1,53 @@
+.swiper-container {
+    margin-top: 5rem;
+  }
+
+  .main-slider {
+    position: relative;
+  }
+
+  @media (min-width: 37.5em) {
+    .main-slider {
+      margin-left: auto;
+      margin-right: auto;
+      width: 92%;
+      /* make room for arrows */
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+  }
+
+  @media (min-width: 43.75em) {
+    .main-slider {
+      width: 95%;
+    }
+  }
+
+  .swiper-wrapper {
+    /* now pagination is below slides */
+    margin-bottom: 3em;
+    /* just enough width so slides handing off screen are partially 
+  visible */
+    width: 73.8%;
+  }
+
+  @media (min-width: 37.5em) {
+    .swiper-wrapper {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 37.5em) {
+    .swiper-slide.swiper-slide {
+      /* going for a 2 column layout here */
+      width: 100%;
+      /* centeredSlides set to true */
+      /* reposition so first slide appears on left */
+      transform: translateX(-50%);
+    }
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 33%;
+  }

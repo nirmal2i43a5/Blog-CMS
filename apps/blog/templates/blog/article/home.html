@@ -1,16 +1,21 @@
 {% extends 'blog_base.html' %}
 {% load static %}
+{% load compress %}
 {% block title %}
 Home
 {% endblock title %}
 {% block stylesheet %}
 {{ block.super }}
 
-<!-- <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css"> -->
+{% compress css %}
 <link rel="stylesheet" href="/static/assets/css/blog/front-page-category/styles.css" type="text/css">
 
 <link rel="stylesheet" href="/static/assets/css/blog/front-page-category/responsive.css" type="text/css">
 <link href="{% static 'dashboard/author/css/dashboard-article.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'blog/css/swiper.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'blog/css/pagination.css' %}" type="text/css">
+
+{% endcompress %}
 
 {% endblock stylesheet %}
 
@@ -201,106 +206,16 @@ Home
 </div>
 <!-- footer-->
 
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css"> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
-<!-- pagination -->
-
-<style>
-  .swiper-container {
-    margin-top: 5rem;
-  }
-
-  .main-slider {
-    position: relative;
-  }
-
-  @media (min-width: 37.5em) {
-    .main-slider {
-      margin-left: auto;
-      margin-right: auto;
-      width: 92%;
-      /* make room for arrows */
-      padding-left: 2em;
-      padding-right: 2em;
-    }
-  }
-
-  @media (min-width: 43.75em) {
-    .main-slider {
-      width: 95%;
-    }
-  }
-
-  .swiper-wrapper {
-    /* now pagination is below slides */
-    margin-bottom: 3em;
-    /* just enough width so slides handing off screen are partially 
-  visible */
-    width: 73.8%;
-  }
-
-  @media (min-width: 37.5em) {
-    .swiper-wrapper {
-      width: 100%;
-    }
-  }
-
-  @media (min-width: 37.5em) {
-    .swiper-slide.swiper-slide {
-      /* going for a 2 column layout here */
-      width: 100%;
-      /* centeredSlides set to true */
-      /* reposition so first slide appears on left */
-      transform: translateX(-50%);
-    }
-  }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    top: 33%;
-  }
-
-  /*For pagination round design*/
-  .page-item.active .page-link {
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-  }
-
-  .page-item .page-link,
-  .page-item span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0 3px;
-    border-radius: 50% !important;
-    width: 40px;
-    height: 36px;
-    font-size: 0.875rem;
-  }
-
-
-
-  .pagination {
-    display: flex;
-    padding-left: 0;
-    list-style: none;
-    border-radius: 0.375rem;
-  }
-
-
-  .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #5e72e4;
-    border-color: #5e72e4;
-  }
-</style>
 
 
 {% endblock content %}
+
 {% block javascripts %}
 
-<script>
+{% compress js %}
+<script src="{% static '/assets/js/common-js/swiper.min.js' %}"></script>
+
+<script  type="text/javascript">
 
   var swiper = new Swiper('.swiper-container', {
 
@@ -324,10 +239,8 @@ Home
 
 </script>
 
+<!-- <script src="{% static 'blog/js/scripts.js' %}"></script> -->
 
-
-
-
-<script src="{% static 'blog/js/scripts.js' %}"></script>
+{% endcompress %}
 
 {% endblock javascripts %}

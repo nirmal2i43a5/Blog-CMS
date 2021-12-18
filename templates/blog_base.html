@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="/static/assets/css/blog/styles.css" type="text/css">
   <link rel="stylesheet" href="/static/assets/css/blog/responsive.css" type="text/css">
   <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <link href="{% static 'blog/css/loader.css' %}" rel="stylesheet">
   {% endcompress css %}
   
  
@@ -43,6 +44,18 @@
 
 <body>
 
+  <div class="page-loader home-loader">
+    <div class="inner-loader">
+      <div class="spinner-border text-center" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-center" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="loader__figure" />
+    </div>
+  </div>
+</div>
   <!-- <link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">   -->
   <!-- <script src="{% static '/assets/js/common-js/scripts.js' %}"></script> -->
   <div class="main-content" id="panel">
@@ -96,7 +109,12 @@
     });
   </script>
   {% endcompress %}
-
+<script>
+      // hide loader after all data are loaded
+      $(document).ready(function(){
+        $('.page-loader').hide();
+      });
+</script>
 </body>
 
 </html>
