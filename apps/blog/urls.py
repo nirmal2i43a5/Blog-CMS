@@ -24,10 +24,10 @@ from apps.blog.views.blog.author_views import (
     AuthorsListView,
 )
 
-from apps.blog.views.blog.comment_views import (
-    CommentCreateView,
-    ArticleCommentList
-)
+# from apps.blog.views.blog.comment_views import (
+#     CommentCreateView,
+#     ArticleCommentList
+# )
 
 from apps.blog.views.dashboard.author.dashboard_views import (
     DashboardHomeView,
@@ -109,7 +109,7 @@ urlpatterns = [
 
     # category-articles/<str:slug>/
     path(
-        route='category/<str:slug>/articles',
+        route='<str:slug>/articles',
         view=CategoryArticlesListView.as_view(),
         name='category_articles'
     ),
@@ -140,19 +140,19 @@ urlpatterns = [
 
     # COMMENT URLS #
 
-    # /comment/new/
-    path(
-        route='comment/new/<str:slug>/',
-        view=CommentCreateView.as_view(),
-        name="comment_create"
-    ),
+    # # /comment/new/
+    # path(
+    #     route='comment/new/<str:slug>/',
+    #     view=CommentCreateView.as_view(),
+    #     name="comment_create"
+    # ),
 
-    # /<str:slug>/comments/
-    path(
-        route='<str:slug>/comments/',
-        view=ArticleCommentList.as_view(),
-        name="article_comments"
-    ),
+    # # /<str:slug>/comments/
+    # path(
+    #     route='<str:slug>/comments/',
+    #     view=ArticleCommentList.as_view(),
+    #     name="article_comments"
+    # ),
 
 
     # ACCOUNT URLS #

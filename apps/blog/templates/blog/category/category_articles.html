@@ -5,8 +5,12 @@ Categories
 {% endblock title %}
 
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'blog/css/pagination.css' %}" type="text/css">
+    
+{% endblock stylesheet %}
+    
 {% block content %}
-
 <!-- 
     <div class="slider display-table center-text" style="height: 400px; width: 100%;
     background-image: url({{ category.image.url }});
@@ -59,47 +63,61 @@ Categories
                     {% endfor %}
                 </div><!-- row -->
                 {% else %}
+                <br><br>
                 <center>
-                    <div class="alert alert-info"><b>No Articles</b></div>
+                    <div class="alert alert-warning"><b>No articles are found in  <strong>{{category.name}}</strong> category.</b></div>
                 </center>
                 {% endif %}
-                {# Pagination for article post #}
-                {% if is_paginated %}
-
-                {# Displays previous pages #}
-                {% if page_obj.has_previous %}
-                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous
-                </a>
+                <hr>
+                    {# Pagination for article post #}
+            <nav aria-label="Page navigation example">
+                {% if page_obj.has_other_pages %}
+                <ul class="pagination justify-content-center">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Prev</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link">Prev</span>
+                  </li>
+                  {% endif %}
+                  {% for i in page_obj.paginator.page_range %}
+                  {% if page_obj.number == i %}
+                  <li class="page-item active">
+                    <span class="page-link">
+                      {{ i }}
+                      <span class="sr-only">(current)</span>
+                    </span>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+  
+                  {% endfor %}
+                  {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                  </li>
+                  {% endif %}
+                </ul>
                 {% endif %}
-
-                {# Displays current page #}
-                {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
-                    class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                    {% endif %}
-                    {% endfor %}
-
-                    {# Displays next pages #}
-                    {% if page_obj.has_next %}
-                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next
-                    </a>
-                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last
-                    </a>
-                    {% endif %}
-
-                    {% endif %}
-
+              </nav>
+              
 
                     <!-- right sidebar -->
 
 
             </div>
-            <div class="col-lg-4 col-md-12 ">
+            <div class="col-lg-4 col-md-12 mt-2 ">
 
-                <div class="single-post info-area ">
+                <div class="single-post info-area mt-4 ">
 
                    
 
@@ -140,10 +158,12 @@ Categories
 		margin: 0 auto;
 		box-shadow: 0 10px 15px rgba(0,0,0,0.3);
 		transition: .5s;
+        margin-top: 2rem;
 	  }
 	  .card:hover {
 		transform:scale(1.1);
 	  }
+   
 </style>
 {% endblock content %}
 

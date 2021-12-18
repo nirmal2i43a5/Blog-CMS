@@ -45,7 +45,7 @@ def login_view(request):
             else:
                 messages.error(request,"Invalid Email address.")
 
-    return render(request, "authentication/login.html", {"form": form})
+    return render(request, "authentication/login.html", {"form": form,'title':'Login'})
 
 
 class UserRegisterView(View):
@@ -54,7 +54,8 @@ class UserRegisterView(View):
     """
     template_name = 'authentication/register.html'
     context_object = {
-                       "register_form": UserRegisterForm()
+                       "register_form": UserRegisterForm(),
+                       'title':'Register'
                       }
 
     def get(self, request):

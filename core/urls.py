@@ -5,12 +5,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+import debug_toolbar
 
 handler404 = 'apps.home.views.error_404'
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),         
+    path('admin/', admin.site.urls),      
+        path('__debug__/', include('debug_toolbar.urls')),   
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path("", include("apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("apps.home.urls",namespace = 'home')),           

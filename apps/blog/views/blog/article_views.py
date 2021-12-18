@@ -23,14 +23,20 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 
 class ArticleListView(ListView):
-    context_object_name = "articles"
     paginate_by = 12
-    queryset = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
+    context_object_name = "articles"
+    # queryset = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
     template_name = "blog/article/home.html"
 
+    def get_queryset(self):
+        return Article.objects.filter(status=Article.PUBLISHED, deleted=False)
+    # select_related('category','author','status','title','published_date','count_words','read_time','views','tags').\
+   
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        articles = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
+        articles = self.object_list#return get_queryset
+        
         page = self.request.GET.get('page', 1)
         paginator = Paginator(articles, 12)
         try:
@@ -39,8 +45,9 @@ class ArticleListView(ListView):
             articles = paginator.page(1)
         except EmptyPage:
             articles = paginator.page(paginator.num_pages)
+            
         all_tags = []
-        for article in Article.objects.filter(status=Article.PUBLISHED, deleted=False):
+        for article in articles:
             tags = article.tags.all()
             for tag in tags:
                 all_tags.append(tag.name)

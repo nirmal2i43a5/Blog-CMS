@@ -1,7 +1,6 @@
 # Core Django imports.
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
-from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import (
@@ -9,19 +8,12 @@ from django.views.generic import (
     ListView,
     UpdateView
 )
-from crispy_forms.layout import Submit
-from crispy_forms.helper import FormHelper
-
-
-# Blog application imports.
-
 from apps.blog.models.article_models import Article, Category
 from apps.blog.models.article_models import ListAsQuerySet
-from django.contrib.auth.decorators import permission_required
 
 class CategoryArticlesListView(ListView):
     model = Article
-    paginate_by = 12
+    paginate_by = 1
     context_object_name = 'articles'
     template_name = 'blog/category/category_articles.html'
 
@@ -29,21 +21,19 @@ class CategoryArticlesListView(ListView):
         category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
         return Article.objects.filter(category=category, status=Article.PUBLISHED, deleted=False)
 
+
     def get_context_data(self, **kwargs):
         context = super(CategoryArticlesListView, self).get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
         articles = category.articles.filter(category=category, status=Article.PUBLISHED, deleted=False)
+        
         all_tags = []#tags for articles of respective category
-        
-        
         for article in articles:
             tags = article.tags.all()
             for tag in tags:
                 all_tags.append(tag.name)
-                
-        tags_qs = ListAsQuerySet(all_tags, model=Article)
-        print(tags_qs)
         
+        tags_qs = ListAsQuerySet(all_tags, model=Article)        
         context['category'] = category
         context['tags'] = tags_qs
         return context
@@ -58,8 +48,7 @@ class CategoriesListView(ListView):
     def get_queryset(self):
         return Category.objects.order_by('-date_created')
 
-from django.utils.decorators import method_decorator
-# @method_decorator(permission_required('blog.add_category',raise_exception=True),name = 'dispatch')
+
 class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin,CreateView):
     model = Category
     fields = ["name", "image"]
@@ -81,10 +70,6 @@ class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequ
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create Category'
         return context
-    
-
-
-
     
 
 class CategoryUpdateCreateView(LoginRequiredMixin, SuccessMessageMixin,

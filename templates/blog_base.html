@@ -1,3 +1,5 @@
+
+
 {% load static %}
 {% load compress %}
 <!DOCTYPE html>
@@ -6,12 +8,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  
   <title>
-
+    
     {% block title %}
     {% endblock title %}
-
+      
   </title>
 
   <!-- Favicon - loaded as static -->
@@ -30,8 +32,8 @@
   <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <link href="{% static 'blog/css/loader.css' %}" rel="stylesheet">
   {% endcompress css %}
-
-
+  
+ 
   <!-- Page plugins -->
   <!-- <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css"> -->
 
@@ -40,7 +42,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #F7FAF6;">
 
   <div class="page-loader home-loader">
     <div class="inner-loader">
@@ -53,7 +55,7 @@
       <div class="loader__figure" />
     </div>
   </div>
-  </div>
+</div>
   <!-- <link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">   -->
   <!-- <script src="{% static '/assets/js/common-js/scripts.js' %}"></script> -->
   <div class="main-content" id="panel">
@@ -67,49 +69,52 @@
 
   <!-- {% include "includes/scripts.html" %} -->
 
-  <!-- Specific JS goes HERE -->
+  <!-- Specific JS goes HERE --> 
   {% block javascripts %}
 
   {% endblock javascripts %}
 
-  <style>
-    .back-to-top {
+<style>
+
+  
+  .back-to-top {
       position: fixed;
       bottom: 25px;
       right: 25px;
       display: none;
-    }
-  </style>
+  }
+  
+</style>
 
-  {% compress js %}
+{% compress js %}
   <script src="{% static '/assets/js/common-js/jquery-3.1.1.min.js' %}"></script>
   <script src="{% static '/assets/js/common-js/tether.min.js' %}"></script>
   <script src="{% static '/assets/js/bootstrap/bootstrap.min.js' %}"></script>
   <script>
-    $(document).ready(function () {
+    $(document).ready(function(){
       $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-          $('#back-to-top').fadeIn();
-        } else {
-          $('#back-to-top').fadeOut();
-        }
-      });
-      // scroll body to 0px on click
-      $('#back-to-top').click(function () {
-        $('body,html').animate({
-          scrollTop: 0
-        }, 400);
-        return false;
-      });
+          if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+          } else {
+            $('#back-to-top').fadeOut();
+          }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 400);
+          return false;
+        });
     });
   </script>
   {% endcompress %}
-  <script>
-    // hide loader after all data are loaded
-    $(document).ready(function () {
-      $('.page-loader').hide();
-    });
-  </script>
+<script>
+      // hide loader after all data are loaded
+      $(document).ready(function(){
+        $('.page-loader').hide();
+      });
+</script>
 </body>
 
 </html>
