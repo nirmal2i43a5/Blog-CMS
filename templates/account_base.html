@@ -1,5 +1,5 @@
 
-
+{% load static %}
 {% load compress %}
 <!DOCTYPE html>
 <html lang="en">
@@ -32,16 +32,25 @@
 
 <body class="bg-default">
 
+  <!-- <div class="page-loader home-loader">
+    <div class="inner-loader">
+      <div class="spinner-border text-center" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow text-center" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="loader__figure" />
+    </div>
+  </div> -->
   <div class="main-content">
 
     <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
       <div class="container">
-        <a class="navbar-brand text-white" href="{% url 'blog:home' %}">
-          <span>
-          Study Better Way
-    
-          </span>
-        </a>
+        <a href="{% url 'blog:home' %}">
+          <img src="{% static 'assets/img/logo.png' %}" height = "50px"  class="navbar-brand" alt="">
+  
+          </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -143,12 +152,23 @@
 
   </div>
     
-  {% include "includes/scripts.html" %}
+
+
+
+  <!-- <script src="/static/assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="/static/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="/static/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script> -->
+
+
 
   <!-- Specific JS goes HERE --> 
   {% block javascripts %}{% endblock javascripts %}
   
+  {% compress js %}
+  <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/static/assets/js/argon.js?v=1.2.0"></script>
+  {% endcompress %}
 
 </body>
 
