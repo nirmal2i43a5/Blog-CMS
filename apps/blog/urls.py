@@ -49,6 +49,7 @@ from apps.blog.views.dashboard.author.author_profile_views import (
 
 app_name = "blog"
 
+
 urlpatterns = [
     
   path('',ArticleListView.as_view(), name = "home"),

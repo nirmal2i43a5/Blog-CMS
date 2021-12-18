@@ -66,13 +66,54 @@ Home
 <div class="container mb-3">
   <div class="row">
     <div class="col-md-8">
+      <br>
+      {% if search_articles  %}
+      
+            {% for message in messages  %}
+           
+                <h3> {{message}}</h3>
+             
+              {% endfor %}
+
+
+        <br>
+        {% elif not search_articles and not articles  %}
+
+        {% for message in messages  %}
+           
+        <h3> {{message}}</h3>
+     
+        {% endfor %}
+      <br>
+        <div class="card bg-white">
+          <div class="card-body">
+
+            <h3> Sorry, No Search Results.</h3>
+            <hr>
+            <span>Search again with appropriate keywords.</span>
+            <form method="GET" class="mt-3" action="{% url 'blog:article_search_list_view' %}">
+              <div class="input-group search-box">
+                <input type="text" name="search" class="form-control" placeholder="Search here...">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      {% endif %}
       <div class="card shadow-sm bg-white">
         <!-- <div class="card-header">
           <h4 class="title">{{title}}</h4>
         </div> -->
+     
         <div class="card-body">
           <div class="content">
             <section class="blog-list px-3">
+              
+          
+                
+              {% include "blog/article/article_search_list.html" %}
               {% if articles %}
               <div class="container">
                 {% for article in articles %}
@@ -114,10 +155,8 @@ Home
                 </div>
                 {% endfor %}
               </div>
-              {% else %}
-              <center>
-                <div class="alert alert-info"><b>No Published Articles</b></div>
-              </center>
+            
+           
               {% endif %}
             </section>
 

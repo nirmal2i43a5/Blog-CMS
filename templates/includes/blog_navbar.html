@@ -150,8 +150,10 @@
     <nav class="navbar navbar-expand-lg fixed-top ">
       <div class="title">
 
+        <a href="{% url 'blog:home' %}">
         <img src="{% static 'assets/img/logo.png' %}" height = "50px"  class="navbar-brand" alt="">
-        <!-- <a href="{% url 'blog:home' %}" class="text-white navbar-brand"><b>Study Better Way</b></a> -->
+
+        </a>
 
       </div>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -180,7 +182,7 @@
            
                 <form method="GET" action="{% url 'blog:article_search_list_view' %}">
                   <div class="input-group search-box">
-                    <input type="text" name="query" class="form-control" placeholder="Search here...">
+                    <input type="text" name="search" class="form-control" placeholder="Search here...">
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </div>

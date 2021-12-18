@@ -74,7 +74,7 @@ class ArticleDetailView(DetailView):
 class ArticleSearchListView(ListView):
     model = Article
     paginate_by = 12
-    context_object_name = 'articles'
+    context_object_name = 'search_articles'
     template_name = "blog/article/home.html"
 
     def get_queryset(self):
@@ -90,21 +90,21 @@ class ArticleSearchListView(ListView):
         into separate words and chain them.
         """
 
-        query = self.request.GET.get('query')
+        query = self.request.GET.get('search')
         if query:
-            articles = Article.objects.filter(
+            search_articles = Article.objects.filter(
                 Q(title__icontains = query)
                 |Q(tags__name__icontains = query)
                 |Q(slug__icontains = query)
                 # |Q(body__icontains = query)
             )
 
-            if not articles:
-                messages.info(self.request, f"No results for '{query}'")
-                return articles.filter(status=Article.PUBLISHED, deleted=False)
+            if not search_articles:
+                messages.info(self.request, f"Search Results for : {query}")
+                return search_articles.filter(status=Article.PUBLISHED, deleted=False)
             else:
-                messages.success(self.request, f"Results for '{query}'")
-                return articles.filter(status=Article.PUBLISHED, deleted=False)
+                messages.success(self.request, f"Search Results for : {query}")
+                return search_articles.filter(status=Article.PUBLISHED, deleted=False)
         else:
             messages.error(self.request, f"Sorry you did not enter any keyword")
             return []
@@ -122,6 +122,7 @@ class ArticleSearchListView(ListView):
             for tag in tags:
                 all_tags.append(tag.name)
                 
+        # if not search_articles:
             
         tags_qs = ListAsQuerySet(all_tags, model=Article)
         context['categories'] = Category.objects.filter(approved=True)
