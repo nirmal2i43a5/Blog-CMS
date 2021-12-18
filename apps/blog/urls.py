@@ -53,7 +53,13 @@ app_name = "blog"
 urlpatterns = [
     
   path('',ArticleListView.as_view(), name = "home"),
-  
+      # /search/?q=query/
+    path(
+        'search/',
+        ArticleSearchListView.as_view(),
+        name='article_search_list_view'
+
+     ),
 
     # ARTICLE URLS #
 
@@ -72,13 +78,7 @@ urlpatterns = [
 
     ),
 
-    # /search/?q=query/
-    path(
-        route='article/search/',
-        view=ArticleSearchListView.as_view(),
-        name='article_search_list_view'
 
-     ),
 
     # /tag/<str:tag_name>/
     path(

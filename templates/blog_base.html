@@ -1,13 +1,13 @@
 
 
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-argon">
   
   <title>
     
@@ -17,23 +17,24 @@
   </title>
 
   <!-- Favicon - loaded as static -->
-  <link rel="icon" href="/static/assets/img/brand/favicon.png" type="image/png">
+  <link rel="icon" href="{% static 'assets/img/logo.png' %}" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
   <link href="{% static '/assets/css/common-css/ionicons.css' %}" rel="stylesheet">
 
-  <!-- <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css"> -->
-  
+
+  {% compress css %}
   <link href="{% static '/assets/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static '/assets/css/common-css/swiper.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="/static/assets/css/blog/styles.css" type="text/css">
-
   <link rel="stylesheet" href="/static/assets/css/blog/responsive.css" type="text/css">
   <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  {% endcompress css %}
+  
+ 
   <!-- Page plugins -->
-  <!-- Argon CSS -->
-  <!-- <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css"> -->
+  <!-- <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css"> -->
 
   <!-- Specific CSS goes HERE -->
   {% block stylesheet %}{% endblock stylesheet %}
@@ -42,12 +43,8 @@
 
 <body>
 
-  <script src="{% static '/assets/js/common-js/jquery-3.1.1.min.js' %}"></script>
-  <script src="{% static '/assets/js/common-js/tether.min.js' %}"></script>
-
-  <script src="{% static '/assets/js/bootstrap/bootstrap.min.js' %}"></script>
-  <link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">  
-  <script src="{% static '/assets/js/common-js/scripts.js' %}"></script>
+  <!-- <link rel="stylesheet" href="/static/assets/js/common-js/swiper.js" type="text/css">   -->
+  <!-- <script src="{% static '/assets/js/common-js/scripts.js' %}"></script> -->
   <div class="main-content" id="panel">
     {% include "includes/blog_navbar.html" %}
 
@@ -75,24 +72,31 @@
   }
   
 </style>
-<script>
-  $(document).ready(function(){
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-          $('#back-to-top').fadeIn();
-        } else {
-          $('#back-to-top').fadeOut();
-        }
-      });
-      // scroll body to 0px on click
-      $('#back-to-top').click(function () {
-        $('body,html').animate({
-          scrollTop: 0
-        }, 400);
-        return false;
-      });
-  });
-</script>
+
+{% compress js %}
+  <script src="{% static '/assets/js/common-js/jquery-3.1.1.min.js' %}"></script>
+  <script src="{% static '/assets/js/common-js/tether.min.js' %}"></script>
+  <script src="{% static '/assets/js/bootstrap/bootstrap.min.js' %}"></script>
+  <script>
+    $(document).ready(function(){
+      $(window).scroll(function () {
+          if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+          } else {
+            $('#back-to-top').fadeOut();
+          }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 400);
+          return false;
+        });
+    });
+  </script>
+  {% endcompress %}
+
 </body>
 
 </html>

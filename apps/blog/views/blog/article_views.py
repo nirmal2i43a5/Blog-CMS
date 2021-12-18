@@ -76,7 +76,8 @@ class ArticleSearchListView(ListView):
     paginate_by = 12
     context_object_name = 'search_articles'
     template_name = "blog/article/home.html"
-
+    
+    
     def get_queryset(self):
         """
         Search for a user input in the search bar.
@@ -90,7 +91,8 @@ class ArticleSearchListView(ListView):
         into separate words and chain them.
         """
 
-        query = self.request.GET.get('search')
+        query = self.request.GET.get('q')
+        print(query,"--------------")
         if query:
             search_articles = Article.objects.filter(
                 Q(title__icontains = query)
@@ -120,10 +122,7 @@ class ArticleSearchListView(ListView):
         for article in search_articles:
             tags = article.tags.all()
             for tag in tags:
-                all_tags.append(tag.name)
-                
-        # if not search_articles:
-            
+                all_tags.append(tag.name)            
         tags_qs = ListAsQuerySet(all_tags, model=Article)
         context['categories'] = Category.objects.filter(approved=True)
         context['tags'] = set(tags_qs)

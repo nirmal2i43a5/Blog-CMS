@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'apps.blog.apps.BlogConfig',
     'apps.authentication.apps.AuthenticationConfig',
     'django_extensions',
+    'compressor',
      'django_filters',
             'rest_framework',
             'taggit',
@@ -127,7 +128,21 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'apps/static'),
 )
 
+# --
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "compressor.finders.CompressorFinder",
+)
 
+COMPRESS_ENABLED = True
+COMPRESS_CSS_HASHING_METHOD = 'content'
+COMPRESS_CSS_FILTERS = [
+    "compressor.filters.css_default.CssAbsoluteFilter",
+    "compressor.filters.cssmin.CSSMinFilter",
+]
+
+# --
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

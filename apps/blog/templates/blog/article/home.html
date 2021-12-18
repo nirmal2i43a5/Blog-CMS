@@ -67,41 +67,7 @@ Home
   <div class="row">
     <div class="col-md-8">
       <br>
-      {% if search_articles  %}
-      
-            {% for message in messages  %}
-           
-                <h3> {{message}}</h3>
-             
-              {% endfor %}
-
-
-        <br>
-        {% elif not search_articles and not articles  %}
-
-        {% for message in messages  %}
-           
-        <h3> {{message}}</h3>
-     
-        {% endfor %}
-      <br>
-        <div class="card bg-white">
-          <div class="card-body">
-
-            <h3> Sorry, No Search Results.</h3>
-            <hr>
-            <span>Search again with appropriate keywords.</span>
-            <form method="GET" class="mt-3" action="{% url 'blog:article_search_list_view' %}">
-              <div class="input-group search-box">
-                <input type="text" name="search" class="form-control" placeholder="Search here...">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                </div>
-              </div>
-            </form>
-        </div>
-      </div>
-      {% endif %}
+      {% include "blog/article/search_message.html" %}
       <div class="card shadow-sm bg-white">
         <!-- <div class="card-header">
           <h4 class="title">{{title}}</h4>
@@ -234,7 +200,6 @@ Home
   <a id="back-to-top" href="#" class="btn  btn-lg text-white back-to-top" style="background-color: #5E72E4;" role="button"><i class="fas fa-chevron-up"></i></a>
 </div>
 <!-- footer-->
-<!-- {% include "includes/blog_footer.html" %} -->
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
@@ -362,27 +327,6 @@ Home
 
 
 
-<script>
-
-
-  $(document).ready(function () {
-
-
-    $("#myInput").on("keyup", function () {
-      var value = $(this).val().toLowerCase();
-      let isFound = false;
-      $("#filter_div *").filter(function () {
-        if ($(this).find('.card-body .content .blog-list .container .item').text().toLowerCase().includes(value)) {
-          isFound = true;
-        }
-        $(this).closest('.card').toggle(isFound);
-      });
-    });
-
-
-  });
-
-</script>
 
 <script src="{% static 'blog/js/scripts.js' %}"></script>
 

@@ -1,0 +1,35 @@
+{% if search_articles %}
+
+{% for message in messages %}
+
+<h3> {{message}}</h3>
+
+{% endfor %}
+
+
+<br>
+{% elif not search_articles and not articles %}
+
+{% for message in messages %}
+
+<h3> {{message}}</h3>
+
+{% endfor %}
+<br>
+<div class="card bg-white">
+  <div class="card-body">
+
+    <h3> Sorry, No Search Results.</h3>
+    <hr>
+    <span>Search again with appropriate keywords.</span>
+    <form method="GET" class="mt-3" action="{% url 'blog:article_search_list_view' %}">
+      <div class="input-group search-box">
+        <input type="text" name="q" class="form-control" placeholder="Search here...">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}
