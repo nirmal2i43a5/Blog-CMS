@@ -12,7 +12,7 @@ from .views import (login_view,
                 SubscriptionView,
                 SubscriptionActivateView
                 )
-from allauth.account.views import LoginView, SignupView 
+# from allauth.account.views import LoginView, SignupView 
 
 app_name = 'authentication'
 urlpatterns = [

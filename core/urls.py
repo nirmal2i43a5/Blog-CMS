@@ -17,7 +17,6 @@ from apps.authentication.views import (
                 
                 )
 handler404 = 'apps.home.views.error_404'
-from allauth.account.views import LoginView, SignupView 
 urlpatterns = [
 
     path('admin/', admin.site.urls),  
