@@ -7,20 +7,50 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 import debug_toolbar
 
+from apps.authentication.views import ( 
+                    UserLogoutView,
+                login_view,
+                UserRegisterView,
+                AccountActivationSentView,
+                ActivateView
+                
+                
+                )
 handler404 = 'apps.home.views.error_404'
-
+from allauth.account.views import LoginView, SignupView 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),      
-        path('__debug__/', include('debug_toolbar.urls')),   
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('admin/', admin.site.urls),  
+    path('login/', login_view, name="login"),
+    path('register/', UserRegisterView.as_view(), name="register"),    
+    path("logout/", UserLogoutView.as_view(), name="logout"),
+    
+      path(route='account_activation_sent/',
+         view=AccountActivationSentView.as_view(),
+         name='account_activation_sent'
+         ),
+
+    path(route='activate/<uidb64>/<token>/',
+         view=ActivateView.as_view(),
+         name='activate'
+         ), 
+    
     path("", include("apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("apps.home.urls",namespace = 'home')),           
-    path("", include("apps.blog.urls",namespace='blog')) ,      
+    path("", include("apps.blog.urls",namespace='blog')) , 
+    
+    
+  
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),   
+    path('', include('allauth.urls')), # new
+    
     path('password/reset/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), name = "password_reset"),
 	path('password/reset/done/',auth_views.PasswordResetDoneView.as_view(template_name = 'passwordreset/password_reset_sent.html'), name = "password_reset_done"),
 	path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='passwordreset/password_reset_form.html'),name="password_reset_confirm"),  
 	path('reset/complete/',auth_views.PasswordResetCompleteView.as_view(template_name='passwordreset/password_reset_complete.html'),name="password_reset_complete"),
+       
+   
 ]
 
 if settings.DEBUG:

@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'apps.home' , # Enable the inner home (home),
     'apps.blog.apps.BlogConfig',
     'apps.authentication.apps.AuthenticationConfig',
@@ -39,6 +40,11 @@ INSTALLED_APPS = [
             'ckeditor',
             'ckeditor_uploader',
             'crispy_forms',
+            'allauth',
+            'allauth.account',
+            'allauth.socialaccount',
+            'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.github', 
 ]
 
 MIDDLEWARE = [
@@ -54,8 +60,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
-LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
-LOGOUT_REDIRECT_URL = "home"  # Route defined in home/urls.py
+
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")  # ROOT dir for templates
 
 TEMPLATES = [
@@ -69,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # new
             ],
         },
     },
@@ -176,6 +182,22 @@ CKEDITOR_CONFIGS = {
              ]),
              },
     }
+
+# For allauth
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = "/"  # Route defined in home/urls.py
+# LOGOUT_REDIRECT_URL = "/"  # Route defined in home/urls.py
 
 INTERNAL_IPS = [ "127.0.0.1"]
    

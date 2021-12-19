@@ -58,14 +58,14 @@
           
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'authentication:logout' %}">
+            <a class="nav-link" href="{% url 'logout' %}">
               <i class="ni ni-user-run text-red"></i>
               <span class="nav-link-text">Logout</span>
             </a>
           </li>   
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'authentication:login' %}">
+            <a class="nav-link" href="{% url 'login' %}">
               <i class="ni ni-key-25 text-info"></i>
 
               

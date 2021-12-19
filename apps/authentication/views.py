@@ -18,7 +18,6 @@ from django.conf import settings
 
 
 def login_view(request):
-    
     form = LoginForm(request.POST or None)
     if request.method == "POST":
 
@@ -54,7 +53,7 @@ class UserRegisterView(View):
     """
     template_name = 'authentication/register.html'
     context_object = {
-                       "register_form": UserRegisterForm(),
+                       "form": UserRegisterForm(),
                        'title':'Register'
                       }
 
@@ -63,10 +62,10 @@ class UserRegisterView(View):
 
     def post(self, request, *args, **kwargs):
 
-        register_form = UserRegisterForm(request.POST)
-        if register_form.is_valid():
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
             
-            user = register_form.save(commit=False)
+            user = form.save(commit=False)
             user.is_active = False#User cannot login without email subscription
             user.save()
 
@@ -81,7 +80,7 @@ class UserRegisterView(View):
             })
             user.email_user(subject, message)
 
-            return redirect('authentication:account_activation_sent')
+            return redirect('account_activation_sent')
 
         else:
             messages.error(request, "Please provide valid information.")
@@ -98,9 +97,10 @@ class AccountActivationSentView(View):
         return render(request, 'authentication/account_activation_sent.html',context)
 
 
-class ActivateView(View):
+class   ActivateView(View):
 
     def get(self, request, uidb64, token):
+        print("success","---------------------------")
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
@@ -116,10 +116,9 @@ class ActivateView(View):
                                       f"Your account was created and activated "
                                       f"successfully"
                              )
-            return redirect('authentication:login')
+            return redirect('login')
         else:
             return render(request, 'authentication/account_activation_invalid.html')
-
 
 
 
@@ -132,11 +131,12 @@ class UserLogoutView(View):
     def get(self, request):
         logout(request)
         messages.success(request, "You have successfully logged out.")
-        return redirect('authentication:login')
+        return redirect('login')
 
 
 
 class SubscriptionView(View):
+    
     def post(self, request, *args, **kwargs):
         user_email = request.POST['email']
         user = Subscription.objects.create(email = user_email)
@@ -171,7 +171,7 @@ class SubscriptionView(View):
         # })
         # subscription.email_user(subject, message)
 
-        # return redirect('authentication:account_activation_sent')
+        # return redirect('account_activation_sent')
 
         # else:
         #     messages.error(request, "Please provide valid information.")

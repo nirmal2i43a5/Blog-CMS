@@ -31,15 +31,13 @@
           <div class="card-body px-lg-5 py-lg-5">
             <div class="text-center text-muted mb-4">
               <small>Or</small>
-
-              {% include "includes/messages.html" %}
             </div>
             <form role="form" method="POST">
              
             {% csrf_token %}
             {{form|crispy}}
 
-              <!-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div> -->
+              <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
               <div class="row my-4">
                 <div class="col-12">
                   <div class="custom-control custom-control-alternative custom-checkbox">

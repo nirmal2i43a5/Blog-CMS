@@ -12,23 +12,28 @@ from .views import (login_view,
                 SubscriptionView,
                 SubscriptionActivateView
                 )
+from allauth.account.views import LoginView, SignupView 
 
 app_name = 'authentication'
 urlpatterns = [
-    path('login/', login_view, name="login"),
-    path('register/', UserRegisterView.as_view(), name="register"),
-    path("logout/", UserLogoutView.as_view(), name="logout"),
-       path(route='account_activation_sent/',
-         view=AccountActivationSentView.as_view(),
-         name='account_activation_sent'
-         ),
+    # path('login/', login_view, name="login"),
+    # path('register/', UserRegisterView.as_view(), name="register"),
+    #  path('login/', LoginView.as_view(), name="login"),
+      # path('register/', SignupView.as_view(), name="register"),
+    #  path("logout/", LogoutView.as_view(), name="logout"),
+    
+    # path(route='account_activation_sent/',
+    #      view=AccountActivationSentView.as_view(),
+    #      name='account_activation_sent'
+    #      ),
 
-    path(route='activate/<uidb64>/<token>/',
-         view=ActivateView.as_view(),
-         name='activate'
-         ),
-     path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
-      path(route='subscription_activate/<uidb64>/<token>/',
+    # path(route='activate/<uidb64>/<token>/',
+    #      view=ActivateView.as_view(),
+    #      name='activate'
+    #      ), 
+    
+    path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
+    path(route='subscription_activate/<uidb64>/<token>/',
          view=SubscriptionActivateView.as_view(),
          name='subscription_activate'
          ),
