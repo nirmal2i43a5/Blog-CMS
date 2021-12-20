@@ -13,15 +13,15 @@ from apps.authentication.views import (
                 UserRegisterView,
                 AccountActivationSentView,
                 ActivateView
-                
-                
                 )
+from allauth.account.views import LoginView, SignupView ,EmailVerificationSentView
 handler404 = 'apps.home.views.error_404'
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),  
     path('login/', login_view, name="login"),
-    path('register/', UserRegisterView.as_view(), name="register"),    
+    path('register/', SignupView.as_view(), name="register"),    
     path("logout/", UserLogoutView.as_view(), name="logout"),
     
       path(route='account_activation_sent/',
@@ -33,6 +33,12 @@ urlpatterns = [
          view=ActivateView.as_view(),
          name='activate'
          ), 
+    
+       path(
+        "confirm-email/",
+       EmailVerificationSentView.as_view(),
+        name="account_email_verification_sent",
+    ),#for default verification link
     
     path("", include("apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("apps.home.urls",namespace = 'home')),           
