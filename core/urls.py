@@ -14,7 +14,7 @@ from apps.authentication.views import (
                 AccountActivationSentView,
                 ActivateView
                 )
-from allauth.account.views import LoginView, SignupView ,EmailVerificationSentView
+from allauth.account.views import LoginView, SignupView ,EmailVerificationSentView,EmailView
 handler404 = 'apps.home.views.error_404'
 
 urlpatterns = [
@@ -24,19 +24,21 @@ urlpatterns = [
     path('register/', SignupView.as_view(), name="register"),    
     path("logout/", UserLogoutView.as_view(), name="logout"),
     
-      path(route='account_activation_sent/',
-         view=AccountActivationSentView.as_view(),
-         name='account_activation_sent'
-         ),
+    #   path(route='account_activation_sent/',
+    #      view=AccountActivationSentView.as_view(),
+    #      name='account_activation_sent'
+    #      ),
 
     path(route='activate/<uidb64>/<token>/',
          view=ActivateView.as_view(),
          name='activate'
          ), 
     
+      path("email/", EmailView.as_view(), name="account_email"),#for resending verification link 
+    # account_activation_sent
        path(
         "confirm-email/",
-       EmailVerificationSentView.as_view(),
+       AccountActivationSentView.as_view(),
         name="account_email_verification_sent",
     ),#for default verification link
     

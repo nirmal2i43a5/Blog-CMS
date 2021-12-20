@@ -16,9 +16,16 @@
                         <div class="font-weight-bold text-dark text-center">
 
                             Please confirm your email address.
-                            <br ><br>
+                            <br><br>
                             We have sent you an email to confirm your email address.
                             Please check your inbox and spam folder.
+
+                            <!-- <form action="{% url 'account_email' %}" method="POST">
+                                {% csrf_token %}
+                            <button  class="btn btn-primary" type="submit" name="action_send" >Resend verification</button>
+                       
+
+                            </form> -->
                         </div>
                     <hr />
                     <div class="text-center font-weight-bold">

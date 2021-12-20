@@ -94,7 +94,8 @@ class AccountActivationSentView(View):
         context = {
             'title':'Account Activation Sent'
         }
-        return render(request, 'authentication/account_activation_sent.html',context)
+        return render(request, 'account/verification_sent.html',context)
+        # return render(request, 'authentication/account_activation_sent.html',context)
 
 
 class   ActivateView(View):
