@@ -10,7 +10,11 @@
   <!-- <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-argon"> -->
   
   <title>
-   {{title}}
+  
+  {% block title %}
+    
+  {% endblock title %}
+    
   </title>
 
   <link rel="icon" href="{% static 'assets/img/logo.png' %}" type="image/png">
@@ -148,7 +152,7 @@
     
     {% block content %}{% endblock content %}
 
-    {% include "includes/footer-fullscreen.html" %}
+    <!-- {% include "includes/footer-fullscreen.html" %} -->
 
   </div>
     
