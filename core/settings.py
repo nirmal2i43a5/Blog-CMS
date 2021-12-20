@@ -10,7 +10,9 @@ BASE_DIR = Path(__file__).parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
+# SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
+
+SECRET_KEY = 'django-insecure-rt5$r-h+(yjtj3((obofnie-h*kp90sf66pc$%7t3t-ejm93ck'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
