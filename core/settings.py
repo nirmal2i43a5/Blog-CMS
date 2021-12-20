@@ -189,7 +189,7 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-SITE_ID = 1
+SITE_ID = 1#no of sites u will see in sites app from django admin panal [if you have only one site then use 1]
 # ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
 ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_USERNAME_REQUIRED = False
@@ -203,6 +203,21 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 # ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day in seconds
+
+# for google auth add below scripts
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        
+    }
+    
+}
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = "/"  # Route defined in home/urls.py

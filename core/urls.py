@@ -20,7 +20,9 @@ handler404 = 'apps.home.views.error_404'
 urlpatterns = [
 
     path('admin/', admin.site.urls),  
-    path('login/', login_view, name="login"),
+    # path('login/', login_view, name="login"),
+      path('login/', LoginView.as_view(), name="login"),
+    
     path('register/', SignupView.as_view(), name="register"),    
     path("logout/", UserLogoutView.as_view(), name="logout"),
     

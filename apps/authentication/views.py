@@ -19,7 +19,7 @@ from django.conf import settings
 
 def login_view(request):
     form = LoginForm(request.POST or None)
-    if request.method == "POST":
+    if request.method == "POST" and 'login_submit' in request.POST:
 
         if form.is_valid():
             email = form.cleaned_data.get("email")
@@ -28,6 +28,7 @@ def login_view(request):
             user = User.objects.filter(email = email)
             if user.exists():
                 
+                # user = User.objects.filter(email = email).first()
                 user = get_object_or_404(User, email = email)
                 user = authenticate(username=user.username, password=password)
                 if request.user.is_authenticated:
