@@ -1,6 +1,6 @@
 
 <!-- This page contains password reset form -->
-{% extends 'account_base.html' %}
+{% extends 'blog_base.html' %}
 {% load crispy_forms_tags %}
 {% block stylesheets %}{% endblock stylesheets %}
 
@@ -11,13 +11,14 @@
     <!-- Page content -->
     <div class="container">
   {% include "includes/messages.html" %}
+  <br><br><br>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-4">
             <div class="col-lg-8">
-              <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card shadow-lg border-0 rounded-lg">
   
-                <div class="card-header bg-secondary">
-                  <h2 class="text-center font-weight-light my-4" >
+                <div class="card-header" style="background-color: #5E72E4;">
+                  <h2 class="text-center text-white font-weight-light my-2" >
                     <strong>
                     Get In Touch 
                       
@@ -45,7 +46,7 @@
                           <strong>   <label for="msg">Message</label></strong>
                         <textarea required id="msg" class="form-control form-control-lg" name="message"></textarea><br>
         
-                        <input id="submit-btn" class="btn btn-lg  btn-primary mt-2" type="submit" value="SEND MESSAGE">
+                        <input id="submit-btn" class="btn   btn-primary mt-2" type="submit" value="SEND MESSAGE">
                     </form>
                  
   

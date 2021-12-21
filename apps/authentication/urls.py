@@ -33,7 +33,7 @@ urlpatterns = [
     #      view=ActivateView.as_view(),
     #      name='activate'
     #      ), 
-      path('email_sent/', SendEmail.as_view(), name="email_sent"),
+      path('send_message/', SendEmail.as_view(), name="email_sent"),
     path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
     path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
     path(route='subscription_activate/<uidb64>/<token>/',

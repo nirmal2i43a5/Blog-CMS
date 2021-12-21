@@ -47,6 +47,7 @@ urlpatterns = [
     path("", include("apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("apps.home.urls",namespace = 'home')),           
     path("", include("apps.blog.urls",namespace='blog')) , 
+     path("projects/", include("apps.projects.urls",namespace='myprojects')) , 
     
     
   
