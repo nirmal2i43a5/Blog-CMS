@@ -163,19 +163,21 @@
       <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav ml-4 mt-1">
           <a href="#" class="nav-item nav-link active position-relative "><i class = "fas fa-sm fa-home"></i> Home</a>
+          <a href="#" class="nav-item nav-link">Articles</a>
+          <a href="#" class="nav-item nav-link">Projects</a>
           <a href="#" class="nav-item nav-link">About</a>
-          <div class="nav-item dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
+
+
+          <!-- <div class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Projects</a>
             <div id="sub-menu" class="dropdown-menu">
               <a href="#" class="dropdown-item">Web Design</a>
               <a href="#" class="dropdown-item">Web Development</a>
               <a href="#" class="dropdown-item">Graphic Design</a>
               <a href="#" class="dropdown-item">Digital Marketing</a>
             </div>
-          </div>
-          <a href="#" class="nav-item nav-link">Pricing</a>
-          <a href="#" class="nav-item nav-link">Blog</a>
-          <a href="#" class="nav-item nav-link">Contact</a>
+          </div> -->
+          <a href="{% url 'authentication:email_sent' %}" class="nav-item nav-link">Contact</a>
         </div>
         <div class="navbar-nav ml-auto">
           <div class="nav-item dropdown search-dropdown">

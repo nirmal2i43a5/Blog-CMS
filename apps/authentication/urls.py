@@ -4,13 +4,15 @@
 """
 
 from django.urls import path
-from .views import (login_view, 
-                    UserRegisterView,
-                    UserLogoutView,
-                      ActivateView,
-                AccountActivationSentView,
+from .views import (
+  # login_view, 
+  #                   UserRegisterView,
+  #                   UserLogoutView,
+  #                     ActivateView,
+  #               AccountActivationSentView,
                 SubscriptionView,
-                SubscriptionActivateView
+                SubscriptionActivateView,
+                SendEmail
                 )
 # from allauth.account.views import LoginView, SignupView 
 
@@ -31,7 +33,8 @@ urlpatterns = [
     #      view=ActivateView.as_view(),
     #      name='activate'
     #      ), 
-    
+      path('email_sent/', SendEmail.as_view(), name="email_sent"),
+    path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
     path('user_subscription/', SubscriptionView.as_view(), name="user_subscription"),
     path(route='subscription_activate/<uidb64>/<token>/',
          view=SubscriptionActivateView.as_view(),

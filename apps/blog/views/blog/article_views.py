@@ -99,7 +99,6 @@ class ArticleSearchListView(ListView):
         """
 
         query = self.request.GET.get('q')
-        print(query,"--------------")
         if query:
             search_articles = Article.objects.filter(
                 Q(title__icontains = query)
