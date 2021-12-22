@@ -157,12 +157,15 @@
 
       </div>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon" style="color:black;"></span>
+        <span style="color:white;">
+        <i class="fas fa-2x fa-bars"></i>
+
+        </span>
       </button>
       <!-- Collection of nav links, forms, and other content for toggling -->
       <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav ml-4 mt-1">
-          <a href="#" class="nav-item nav-link active position-relative "><i class = "fas fa-sm fa-home"></i> Home</a>
+          <a href="{% url 'blog:home' %}" class="nav-item nav-link active position-relative "><i class = "fas fa-sm fa-home"></i> Home</a>
           <a href="#" class="nav-item nav-link">Articles</a>
           <a href="{% url 'myprojects:projects' %}" class="nav-item nav-link">Projects</a>
           <a href="#" class="nav-item nav-link">About</a>

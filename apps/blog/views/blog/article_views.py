@@ -30,7 +30,7 @@ class ArticleListView(ListView):
 
     def get_queryset(self):
         return Article.objects.filter(status=Article.PUBLISHED, deleted=False)
-    # select_related('category','author','status','title','published_date','count_words','read_time','views','tags').\
+    # only('category','author','status','title','date_published','count_words','read_time','views','tags')
    
     
     def get_context_data(self, **kwargs):

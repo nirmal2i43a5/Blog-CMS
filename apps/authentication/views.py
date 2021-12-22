@@ -21,17 +21,15 @@ from django.template.loader import render_to_string
 
 
 def login_view(request):
-    form = LoginForm(request.POST or None)
-    if request.method == "POST" and 'login_submit' in request.POST:
-
+    
+    if request.method == "POST":
+        form = LoginForm(request.POST or None)
         if form.is_valid():
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
-
             user = User.objects.filter(email=email)
             if user.exists():
-
-                # user = User.objects.filter(email = email).first()
+                # use = User.objects.filter(email = email).first()
                 user = get_object_or_404(User, email=email)
                 user = authenticate(username=user.username, password=password)
                 if request.user.is_authenticated:
