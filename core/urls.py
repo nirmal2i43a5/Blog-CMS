@@ -48,19 +48,14 @@ urlpatterns = [
     path("dashboard/", include("apps.home.urls",namespace = 'home')),           
     path("", include("apps.blog.urls",namespace='blog')) , 
      path("", include("apps.projects.urls",namespace='myprojects')) , 
-    
-    
-  
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('__debug__/', include('debug_toolbar.urls')),   
     path('', include('allauth.urls')), # new
-    
     path('password/reset/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), name = "password_reset"),
-	path('password/reset/done/',auth_views.PasswordResetDoneView.as_view(template_name = 'passwordreset/password_reset_sent.html'), name = "password_reset_done"),
-	path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='passwordreset/password_reset_form.html'),name="password_reset_confirm"),  
-	path('reset/complete/',auth_views.PasswordResetCompleteView.as_view(template_name='passwordreset/password_reset_complete.html'),name="password_reset_complete"),
-       
-   
+    path('password/reset/done/',auth_views.PasswordResetDoneView.as_view(template_name = 'passwordreset/password_reset_sent.html'), name = "password_reset_done"),
+    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='passwordreset/password_reset_form.html'),name="password_reset_confirm"),  
+    path('reset/complete/',auth_views.PasswordResetCompleteView.as_view(template_name='passwordreset/password_reset_complete.html'),name="password_reset_complete"),
+        
+    
 ]
 
 if settings.DEBUG:
@@ -68,3 +63,5 @@ if settings.DEBUG:
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+    
+    urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')) )

@@ -40,7 +40,7 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='articles')
     title = models.CharField(max_length=250, null=False, blank=False)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name='articles')
     image = models.ImageField(default='article-default.jpg',

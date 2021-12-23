@@ -70,28 +70,30 @@ Home
 
 <div class="container mb-3">
   <div class="row">
+  
     <div class="col-md-8">
       <br>
       {% include "blog/article/search_message.html" %}
-      <div class="card shadow-sm bg-white">
+      <div class="card shadow-sm">
         <!-- <div class="card-header">
           <h4 class="title">{{title}}</h4>
         </div> -->
      
         <div class="card-body">
+                 
+
           <div class="content">
             <section class="blog-list px-3">
               
-          
-                
               {% include "blog/article/article_search_list.html" %}
               {% if articles %}
               <div class="container">
                 {% for article in articles %}
-                <div class="item mb-5">
+                <div class="item mb-3 px-3 py-2 bg-white" style="border-radius:15px;">
                   <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ article.image.url }}" alt="image">
                     <div class="media-body">
+                      <img class=" d-md-flex mb-3" src="{{ article.image.url }}"   style="border-radius:15px;" width="330" height="250" alt="image">
+
                       <h3 class="title mb-1"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
                       <div class="meta mb-1"><span class="date"><b>Published:</b> <i>{{ article.date_published|date:'M d, Y'}}</i></span>
                         <span class="time">{{ article.count_words }} word{{ article.count_words|pluralize }}</span>
@@ -110,7 +112,6 @@ Home
                       </ul>
                       <a class="more-link " href="{{ article.get_absolute_url }}"><i class="fas fa-1x fa-eye"></i> View
                         article </a>
-                      <hr class="solid"><!-- Solid divider -->
                     </div>
                     <!--//media-body-->
                   </div>
@@ -177,12 +178,16 @@ Home
       <div class="single-post info-area bg-white">
 
         {% include "includes/sidebar_email_subscription.html" %}
+
+        
         <!-- <div class="about-area">
               <h4 class="title"><b>ABOUT ME</b></h4>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                   ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
                   Ut enim ad minim veniam</p>
           </div> -->
+
+
         <div class="tag-area">
 
           <h4 class="title mb-2"><b>ARTICLES TAGS</b></h4>

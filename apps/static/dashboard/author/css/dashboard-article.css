@@ -122,12 +122,12 @@
     border-top: 4px solid #999;
 }
 
-#article-detail-image {
+/* #article-detail-image {
     max-width: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
     height: 500px !important;
-}
+} */
 
 .dash-article {
     padding-right: 50px!important;

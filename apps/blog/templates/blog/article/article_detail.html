@@ -132,54 +132,7 @@
 	</section><!-- post-area -->
 
 
-	<section class="recomended-area section">
-		<div class="container">
-			<hr>
-        <h4><b>RELATED ARTICLES</b></h4>
-		<hr>
-             {% if related_articles %}
-			<div class="row">
-            {% for related_article in related_articles %}
-				<div class="col-lg-4 col-md-6">
-					<div class="card">
-						<img src="{{ related_article.image.url }}"
-						width="330" height="220"
-						alt="Blog Image">
-						<div class="card-body bg-white">
-						  <p class="card-title text-sm">
-							{{related_article.date_published}}
-						  </p>
-						  <h5 class="card-text">
-							<a href="{{ related_article.get_absolute_url }}">
-								<b>{{ related_article.title }}</b></a>
-							</h5>
-							<hr>
-							<div class="d-flex justify-content-between">
-								<div>
-									<i class="ion-ios-clock"></i> {{ article.read_time }} min read
 
-								</div>
-								<div>
-								<i class="ion-chatbubble"></i> {{ article.comments.count }} comments
-
-								</div>
-								<div>
-								<i class="ion-eye"></i> {{ article.views }} views
-
-								</div>
-								</div>
-						</div>
-					</div>
-				
-				</div><!-- col-md-6 col-sm-12 -->
-             {% endfor %}
-			 
-			</div><!-- row -->
-             {% else %}
-                <div class="alert alert-warning"><b>No Related Articles</b></div>
-            {% endif %}
-		</div><!-- container -->
-	</section>
 
 	
 	<section class="comment-section center-text ">
