@@ -46,7 +46,9 @@
       transform: translateX(-50%);
     }
   }
-
+.swiper-slide{
+  border-radius:50px !important;overflow:hidden;
+}
   .swiper-button-prev,
   .swiper-button-next {
     top: 33%;

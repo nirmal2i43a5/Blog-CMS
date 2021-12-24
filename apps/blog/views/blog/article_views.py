@@ -29,10 +29,11 @@ class ArticleListView(ListView):
     template_name = "blog/article/home.html"
 
     def get_queryset(self):
-        return Article.objects.filter(status=Article.PUBLISHED, deleted=False)
-    # only('category','author','status','title','date_published','count_words','read_time','views','tags')
+        return Article.objects.filter(status=Article.PUBLISHED)
    
-    
+        #  return Article.objects.select_related('category',
+                                            #    'author',).filter(status=Article.PUBLISHED)#.values('category__name','author','status','title','date_published','count_words','read_time','views','tags')
+   
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         articles = self.object_list#return get_queryset
@@ -52,7 +53,6 @@ class ArticleListView(ListView):
             for tag in tags:
                 all_tags.append(tag.name)
                 
-            
         tags_qs = ListAsQuerySet(all_tags, model=Article)
         context['categories'] = Category.objects.filter(approved=True)
         context['tags'] = set(tags_qs)#create unique tag

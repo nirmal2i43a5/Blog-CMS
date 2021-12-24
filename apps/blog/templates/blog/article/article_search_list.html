@@ -1,42 +1,51 @@
 {% if search_articles %}
 <div class="container">
   {% for article in search_articles %}
-  <div class="item mb-5">
-    <div class="media">
-      <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ article.image.url }}" alt="image">
-      <div class="media-body">
-        <h3 class="title mb-1"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
-        <div class="meta mb-1"><span class="date"><b>Published:</b> <i>{{ article.date_published|date:'M d, Y'}}</i></span>
-          <span class="time">{{ article.count_words }} word{{ article.count_words|pluralize }}</span>
-          <span class="time">{{ article.read_time }} min{{ article.read_time|pluralize }} read</span>
-          <span class="comment">{{ article.views }} view{{ article.views|pluralize }}</span>
-          <!-- <span class="comment"><a href="#">{{ article.comments.count }} comment{{article.comments.count|pluralize }}</a></span> -->
-          <span class="time">
-
-
-          </span>
-        </div>
-        <ul class="tags my-2">
-          {% for tag in article.tags.all %}
-          <li><a class="badge text-uppercase text-white" style="background-color: #5E72E4;"
-              href="javascript:void()">{{ tag.name }}</a></li>
-
-          <!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
-          {% endfor %}
-        </ul>
-        <a class="more-link " href="{{ article.get_absolute_url }}"><i class="fas fa-1x fa-eye"></i> View
-          article </a>
-        <hr class="solid"><!-- Solid divider -->
+  <div class="item px-2 mb-3 pt-3  bg-white" style="border-radius:15px;">
+    <div class="row mb-2">
+    
+      <div class="col-md-4">
+        <img class=" d-md-flex mb-3" src="{{ article.image.url }}" style="border-radius:15px;" alt="image">
       </div>
-      <!--//media-body-->
+      <div class="col-md-8">
+        <div class="media">
+          <div class="media-body">
+            <!-- <img class=" d-md-flex mb-3" src="{{ article.image.url }}"   style="border-radius:15px;" width="330" height="250" alt="image"> -->
+
+            <h3 class="title mb-1"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+            <div class="meta mb-1"><span class="date"><b>Published:</b> <i>{{ article.date_published|date:'M d, Y'}}</i></span>
+              <span class="time">{{ article.count_words }} word{{ article.count_words|pluralize }}</span>
+              <span class="time">{{ article.read_time }} min{{ article.read_time|pluralize }} read</span>
+              <span class="view">{{ article.views }} view{{ article.views|pluralize }}</span>
+              <!-- <span class="comment"><a href="#">{{ article.comments.count }} comment{{article.comments.count|pluralize }}</a></span> -->
+
+            </div>
+            <ul class="tags my-2">
+              {% for tag in article.tags.all %}
+              <li><a class="badge text-uppercase text-white" style="background-color: #5E72E4;"
+                  href="javascript:void()">{{ tag.name }}</a></li>
+
+              <!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
+              {% endfor %}
+            </ul>
+            <a class="more-link " href="{{ article.get_absolute_url }}"><i class="fas fa-1x fa-eye"></i>
+              View
+              article </a>
+          </div>
+
+          <!--//media-body-->
+        </div>
+      </div>
+    
+      <!--//media-->
     </div>
-    <!--//media-->
+    <!--//item-->
+  
   </div>
   <!--//item-->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
 
-  </div>
+
+ 
   {% endfor %}
 </div>
 
