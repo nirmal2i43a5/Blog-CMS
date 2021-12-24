@@ -146,13 +146,15 @@ STATICFILES_FINDERS = (
     "compressor.finders.CompressorFinder",
 )
 
+
+COMPRESS_JS_FILTERS = ["compressor.filters.jsmin.JSMinFilter"]
 COMPRESS_ENABLED = True
 COMPRESS_CSS_HASHING_METHOD = 'content'
 COMPRESS_CSS_FILTERS = [
     "compressor.filters.css_default.CssAbsoluteFilter",
     "compressor.filters.cssmin.CSSMinFilter",
 ]
-
+# COMPRESS_URL = STATIC_URL
 # --
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

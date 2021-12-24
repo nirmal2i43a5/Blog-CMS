@@ -167,14 +167,15 @@
         <div class="navbar-nav ml-4 mt-1">
           <a href="{% url 'blog:home' %}" {% if request.path == '/' %}class=" nav-item nav-link active"{% endif %} class="nav-item nav-link  position-relative "><i class = "fas fa-sm fa-home"></i> Home</a>
 
-          <li>
             <a href="#" class="nav-item nav-link">Articles</a>
 
-          </li>
-          <li>
+          
+
+            
           <a href="{% url 'myprojects:projects' %}" {% if request.path == '/projects/list/' %}class=" nav-item nav-link active"{% endif %} class="nav-item nav-link">Projects</a>
 
-          </li>
+
+          
           <a href="{% url 'authentication:email_sent' %}" {% if request.path == '/send_message/' %}class=" nav-item nav-link active"{% endif %} class="nav-item nav-link">Contact</a>
 
           <!-- <div class="nav-item dropdown">
@@ -211,5 +212,6 @@
           <a href="#" class="nav-item nav-link"><i class="fa fa-pinterest-p"></i></a> -->
         </div>
       </div>
+      
     </nav>
  
