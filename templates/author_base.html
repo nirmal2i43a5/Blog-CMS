@@ -64,13 +64,26 @@
 
   </div>
 
-  {% include "includes/scripts.html" %}
+
+  <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="/static/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="/static/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+
+
 
   <!-- Specific JS goes HERE --> 
   {% block javascripts %}{% endblock javascripts %}
 
 
   {% compress js %}
+  <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="/static/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="/static/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <!-- --- -->
 <script src="{% static 'dashboard/author/src/js/vendor/modernizr-2.8.3.min.js' %}"></script>
   <script src="/static/assets/js/argon.js?v=1.2.0"></script>
 

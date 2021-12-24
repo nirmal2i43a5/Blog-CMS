@@ -15,7 +15,7 @@ from django.views.generic import (
 # Blog application imports.
 from apps.blog.models.article_models import Article
 from apps.blog.models.category_models import Category
-from apps.blog.forms.blog.comment_forms import CommentForm
+# from apps.blog.forms.blog.comment_forms import CommentForm
 from apps.blog.models.article_models import ListAsQuerySet
 
 from django.core.paginator import Paginator
