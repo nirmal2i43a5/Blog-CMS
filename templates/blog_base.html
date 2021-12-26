@@ -34,7 +34,13 @@
   <link href="{% static 'blog/css/loader.css' %}" rel="stylesheet">
   {% endcompress css %}
   
- 
+ <!-- start ckeditor highlighter -->
+	<link rel="stylesheet"  href="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/github.css" >
+<script  src="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" ></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<!-- highlighter end  -->
+
   <!-- Page plugins -->
   <!-- <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css"> -->
 

@@ -47,9 +47,21 @@
     }
   }
 .swiper-slide{
-  border-radius:50px !important;overflow:hidden;
+  border-radius:20px !important;overflow:hidden;
+  transition: all 1000ms linear;
+  transform: scale(0.75);
+}
+.swiper-slide-active {
+  transform: scale(1);
 }
   .swiper-button-prev,
   .swiper-button-next {
-    top: 33%;
+    top: 28%;
+   
+   
+  }
+
+  .swiper-container {
+    position: relative;
+    width: 80%;
   }

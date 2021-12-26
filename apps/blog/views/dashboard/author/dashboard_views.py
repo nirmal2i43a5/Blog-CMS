@@ -331,12 +331,12 @@ class AuthorPublishedArticlesView(LoginRequiredMixin,PermissionRequiredMixin,Vie
         context_object = {}
 
         published_articles = Article.objects.filter(author=request.user.id,
-                                                    status=Article.PUBLISHED, deleted=False).order_by('-date_published')
+                                                    status=Article.PUBLISHED).order_by('-date_published')
         total_articles_published = published_articles.count()
 
         page = request.GET.get('page', 1)
 
-        paginator = Paginator(published_articles, 2)
+        paginator = Paginator(published_articles, 10)
         try:
             published_articles_list = paginator.page(page)
         except PageNotAnInteger:

@@ -13,7 +13,7 @@ from apps.blog.models.article_models import ListAsQuerySet
 
 class CategoryArticlesListView(ListView):
     model = Article
-    paginate_by = 1
+    paginate_by = 10
     context_object_name = 'articles'
     template_name = 'blog/category/category_articles.html'
 

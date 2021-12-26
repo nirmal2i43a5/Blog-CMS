@@ -176,15 +176,49 @@ EMAIL_HOST_PASSWORD = 'xrevudfkvavqwksx'
 # CKEditor Settings
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
+# CKEDITOR_CONFIGS = {
+#         'default':
+#             {'toolbar': 'full',
+#              'width': 'auto',
+#              'extraPlugins': ','.join([
+#                  'codesnippet',
+#                  'youtube'
+#              ]),
+#              },
+#     }
 
 CKEDITOR_CONFIGS = {
         'default':
-            {'toolbar': 'full',
-             'width': 'auto',
-             'extraPlugins': ','.join([
+            {
+                'toolbar': 'Custom',
+            #  'width': 'auto',
+                 'height': 500,
+                'width': 1040,
+               'toolbar_Custom':
+                   [
+         
+                    [
+                    'Format','Styles','FontSize', 'TextColor','BGColor','Bold','Italic','Underline','Strike',
+                    'NumberedList','BulletedList','Outdent','Indent','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', 'Link','Smiley',
+                    'Unlink','Image','CodeSnippet','Youtube','Maximize',
+                    ]
+                 ],
+                   
+                 'extraPlugins': ','.join([
                  'codesnippet',
-                 'youtube'
+                 'youtube',
+                #  'justify'
              ]),
+                'codeSnippet_theme' : 'github',
+                
+                # 
+                # 'special':{
+                #     'tooblar':'Special',
+                #     'toolbar_Special':[
+                #         ['Bold']
+                #     ]
+                # }
+                    
              },
     }
 
@@ -226,7 +260,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = "/"  # Route defined in home/urls.py
-# LOGOUT_REDIRECT_URL = "/"  # Route defined in home/urls.py
 
 INTERNAL_IPS = [ "127.0.0.1"]
    
@@ -246,3 +279,4 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
     'debug_toolbar.panels.profiling.ProfilingPanel',
 ]
+

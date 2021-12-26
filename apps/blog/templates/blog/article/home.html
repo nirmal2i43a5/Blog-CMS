@@ -35,7 +35,7 @@ Home
       <div class="swiper-slide" >
         <a class="slider-category" href="{{ category.get_absolute_url }}">
           <div class="blog-image">
-            <img src="{{ category.image.url }}" class="category-image" alt="Blog Image"  width="352" height="235">
+            <img src="{{ category.image.url }}" class="category-image" alt="Blog Image"  width="290" height="180">
 
           </div>
 
@@ -59,7 +59,9 @@ Home
 
 </div><!-- slider -->
 <!-- prev next button -->
-<div class="swiper-button-prev"></div>
+<div class="swiper-button-prev">
+  
+</div>
 <div class="swiper-button-next"></div>
 
 {% else %}
@@ -235,11 +237,14 @@ Home
 <script type="text/javascript">
 
   var swiper = new Swiper('.swiper-container', {
-
+    observer: true,
+    observeParents: true,
     direction: 'horizontal',
-    spaceBetween: 1,
     loop: true,
     slidesPerView: 'auto',
+    spaceBetween: 1,
+ 
+
 
     centeredSlides: true,
     freeMode: false,
