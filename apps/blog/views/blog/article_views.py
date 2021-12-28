@@ -25,7 +25,7 @@ class ArticleListView(ListView):
     template_name = "blog/article/home.html"
 
     def get_queryset(self):
-        return Article.objects.filter(status=Article.PUBLISHED)
+        return Article.objects.filter(status=Article.PUBLISHED,deleted=False)
    
         #  return Article.objects.select_related('category',
                                             #    'author',).filter(status=Article.PUBLISHED)#.values('category__name','author','status','title','date_published','count_words','read_time','views','tags')
@@ -45,21 +45,28 @@ class ArticleListView(ListView):
             
         all_tags = []
         categoriy_articles_count = []
+        
+        for category in Category.objects.all():
+            category_instance = get_object_or_404(Category, pk = category.pk)
+            articles_count = category_instance.articles.filter(status = Article.PUBLISHED,deleted=False).count()
+            categoriy_articles_count.append(articles_count)
+            
+  
         for article in articles:
             
             '''For categories article count'''
-            category_instance = get_object_or_404(Category, pk = article.category.pk)
-            articles_count = category_instance.articles.all().count()
-            categoriy_articles_count.append(articles_count)
+            # category_instance = get_object_or_404(Category, pk = article.category.pk)
+            # articles_count = category_instance.articles.all().count()
+            # categoriy_articles_count.append(articles_count)
+     
             
             '''For accessing tags list of all articles'''
             tags = article.tags.all()
             for tag in tags:
                 all_tags.append(tag.name)
-        print(categoriy_articles_count)
                 
         tags_qs = ListAsQuerySet(all_tags, model=Article)
-        context['categories'] = Category.objects.filter(approved=True)
+        context['categories'] = zip(Category.objects.filter(approved=True),categoriy_articles_count)
         context['tags'] = set(tags_qs)#create unique tag
         context['articles'] = articles
         return context

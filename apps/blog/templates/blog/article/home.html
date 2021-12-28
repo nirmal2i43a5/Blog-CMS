@@ -29,7 +29,7 @@ Home
     data-swiper-breakpoints="true" data-swiper-loop="true" style="width: 300.25px;">
     <div class="swiper-wrapper">
 
-      {% for category in categories %}
+      {% for category,article_count in categories %}
 
 
       <div class="swiper-slide" >
@@ -43,6 +43,8 @@ Home
             <div class="display-table center-text">
               <div class="display-table-cell">
                 <h3><b>{{ category.name }}</b></h3>
+                <h5><b>{{ article_count }} articles</b></h5>
+               
               </div>
             </div>
           </div>
