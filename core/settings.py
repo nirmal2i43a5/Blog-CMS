@@ -198,7 +198,7 @@ CKEDITOR_CONFIGS = {
                    [
          
                     [
-                    'Format','Styles','FontSize', 'TextColor','BGColor','Bold','Italic','Underline','Strike',
+                   'Source', 'Format','Styles','FontSize', 'TextColor','BGColor','Bold','Italic','Underline','Strike',
                     'NumberedList','BulletedList','Outdent','Indent','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', 'Link','Smiley',
                     'Unlink','Image','CodeSnippet','Youtube','Maximize',
                     ]

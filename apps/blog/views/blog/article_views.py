@@ -1,8 +1,4 @@
-# Standard Python Library imports.
-from functools import reduce
-import operator
 
-# Core Django imports.
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.query import QuerySet
@@ -11,7 +7,7 @@ from django.views.generic import (
     DetailView,
     ListView,
 )
-
+from django.shortcuts import get_object_or_404
 # Blog application imports.
 from apps.blog.models.article_models import Article
 from apps.blog.models.category_models import Category
@@ -48,10 +44,19 @@ class ArticleListView(ListView):
             articles = paginator.page(paginator.num_pages)
             
         all_tags = []
+        categoriy_articles_count = []
         for article in articles:
+            
+            '''For categories article count'''
+            category_instance = get_object_or_404(Category, pk = article.category.pk)
+            articles_count = category_instance.articles.all().count()
+            categoriy_articles_count.append(articles_count)
+            
+            '''For accessing tags list of all articles'''
             tags = article.tags.all()
             for tag in tags:
                 all_tags.append(tag.name)
+        print(categoriy_articles_count)
                 
         tags_qs = ListAsQuerySet(all_tags, model=Article)
         context['categories'] = Category.objects.filter(approved=True)
