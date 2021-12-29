@@ -47,8 +47,11 @@ class ArticleListView(ListView):
         categoriy_articles_count = []
         
         for category in Category.objects.all():
-            category_instance = get_object_or_404(Category, pk = category.pk)
-            articles_count = category_instance.articles.filter(status = Article.PUBLISHED,deleted=False).count()
+            category_instance = Category.objects.get(pk = category.pk)
+            articles_count = category_instance.articles.filter(
+                                                               status = Article.PUBLISHED,
+                                                               deleted=False
+                                                               ).count()
             categoriy_articles_count.append(articles_count)
             
   
