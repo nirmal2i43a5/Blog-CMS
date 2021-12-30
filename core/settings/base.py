@@ -151,7 +151,6 @@ COMPRESS_CSS_FILTERS = [
 # --
 MEDIA_URL = '/media/'
 MEDIA_ROOT =os.path.join(os.path.dirname(BASE_DIR), 'media')
-print(MEDIA_ROOT)
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #############################################################
 
@@ -199,7 +198,7 @@ CKEDITOR_CONFIGS = {
                    
                  'extraPlugins': ','.join([
                  'codesnippet',
-                 'youtube',
+                 'youtube', 
                 #  'justify'
              ]),
                 'codeSnippet_theme' : 'github',
