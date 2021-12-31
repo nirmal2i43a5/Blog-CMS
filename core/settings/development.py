@@ -5,6 +5,8 @@ from .base import *
 DEBUG = True
 INSTALLED_APPS += ["debug_toolbar", "silk"]
 
+
+
 MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 MIDDLEWARE.insert(0, "silk.middleware.SilkyMiddleware")
 

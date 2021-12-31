@@ -1,6 +1,7 @@
 
 
 from django.contrib import admin
+from django.apps import apps
 from django.urls import path, include  
 from django.conf import settings
 from django.conf.urls.static import static
@@ -66,7 +67,6 @@ urlpatterns += static(settings.STATIC_URL,
 urlpatterns += static(settings.MEDIA_URL,
                       document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]
-    urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
-    
+    urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
+    # if apps.is_installed("silk"):
+    urlpatterns = [path("silk/", include("silk.urls",namespace='silk'))] + urlpatterns

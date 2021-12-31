@@ -1,13 +1,13 @@
 
 from django.contrib import messages
 from django.db.models import Q
-from django.db.models.query import QuerySet
-from django.http import request
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
 from django.views.generic import (
     DetailView,
     ListView,
 )
-from django.shortcuts import get_object_or_404
 # Blog application imports.
 from core.apps.blog.models.article_models import Article
 from core.apps.blog.models.category_models import Category
@@ -18,6 +18,8 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 
+
+@method_decorator(cache_page(60*15),name = 'dispatch')
 class ArticleListView(ListView):
     paginate_by = 12
     context_object_name = "articles"
