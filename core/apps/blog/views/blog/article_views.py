@@ -56,7 +56,7 @@ class ArticleListView(ListView):
             categoriy_articles_count.append(articles_count)
             
   
-        for article in Article.objects.filter(status=Article.PUBLISHED,deleted=False).prefetch_related('tags'):
+        for article in articles:
             
             '''For categories article count'''
             # category_instance = get_object_or_404(Category, pk = article.category.pk)

@@ -22,6 +22,7 @@ from allauth.account.views import (LoginView,
 urlpatterns = [
 
     path('admin/', admin.site.urls),  
+     path('api/', include('core.api', namespace='api')),
     # path('login/', login_view, name="login"),
       path('login/', LoginView.as_view(), name="login"),
     

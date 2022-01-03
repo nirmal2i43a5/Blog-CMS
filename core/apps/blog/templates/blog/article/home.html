@@ -226,15 +226,15 @@ Home
 <!-- </div> -->
 <!-- footer-->
 
-
-
+<!-- <div class="article-json">
+</div> -->
 {% endblock content %}
 
 {% block javascripts %}
 
 {% compress js %}
 <script src="{% static '/assets/js/common-js/swiper.min.js' %}"></script>
-
+<script src="{% static '/assets/js/common-js/jquery-3.5.min.js' %}"></script>
 <script type="text/javascript">
 
   var swiper = new Swiper('.swiper-container', {
@@ -260,9 +260,23 @@ Home
     },
   });
 
+/*
+
+  $(document).ready(function(){
+    $.getJSON( "http://127.0.0.1:4000/api/articles/", function( data ) {
+
+    
+      var items = [];
+      $.each(data,function(i,ele){
+        alert(i.title,i)
+        $('.article-json').val(ele);
+      });
+    });
+  })
+*/
 </script>
 
-<!-- <script src="{% static 'blog/js/scripts.js' %}"></script> -->\
+<!-- <script src="{% static 'blog/js/scripts.js' %}"></script> -->
 
 {% endcompress %}
 
