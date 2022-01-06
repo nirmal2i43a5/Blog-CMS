@@ -88,6 +88,11 @@ def pages(request):
         return HttpResponse(html_template.render(context, request))
 
 
-def error_404(request, exception):
+def error_404(request,):
         data = {}
         return render(request,'home/page-404.html', data)
+
+
+def error_500(request):
+        data = {}
+        return render(request,'home/page-500.html', data)

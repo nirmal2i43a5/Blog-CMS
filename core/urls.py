@@ -19,9 +19,11 @@ from allauth.account.views import (LoginView,
                                   #  EmailVerificationSentView,
                                    EmailView)
 
+
+
 urlpatterns = [
 
-    path('admin/', admin.site.urls),  
+    # path('admin/', admin.site.urls),  
     # path('login/', login_view, name="login"),
       path('login/', LoginView.as_view(), name="login"),
     
@@ -61,12 +63,12 @@ urlpatterns = [
 ]
 
 handler404 = 'core.apps.home.views.error_404'
+handler500 = 'core.apps.home.views.error_500'
 
-
-urlpatterns += static(settings.STATIC_URL,
-                  document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL,
-                  document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.STATIC_URL,
+#                   document_root=settings.STATIC_ROOT)
+# urlpatterns += static(settings.MEDIA_URL,
+#                   document_root=settings.MEDIA_ROOT)
                   
 if settings.DEBUG:
     # import debug_toolbar
@@ -74,8 +76,8 @@ if settings.DEBUG:
                       document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                       document_root=settings.MEDIA_ROOT)
-    # urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
-    # # if apps.is_installed("silk"):
-    # urlpatterns = [path("silk/", include("silk.urls",namespace='silk'))] + urlpatterns
+    urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
+    # if apps.is_installed("silk"):
+    urlpatterns = [path("silk/", include("silk.urls",namespace='silk'))] + urlpatterns
 
   

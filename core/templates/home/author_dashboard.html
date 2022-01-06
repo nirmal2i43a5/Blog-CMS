@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load compress %}
 
 {% block title %} Dashboard {% endblock title %}
 
@@ -451,8 +452,10 @@
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}
+{% compress js %}
 
   <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  {% endcompress %}
 
 {% endblock javascripts %}

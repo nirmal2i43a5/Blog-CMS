@@ -28,7 +28,7 @@
             <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
           </form> -->
 
-        <p>If you think you have arrived here by our mistake, please <a href="#">contact us</a></p>
+        <p>If you think you have arrived here by our mistake, please <a href="{% url 'authentication:email_sent' %}">contact us</a></p>
 <br>
           <a href="{% url 'blog:home' %}" class="btn btn-sm text-white" style="background-color:#5E72E4 ;">Go Back Home</a>
       </div>
