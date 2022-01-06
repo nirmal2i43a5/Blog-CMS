@@ -6,7 +6,13 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['studybetterways.com', ]
+ALLOWED_HOSTS = [
+                        'localhost',
+                        '64.227.132.209',
+                      'studybetterways.com',
+                      'www.studybetterways.com'
+          
+             ]
 
 # CACHES = {
 #     'default': {

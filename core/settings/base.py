@@ -32,7 +32,6 @@ INSTALLED_APPS = [
      'core.apps.projects.apps.ProjectsConfig',
     'django_extensions',
     'compressor',
-    
   
             'taggit',
             'ckeditor',
@@ -82,10 +81,21 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': config('DB_ENGINE'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
@@ -125,18 +135,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+# ==============================================================================
+# STATIC FILES SETTINGS
+# ==============================================================================
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'apps/static'),
 )
 
-# --
 STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
 )
 
@@ -149,9 +160,11 @@ COMPRESS_CSS_FILTERS = [
     "compressor.filters.cssmin.CSSMinFilter",
 ]
 # COMPRESS_URL = STATIC_URL
+# COMPRESS_ROOT = STATIC_ROOT
 # --
 MEDIA_URL = '/media/'
 MEDIA_ROOT =os.path.join(os.path.dirname(BASE_DIR), 'media')
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #############################################################
 

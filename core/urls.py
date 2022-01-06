@@ -62,11 +62,20 @@ urlpatterns = [
 
 handler404 = 'core.apps.home.views.error_404'
 
+
 urlpatterns += static(settings.STATIC_URL,
-                      document_root=settings.STATIC_ROOT)
+                  document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL,
-                      document_root=settings.MEDIA_ROOT)
+                  document_root=settings.MEDIA_ROOT)
+                  
 if settings.DEBUG:
-    urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
-    # if apps.is_installed("silk"):
-    urlpatterns = [path("silk/", include("silk.urls",namespace='silk'))] + urlpatterns
+    # import debug_toolbar
+    urlpatterns += static(settings.STATIC_URL,
+                      document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
+    # urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
+    # # if apps.is_installed("silk"):
+    # urlpatterns = [path("silk/", include("silk.urls",namespace='silk'))] + urlpatterns
+
+  
