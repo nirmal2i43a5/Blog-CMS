@@ -63,10 +63,12 @@ Categories
                     {% endfor %}
                 </div><!-- row -->
                 {% else %}
-                <br><br>
+                
                 <center>
-                    <div class="alert alert-warning"><b>No articles are found in  <strong>{{category.name}}</strong> category.  <strong>Coming Soon.</strong></b></div>
-                </center>
+                  <div class="alert alert-primary"><b>No posts are found in  <strong>{{category.name}}</strong> category. </b></div>
+              </center>
+<img src="{% static 'assets/img/coming-soon.jpg' %}" width = "100%" alt="">
+ 
                 {% endif %}
                 <br>
                 <hr>

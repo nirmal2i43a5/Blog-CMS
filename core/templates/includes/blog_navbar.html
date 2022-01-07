@@ -173,7 +173,7 @@
             <div id="sub-menu" class="dropdown-menu">
             
               {% for category,article_count in  categories %}
-              <a href="#" class="dropdown-item">{{category.name}}
+              <a href="{{ category.get_absolute_url }}" class="dropdown-item">{{category.name}}
                 <span class="badge badge-light ml-3">
                   {{ article_count }} posts
                 </span>
