@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'core.apps.home' , # Enable the inner home (home),
+    'core.apps.home' , 
     'core.apps.blog.apps.BlogConfig',
     'core.apps.authentication.apps.AuthenticationConfig',
      'core.apps.projects.apps.ProjectsConfig',
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")  # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates") 
 
 TEMPLATES = [
     {

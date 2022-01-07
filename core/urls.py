@@ -23,7 +23,7 @@ from allauth.account.views import (LoginView,
 
 urlpatterns = [
 
-    # path('admin/', admin.site.urls),  
+    path('nirmalad3i2/', admin.site.urls),  
     # path('login/', login_view, name="login"),
       path('login/', LoginView.as_view(), name="login"),
     
@@ -62,14 +62,10 @@ urlpatterns = [
     
 ]
 
-handler404 = 'core.apps.home.views.error_404'
-handler500 = 'core.apps.home.views.error_500'
+# handler404 = 'core.apps.home.views.error_404'
+# handler500 = 'core.apps.home.views.error_500'
 
-# urlpatterns += static(settings.STATIC_URL,
-#                   document_root=settings.STATIC_ROOT)
-# urlpatterns += static(settings.MEDIA_URL,
-#                   document_root=settings.MEDIA_ROOT)
-                  
+                
 if settings.DEBUG:
     # import debug_toolbar
     urlpatterns += static(settings.STATIC_URL,

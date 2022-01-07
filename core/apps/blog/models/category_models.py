@@ -9,7 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
     slug = models.SlugField()
     image = models.ImageField(default='category-default.jpg',
-                              upload_to='category_images')
+                              upload_to='category_images',null = True, blank = True)
     approved = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
