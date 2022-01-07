@@ -45,7 +45,7 @@ urlpatterns = [
     path("", include("core.apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("core.apps.home.urls",namespace = 'home')),           
     path("", include("core.apps.blog.urls",namespace='blog')) , 
-    path("", include("core.apps.projects.urls",namespace='myprojects')) , 
+    path("projects/", include("core.apps.projects.urls",namespace='myprojects')) , 
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('allauth.urls')), # new
     path('password/reset/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), name = "password_reset"),

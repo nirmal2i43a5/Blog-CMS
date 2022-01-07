@@ -3,6 +3,7 @@
 
 <!-- This page contains password reset form -->
 {% extends 'blog_base.html' %}
+{% load static %}
 {% block title %}
 Projects
 {% endblock title %}
@@ -23,12 +24,8 @@ Projects
                       <h2 class="text-center font-weight-light my-2" >  Thanks for reaching out!</h2>
                     </div> -->
         
-                    <div class="card-body">
-                        <div id="success-box" class="content-block">
-                          <h2>Coming Soon!</h2>
-                        </div>
+                          <img src="{% static 'assets/img/coming-soon.jpg' %}" style="border-radius:1rem;;" width = "100%" alt="">
         
-                    </div>
         
                   </div>
                 </div>
@@ -36,4 +33,7 @@ Projects
             </div>
         
     </div>
+    <style>
+  
+    </style>
 {% endblock content %}

@@ -1,3 +1,7 @@
+
+{% load static %}
+
+
 {% if search_articles %}
 
 {% for message in messages %}
@@ -10,7 +14,10 @@
 <br>
 {% elif not search_articles and not articles %}
 
-{% for message in messages %}
+
+<img src="{% static 'assets/img/coming-soon.jpg' %}" width = "100%" alt="">
+
+<!-- {% for message in messages %}
 
 <h3> {{message}}</h3>
 
@@ -31,5 +38,6 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->
+
 {% endif %}
