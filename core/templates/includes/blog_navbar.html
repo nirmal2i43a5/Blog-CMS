@@ -166,9 +166,23 @@
         <div class="navbar-nav ml-4 mt-1">
           <a href="{% url 'blog:home' %}" {% if request.path == '/' %}class=" nav-item nav-link active"{% endif %} class="nav-item nav-link  position-relative "><i class = "fas fa-sm fa-home"></i> Home</a>
 
-            <a href="#" class="nav-item nav-link">Articles</a>
+            
 
-          
+              <div class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Categories</a>
+            <div id="sub-menu" class="dropdown-menu">
+            
+              {% for category,article_count in  categories %}
+              <a href="#" class="dropdown-item">{{category.name}}
+                <span class="badge badge-light ml-3">
+                  {{ article_count }} posts
+                </span>
+             
+              </a>
+              
+            {% endfor %}
+            </div>
+          </div>
 
             
           <a href="{% url 'myprojects:projects' %}" {% if request.path == '/projects/list/' %}class=" nav-item nav-link active"{% endif %} class="nav-item nav-link">Projects</a>
@@ -177,15 +191,7 @@
           
           <a href="{% url 'authentication:email_sent' %}" {% if request.path == '/send_message/' %}class=" nav-item nav-link active"{% endif %} class="nav-item nav-link">Contact</a>
 
-          <!-- <div class="nav-item dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
-            <div id="sub-menu" class="dropdown-menu">
-              <a href="#" class="dropdown-item">Web Design</a>
-              <a href="#" class="dropdown-item">Web Development</a>
-              <a href="#" class="dropdown-item">Graphic Design</a>
-              <a href="#" class="dropdown-item">Digital Marketing</a>
-            </div>
-          </div> -->
+      
         </div>
         <div class="navbar-nav ml-auto">
           <div class="nav-item dropdown search-dropdown">

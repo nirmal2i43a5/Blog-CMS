@@ -19,7 +19,7 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 
 
-@method_decorator(cache_page(60*15),name = 'dispatch')
+# @method_decorator(cache_page(60*15),name = 'dispatch')
 class ArticleListView(ListView):
     paginate_by = 12
     context_object_name = "articles"
@@ -27,10 +27,9 @@ class ArticleListView(ListView):
     template_name = "blog/article/home.html"
 
     def get_queryset(self):
-        return Article.objects.filter(status=Article.PUBLISHED,deleted=False)
+        # return Article.objects.filter(status=Article.PUBLISHED,deleted=False)
    
-        #  return Article.objects.select_related('category',
-                                            #    'author',).filter(status=Article.PUBLISHED)#.values('category__name','author','status','title','date_published','count_words','read_time','views','tags')
+        return Article.objects.filter(status=Article.PUBLISHED,deleted=False).prefetch_related('tags')
    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,8 +47,8 @@ class ArticleListView(ListView):
         all_tags = []
         categoriy_articles_count = []
         
-        for category in Category.objects.all():
-            category_instance = Category.objects.get(pk = category.pk)
+        for category in Category.objects.values_list('pk', flat=True):#instead of all use this
+            category_instance = Category.objects.get(pk = category)
             articles_count = category_instance.articles.filter(
                                                                status = Article.PUBLISHED,
                                                                deleted=False
@@ -66,13 +65,16 @@ class ArticleListView(ListView):
      
             
             '''For accessing tags list of all articles'''
-            tags = article.tags.all()
+            tags = article.tags.all()#values_list('name',flat = True)
             for tag in tags:
                 all_tags.append(tag.name)
                 
         tags_qs = ListAsQuerySet(all_tags, model=Article)
-        context['categories'] = zip(Category.objects.filter(approved=True),categoriy_articles_count)
-        context['tags'] = set(tags_qs)#create unique tag
+        context['categories'] = zip(
+                                    Category.objects.filter(approved=True),#.values_list('name','slug','image'),
+                                    categoriy_articles_count
+                                    )
+        context['tags'] = set(tags_qs)#creating unique tag
         context['articles'] = articles
         return context
 

@@ -23,23 +23,20 @@ from allauth.account.views import (LoginView,
 
 urlpatterns = [
 
-    path('nirmalad3i2/', admin.site.urls),  
+    path('admin/', admin.site.urls),  
+    path('api/', include('core.api', namespace='api')),
     # path('login/', login_view, name="login"),
-      path('login/', LoginView.as_view(), name="login"),
-    
+    path('login/', LoginView.as_view(), name="login"),
     path('register/', SignupView.as_view(), name="register"),    
     path("logout/", UserLogoutView.as_view(), name="logout"),
-    
     #   path(route='account_activation_sent/',
     #      view=AccountActivationSentView.as_view(),
     #      name='account_activation_sent'
     #      ),
-
     path(route='activate/<uidb64>/<token>/',
          view=ActivateView.as_view(),
          name='activate'
          ), 
-    
       path("email/", EmailView.as_view(), name="account_email"),#for resending verification link 
     # account_activation_sent
        path(
@@ -47,11 +44,10 @@ urlpatterns = [
        AccountActivationSentView.as_view(),
         name="account_email_verification_sent",
     ),#for default verification link
-    
     path("", include("core.apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("core.apps.home.urls",namespace = 'home')),           
     path("", include("core.apps.blog.urls",namespace='blog')) , 
-     path("", include("core.apps.projects.urls",namespace='myprojects')) , 
+    path("", include("core.apps.projects.urls",namespace='myprojects')) , 
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('allauth.urls')), # new
     path('password/reset/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), name = "password_reset"),

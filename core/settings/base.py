@@ -32,6 +32,8 @@ INSTALLED_APPS = [
      'core.apps.projects.apps.ProjectsConfig',
     'django_extensions',
     'compressor',
+    # 'rest_framework',
+    
   
             'taggit',
             'ckeditor',

@@ -20,59 +20,10 @@ Home
 
 {% block content %}
 
-{% if categories %}
 
-<div class="main-slider">
-  <div id="swiper1" class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
-    data-swiper-speed="500" data-swiper-autoplay="10000" data-swiper-margin="0" data-swiper-slides-per-view="4"
-    data-swiper-breakpoints="true" data-swiper-loop="true" style="width: 300.25px;">
-    <div class="swiper-wrapper">
-
-      {% for category,article_count in categories %}
-
-
-      <div class="swiper-slide" style="padding: 2rem 0rem;">
-        <a class="slider-category" href="{{ category.get_absolute_url }}">
-          <!-- <div class="blog-image">
-            <img src="{{ category.image.url }}" class="category-image" alt="Blog Image"  width="290" height="180">
-
-          </div> -->
-
-          <div class="category">
-            <div class="display-table center-text">
-              <div class="display-table-cell bg-white">
-                <h3 class="text-dark"><b>{{ category.name }}</b></h3>
-                <!-- <h5 class="text-dark"><b>{{ article_count }} articles</b></h5> -->
-                <h5 class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="javascript:void(0)"><strong>{{ article_count }} articles</strong></h5>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div><!-- swiper-slide -->
-
-      {% endfor %}
-
-    </div><!-- swiper-wrapper -->
-    <!-- pagination -->
-    <div class="swiper-pagination"></div>
-  </div><!-- swiper-container -->
-
-
-</div><!-- slider -->
-<!-- prev next button -->
-<div class="swiper-button-prev">
-  
-</div>
-<div class="swiper-button-next"></div>
-
-{% else %}
-<center>
-  <div class="alert alert-warning"><b>No Categories</b></div>
-</center>
-{% endif %}
 
 <!-- <div class="container mb-3"> -->
-<div class="row">
+<div class="row" style="margin-top: 4rem;">
 
   <div class="col-md-8">
     <br>
@@ -226,44 +177,12 @@ Home
 <!-- </div> -->
 <!-- footer-->
 
-
-
+<!-- <div class="article-json">
+</div> -->
 {% endblock content %}
 
 {% block javascripts %}
 
-{% compress js %}
-<script src="{% static '/assets/js/common-js/swiper.min.js' %}"></script>
 
-<script type="text/javascript">
-
-  var swiper = new Swiper('.swiper-container', {
-    observer: true,
-    observeParents: true,
-    direction: 'horizontal',
-    loop: false,
-    slidesPerView: 'auto',
-    spaceBetween: 1,
- 
-
-
-    centeredSlides: true,
-    freeMode: false,
-    pagination: {
-      el: '.swiper-pagination',
-
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-
-</script>
-
-<!-- <script src="{% static 'blog/js/scripts.js' %}"></script> -->\
-
-{% endcompress %}
 
 {% endblock javascripts %}
