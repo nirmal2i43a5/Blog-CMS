@@ -15,48 +15,16 @@ from core.apps.blog.models.article_models import Article
 def home(request):
     return render(request, 'blog/blog_home.html')
 
-class DashboardHomeView(LoginRequiredMixin, View):
-    """
-    Display homepage of the dashboard.
-    """
-    context = {}
-    template_name = 'dashboard/author/dashboard_home.html'
-
- 
-    def get(self, request, *args, **kwargs):
-        """
-        Returns the author details
-        """
-
-        articles_list = Article.objects.filter(author=request.user)
-
-        total_articles_written = len(articles_list)
-        total_articles_published = len(
-            articles_list.filter(status=Article.PUBLISHED, deleted=False))
-        total_articles_views = sum(article.views for article in articles_list)
-        total_articles_comments = sum(
-            article.comments.count() for article in articles_list)
-
-        recent_published_articles_list = articles_list.filter(
-            status=Article.PUBLISHED, deleted=False).order_by("-date_published")[:5]
-
-        self.context['total_articles_written'] = total_articles_written
-        self.context['total_articles_published'] = total_articles_published
-        self.context['total_articles_views'] = total_articles_views
-        self.context['total_articles_comments'] = total_articles_comments
-        self.context['recent_published_articles_list'] = recent_published_articles_list
-
-        return render(request, self.template_name, self.context)
 
 
-class ArticleWriteView(LoginRequiredMixin, View):
+class ArticleWriteView(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     SAVE_AS_DRAFT = "SAVE_AS_DRAFT"
     PUBLISH = "PUBLISH"
 
     template_name = 'blog/author/article_create_form.html'
     context_object = {}
-
+    permission_required = "blog.add_article"
     def get(self, request, *args, **kwargs):
 
         article_create_form = ArticleCreateForm()
@@ -127,13 +95,14 @@ class ArticleWriteView(LoginRequiredMixin, View):
             return render(request, self.template_name, self.context_object)
 
 
-class ArticleUpdateView(LoginRequiredMixin, View):
+class ArticleUpdateView(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     SAVE_AS_DRAFT = "SAVE_AS_DRAFT"
     PUBLISH = "PUBLISH"
 
     template_name = 'blog/author/article_update_form.html'
     context_object = {}
+    permission_required = "blog.change_article"
 
     def get(self, request, *args, **kwargs):
 
@@ -146,7 +115,6 @@ class ArticleUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, self.context_object)
 
     def post(self, request, *args, **kwargs):
-
         old_article = get_object_or_404(Article, slug=self.kwargs.get("slug"))
         article_update_form = ArticleCreateForm(request.POST, request.FILES, instance=old_article)
 
@@ -215,11 +183,11 @@ class ArticleUpdateView(LoginRequiredMixin, View):
             return render(request, self.template_name, self.context_object)
 
 
-class ArticleDeleteView(LoginRequiredMixin, View):
+class ArticleDeleteView(LoginRequiredMixin,PermissionRequiredMixin, View):
     """
       Deletes article
     """
-
+    permission_required = "blog.delete_article"
     def get(self, *args, **kwargs):
         """
            Checks if user who has requested to delete the article is the
@@ -241,11 +209,11 @@ class ArticleDeleteView(LoginRequiredMixin, View):
         return redirect(to='blog:deleted_articles')
 
 
-class DashboardArticleDetailView(LoginRequiredMixin, View):
+class DashboardArticleDetailView(LoginRequiredMixin,PermissionRequiredMixin, View):
     """
        Displays article details.
     """
-
+    permission_required = "blog.view_article"
     def get(self, request, *args, **kwargs):
         """
            Returns article details.
@@ -261,11 +229,11 @@ class DashboardArticleDetailView(LoginRequiredMixin, View):
         return render(request, template_name, context_object)
 
 
-class ArticlePublishView(LoginRequiredMixin, View):
+class ArticlePublishView(LoginRequiredMixin,PermissionRequiredMixin, View):
     """
        View to publish a drafted article
     """
-
+    permission_required = "blog.view_article"
     def get(self, request, *args, **kwargs):
         """
             Gets article slug from user and gets the article from the
@@ -284,11 +252,11 @@ class ArticlePublishView(LoginRequiredMixin, View):
         return redirect('blog:dashboard_article_detail', slug=article.slug)
 
 
-class AuthorWrittenArticlesView(LoginRequiredMixin, View):
+class AuthorWrittenArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View):
     """
        Displays all articles written by an author.
     """
-
+    permission_required = "blog.view_article"
     def get(self, request):
         """
            Returns all articles written by an author.

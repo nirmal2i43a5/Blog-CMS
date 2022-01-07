@@ -16,6 +16,7 @@ from core.apps.authentication.forms import UserRegisterForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMessage
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.template.loader import render_to_string
 
@@ -197,7 +198,7 @@ class SubscriptionActivateView(View):
             return render(request, 'authentication/account_activation_invalid.html')
 
 
-class SendEmail(View):
+class SendEmail(LoginRequiredMixin,View):
     
     def get(self, request, *args, **kwargs):
         return render(request, 'account/_contact_form.html')

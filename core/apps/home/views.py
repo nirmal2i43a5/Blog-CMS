@@ -13,12 +13,8 @@ from core.apps.blog.models import Article
 from core.apps.authentication.models import Subscription
 
 
-@login_required(login_url="/login/")
-def author_dashboard(request):
-    context = {'segment': 'index'}
 
-    html_template = loader.get_template('home/author_dashboard.html')
-    return HttpResponse(html_template.render(context, request))
+
 
 class DashboardHomeView(LoginRequiredMixin,PermissionRequiredMixin,View):
     permission_required = 'blog.view_article'

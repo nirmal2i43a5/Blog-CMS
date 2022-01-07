@@ -14,7 +14,7 @@ from core.apps.blog.views.blog.article_views import (
 
 from core.apps.blog.views.blog.category_views import (
     CategoryArticlesListView,
-    CategoriesListView,
+    # CategoriesListView,
     CategoryCreateView,
     CategoryUpdateCreateView,
 )
@@ -30,7 +30,6 @@ from core.apps.blog.views.blog.author_views import (
 # )
 
 from core.apps.blog.views.dashboard.author.dashboard_views import (
-    DashboardHomeView,
     ArticleWriteView,
     ArticleUpdateView,
     ArticleDeleteView,
@@ -115,11 +114,11 @@ urlpatterns = [
     ),
 
     # /categories-list/
-    path(
-        route='categories/list/',
-        view=CategoriesListView.as_view(),
-        name='categories_list'
-    ),
+    # path(
+    #     route='categories/list/',
+    #     view=CategoriesListView.as_view(),
+    #     name='categories_list'
+    # ),
 
     # /category/new/
     path(
@@ -155,23 +154,11 @@ urlpatterns = [
     # ),
 
 
-    # ACCOUNT URLS #
+
 
    
 
 
-
- 
-
-
-    # DASHBOARD URLS #
-
-    # /author/dashboard/
-    path(
-        route="author/dashboard/home/",
-        view=DashboardHomeView.as_view(),
-        name="dashboard_home"
-    ),
 
     # author/profile/details
     path(

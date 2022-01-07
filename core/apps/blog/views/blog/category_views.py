@@ -39,14 +39,15 @@ class CategoryArticlesListView(ListView):
         return context
 
 
-class CategoriesListView(ListView):
-    model = Category
-    paginate_by = 12
-    context_object_name = 'categories'
-    template_name = 'blog/category/categories_list.html'
+# class CategoriesListView(ListView):
+#     model = Category
+#     paginate_by = 12
+#     context_object_name = 'categories'
+#     template_name = 'blog/category/categories_list.html'
+#     permission_required='blog.add_category' 
 
-    def get_queryset(self):
-        return Category.objects.order_by('-date_created')
+#     def get_queryset(self):
+#         return Category.objects.order_by('-date_created')
 
 
 class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin,CreateView):
