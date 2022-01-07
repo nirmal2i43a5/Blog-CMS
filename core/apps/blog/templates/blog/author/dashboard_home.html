@@ -11,7 +11,9 @@
 
 {% block stylesheets %}
      {{ block.super }}
+     {% compress css %}
         <link href="{% static 'dashboard/author/css/dashboard-article.css' %}" rel="stylesheet" />
+    {% endcompress %}
 {% endblock stylesheets %}
 
 {% endcompress %}

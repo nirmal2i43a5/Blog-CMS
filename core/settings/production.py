@@ -14,3 +14,6 @@ ALLOWED_HOSTS = ['studybetterways.com', ]
 #         'LOCATION': '127.0.0.1:11211',
 #     }
 # }
+
+
+

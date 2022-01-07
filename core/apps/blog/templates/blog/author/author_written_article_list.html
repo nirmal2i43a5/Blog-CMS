@@ -1,5 +1,6 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
+{% load compress %}
 {% load only_hours %}
 
 {% block title %}
@@ -8,7 +9,9 @@
 
 {% block stylesheets %}
      {{ block.super }}
+     {% compress css %}
         <link href="{% static 'dashboard/author/css/dashboard-article.css' %}" rel="stylesheet" />
+        {% endcompress %}
 {% endblock stylesheets %}
 
 

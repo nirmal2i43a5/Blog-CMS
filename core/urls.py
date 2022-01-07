@@ -22,23 +22,19 @@ from allauth.account.views import (LoginView,
 urlpatterns = [
 
     path('admin/', admin.site.urls),  
-     path('api/', include('core.api', namespace='api')),
+    path('api/', include('core.api', namespace='api')),
     # path('login/', login_view, name="login"),
-      path('login/', LoginView.as_view(), name="login"),
-    
+    path('login/', LoginView.as_view(), name="login"),
     path('register/', SignupView.as_view(), name="register"),    
     path("logout/", UserLogoutView.as_view(), name="logout"),
-    
     #   path(route='account_activation_sent/',
     #      view=AccountActivationSentView.as_view(),
     #      name='account_activation_sent'
     #      ),
-
     path(route='activate/<uidb64>/<token>/',
          view=ActivateView.as_view(),
          name='activate'
          ), 
-    
       path("email/", EmailView.as_view(), name="account_email"),#for resending verification link 
     # account_activation_sent
        path(
@@ -46,11 +42,10 @@ urlpatterns = [
        AccountActivationSentView.as_view(),
         name="account_email_verification_sent",
     ),#for default verification link
-    
     path("", include("core.apps.authentication.urls",namespace='authentication')), 
     path("dashboard/", include("core.apps.home.urls",namespace = 'home')),           
     path("", include("core.apps.blog.urls",namespace='blog')) , 
-     path("", include("core.apps.projects.urls",namespace='myprojects')) , 
+    path("", include("core.apps.projects.urls",namespace='myprojects')) , 
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('allauth.urls')), # new
     path('password/reset/',auth_views.PasswordResetView.as_view(template_name = 'passwordreset/password_reset_email.html'), name = "password_reset"),
@@ -63,11 +58,12 @@ urlpatterns = [
 
 handler404 = 'core.apps.home.views.error_404'
 
-urlpatterns += static(settings.STATIC_URL,
-                      document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL,
-                      document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,
+                      document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
     urlpatterns = [path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
     # if apps.is_installed("silk"):
     urlpatterns = [path("silk/", include("silk.urls",namespace='silk'))] + urlpatterns

@@ -1,5 +1,6 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
+{% load compress %}
 
 {% block title %}
     Update Profile
@@ -7,7 +8,9 @@
 
 {% block stylesheets %}
      {{ block.super }}
+     {% compress css %}
         <link href="{% static 'dashboard/author/css/dashboard.css' %}" rel="stylesheet" />
+        {% endcompress %}
 {% endblock stylesheets %}
 
 
