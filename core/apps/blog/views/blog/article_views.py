@@ -45,15 +45,15 @@ class ArticleListView(ListView):
             articles = paginator.page(paginator.num_pages)
             
         all_tags = []
-        categoriy_articles_count = []
+        # categoriy_articles_count = []
         
-        for category in Category.objects.values_list('pk', flat=True):#instead of all use this
-            category_instance = Category.objects.get(pk = category)
-            articles_count = category_instance.articles.filter(
-                                                               status = Article.PUBLISHED,
-                                                               deleted=False
-                                                               ).count()
-            categoriy_articles_count.append(articles_count)
+        # for category in Category.objects.values_list('pk', flat=True):#instead of all use this
+        #     category_instance = Category.objects.get(pk = category)
+        #     articles_count = category_instance.articles.filter(
+        #                                                        status = Article.PUBLISHED,
+        #                                                        deleted=False
+        #                                                        ).count()
+        #     categoriy_articles_count.append(articles_count)
             
   
         for article in articles:
@@ -70,10 +70,10 @@ class ArticleListView(ListView):
                 all_tags.append(tag.name)
                 
         tags_qs = ListAsQuerySet(all_tags, model=Article)
-        context['categories'] = zip(
-                                    Category.objects.filter(approved=True),#.values_list('name','slug','image'),
-                                    categoriy_articles_count
-                                    )
+        # context['categories'] = zip(
+        #                             Category.objects.filter(approved=True),#.values_list('name','slug','image'),
+        #                             categoriy_articles_count
+        #                             )
         context['tags'] = set(tags_qs)#creating unique tag
         context['articles'] = articles
         return context
@@ -149,7 +149,7 @@ class ArticleSearchListView(ListView):
             for tag in tags:
                 all_tags.append(tag.name)            
         tags_qs = ListAsQuerySet(all_tags, model=Article)
-        context['categories'] = Category.objects.filter(approved=True)
+        # context['categories'] = Category.objects.filter(approved=True)
         context['tags'] = set(tags_qs)
         return context
 
