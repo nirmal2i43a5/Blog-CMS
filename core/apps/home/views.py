@@ -30,13 +30,13 @@ class DashboardHomeView(LoginRequiredMixin,PermissionRequiredMixin,View):
         articles_list = Article.objects.filter(author=request.user)
 
         total_articles_written = articles_list.count()
-        total_articles_published = articles_list.filter(status=Article.PUBLISHED, deleted=False).count()
+        total_articles_published = articles_list.filter(deleted=False).count()
         total_articles_views = sum(article.views for article in articles_list)
         # total_articles_comments = sum(
         #     article.comments.count() for article in articles_list)
 
-        recent_published_articles_list = articles_list.filter(
-            status=Article.PUBLISHED, deleted=False).order_by("-date_published")[:5]
+        recent_published_articles_list = articles_list.filter(draft = False, 
+             deleted=False).order_by("-date_published")[:5]
 
         self.context['total_articles_written'] = total_articles_written
         self.context['total_articles_published'] = total_articles_published

@@ -52,8 +52,9 @@ class Article(models.Model):
                                           default=timezone.now)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES,
-                              default='DRAFT')
+    # status = models.CharField(max_length=10, choices=STATUS_CHOICES,
+    #                           default='DRAFT',null=True,blank = True)
+    draft = models.BooleanField(default = False)
     views = models.PositiveIntegerField(default=0)
     count_words = models.CharField(max_length=50, default=0)
     read_time = models.CharField(max_length=50, default=0)

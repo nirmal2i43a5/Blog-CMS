@@ -15,18 +15,10 @@ class ArticleCreateForm(forms.ModelForm):
 
     class Meta:
 
-        # Article status constants
-        DRAFTED = "DRAFTED"
-        PUBLISHED = "PUBLISHED"
-
-        # CHOICES
-        STATUS_CHOICES = (
-            (DRAFTED, 'Draft'),
-            (PUBLISHED, 'Publish'),
-        )
+    
 
         model = Article
-        fields = ["title", "category", "image", "image_credit", "body", "tags", "status"]
+        fields = ["title", "category", "image", "image_credit", "body", "tags", "draft"]
         widgets = {
             'title': TextInput(attrs={
                                      'name': "article-title",
@@ -86,18 +78,10 @@ class ArticleUpdateForm(forms.ModelForm):
     #                                 )
 
     class Meta:
-        # Article status constants
-        DRAFTED = "DRAFTED"
-        PUBLISHED = "PUBLISHED"
-
-        # CHOICES
-        STATUS_CHOICES = (
-            (DRAFTED, 'Draft'),
-            (PUBLISHED, 'Publish'),
-        )
+   
 
         model = Article
-        fields = ["title", "category", "image", "image_credit", "body", "tags", "status"]
+        fields = ["title", "category", "image", "image_credit", "body", "tags", "draft"]
         widgets = {
             'title': TextInput(attrs={
                 'name': "article-title",
@@ -113,16 +97,7 @@ class ArticleUpdateForm(forms.ModelForm):
                 'id': "image_credit"
             }),
 
-            # 'status': Select(choices=STATUS_CHOICES,
-            #                  attrs=
-            #                  {
-            #                      "class": "form-control selectpicker",
-            #                      "name": "status", "type": "text",
-            #                      "id": "articleStatus",
-            #                      "data-live-search": "true",
-            #                      "title": "Select Status"
-            #                  }
-            #                  ),
+          
             'body': forms.CharField(widget=CKEditorWidget(config_name="default", attrs={
                        "rows": 5, "cols": 20,
                        'id': 'content',

@@ -86,13 +86,13 @@
                                                             >
                                                               Cancel
                                                             </button>
-                                                            <a class="btn btn-danger" href="{% url 'blog:article_delete' slug=article.slug %}">Delete Article</a>
+                                                           <a class="btn btn-danger" href="{% url 'blog:article_delete' slug=article.slug %}">Delete Article</a>
                                                           </div>
                                                         </div>
                                                       </div>
                                                     </div> <!--//Delete Modal-->
-
-
+                                              
+                      
                                                <!--Publish Modal-->
                                                    <div class="modal fade" id="publishModal" tabindex="-1" role="dialog"
                                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -108,6 +108,7 @@
                                                             >
                                                               <span aria-hidden="true">×</span>
                                                             </button>
+                                                          
                                                           </div>
                                                           <div class="modal-body">
                                                             Select "Publish Article" below if you want to delete the article.
@@ -181,4 +182,6 @@
                 </div>
             </div>
 
+
+            
 {% endblock content %}

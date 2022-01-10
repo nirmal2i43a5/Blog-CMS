@@ -23,13 +23,13 @@ from django.core.paginator import PageNotAnInteger
 class ArticleListView(ListView):
     paginate_by = 12
     context_object_name = "articles"
-    # queryset = Article.objects.filter(status=Article.PUBLISHED, deleted=False)
+    # queryset = Article.objects.filter( deleted=False)
     template_name = "blog/article/home.html"
 
     def get_queryset(self):
-        # return Article.objects.filter(status=Article.PUBLISHED,deleted=False)
+        # return Article.objects.filter(deleted=False)
    
-        return Article.objects.filter(status=Article.PUBLISHED,deleted=False).prefetch_related('tags')
+        return Article.objects.filter(draft = False, deleted=False).prefetch_related('tags')
    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -91,7 +91,7 @@ class ArticleDetailView(DetailView):
             self.request.session[session_key] = True
 
         kwargs['related_articles'] = \
-            Article.objects.filter(category=self.object.category, status=Article.PUBLISHED).order_by('?')[:3]
+            Article.objects.filter(category=self.object.category).order_by('?')[:3]
         kwargs['article'] = self.object
         # kwargs['comment_form'] = CommentForm()
         return super().get_context_data(**kwargs)
@@ -128,10 +128,10 @@ class ArticleSearchListView(ListView):
 
             if not search_articles:
                 messages.info(self.request, f"Search Results for : {query}")
-                return search_articles.filter(status=Article.PUBLISHED, deleted=False)
+                return search_articles.filter( draft = False, deleted=False)
             else:
                 messages.success(self.request, f"Search Results for : {query}")
-                return search_articles.filter(status=Article.PUBLISHED, deleted=False)
+                return search_articles.filter( draft = False, deleted=False)
         else:
             messages.error(self.request, f"Sorry you did not enter any keyword")
             return []
@@ -172,7 +172,7 @@ class TagArticlesListView(ListView):
 
         if tag_name:
             tag_articles_list = Article.objects.filter(tags__name__in=[tag_name],
-                                                       status=Article.PUBLISHED,
+                                                       draft=False,
                                                        deleted=False
                                                        )
 
