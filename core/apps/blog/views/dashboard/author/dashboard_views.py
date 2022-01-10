@@ -35,7 +35,7 @@ class ArticleWriteView(LoginRequiredMixin,PermissionRequiredMixin, View):
             new_article = article_create_form.save(commit=False)
             new_article.author = request.user
             new_article.save()
-            # article_create_form.save_m2m()
+            article_create_form.save_m2m()
             messages.success(self.request, f"Article published successfully.")
             return redirect(to="blog:dashboard_article_detail", slug=new_article.slug)
 
@@ -62,12 +62,12 @@ class ArticleUpdateView(LoginRequiredMixin,PermissionRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
             article_instance = get_object_or_404(Article, slug=self.kwargs.get("slug"))
-            article_create_form = ArticleCreateForm(request.POST, request.FILES, instance =article_instance )
-            if article_create_form.is_valid():
-                instance = article_create_form.save(commit=False)
+            article_update_form = ArticleCreateForm(request.POST, request.FILES, instance =article_instance )
+            if article_update_form.is_valid():
+                instance = article_update_form.save(commit=False)
                 instance.author = request.user
                 instance.save()
-            # article_create_form.save_m2m()
+                article_update_form.save_m2m()#Save tags for respective posts
             messages.success(self.request, f"Article published successfully.")
             return redirect(to="blog:dashboard_article_detail", slug=article_instance.slug)
         

@@ -24,7 +24,7 @@ class ArticleListView(ListView):
     paginate_by = 12
     context_object_name = "articles"
     # queryset = Article.objects.filter( deleted=False)
-    template_name = "blog/article/home.html"
+    template_name = "blog/article/article_home.html"
 
     def get_queryset(self):
         # return Article.objects.filter(deleted=False)
@@ -101,7 +101,7 @@ class ArticleSearchListView(ListView):
     model = Article
     paginate_by = 12
     context_object_name = 'search_articles'
-    template_name = "blog/article/home.html"
+    template_name = "blog/article/article_home.html"
     
     
     def get_queryset(self):
