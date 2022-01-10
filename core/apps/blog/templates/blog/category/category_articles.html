@@ -30,13 +30,14 @@ Categories
                     <div class="col-md-6 col-sm-12">
                         <div class="card h-100">
                             <img src="{{ article.image.url }}"
+                            style="box-shadow: 2px 4px 10px rgba(0,0,0,0.3);"
                             width="330" height="220"
                             alt="Blog Image">
                             <div class="card-body bg-white">
                               <p class="card-title text-sm">
                                 {{article.date_published}}
                               </p>
-                              <h5 class="card-text">
+                              <h5 class="card-text text-primary">
                                 <a href="{{ article.get_absolute_url }}">
                                     <b>{{ article.title }}</b></a>
                                 </h5>

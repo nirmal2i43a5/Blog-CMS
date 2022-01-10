@@ -25,14 +25,14 @@ Home
 <!-- <div class="container mb-3"> -->
 <div class="row" style="margin-top: 4rem;">
 
-  <div class="col-md-8">
+  <div class="col-md-8 post-portion" >
     <br>
 
   <span style="margin-left: 3rem;">
     {% include "blog/article/search_message.html" %}
   </span>
    
-    <div class="card shadow-sm">
+    <div class="card">
       <!-- <div class="card-header">
           <h4 class="title">{{title}}</h4>
         </div> -->
@@ -48,7 +48,7 @@ Home
             <div class="container">
 
               {% for article in articles %}
-              <div class="item px-2 mb-3 pt-3  bg-white" style="border-radius:15px;">
+              <div class="item  mb-3 pt-3  bg-white" style="border-radius:15px;">
                 <div class="row mb-2">
                 
                   <div class="col-md-4">
@@ -192,6 +192,23 @@ Home
 
 <!-- <div class="article-json">
 </div> -->
+
+<style type="text/css">
+  @media (max-width: 991px	) {
+		.card-body {
+		background-color: white;
+		}
+    .container{
+      padding:0rem 0rem;
+    }
+    
+	  }
+    @media (min-width: 992px) {
+      .item {
+       padding:0rem 2rem;
+      }
+      }
+</style>
 {% endblock content %}
 
 {% block javascripts %}

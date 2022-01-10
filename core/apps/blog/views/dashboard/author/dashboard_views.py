@@ -35,7 +35,7 @@ class ArticleWriteView(LoginRequiredMixin,PermissionRequiredMixin, View):
             new_article = article_create_form.save(commit=False)
             new_article.author = request.user
             new_article.save()
-            article_create_form.save_m2m()
+            article_create_form.save_m2m()#Save tags for respective posts
             messages.success(self.request, f"Article published successfully.")
             return redirect(to="blog:dashboard_article_detail", slug=new_article.slug)
 

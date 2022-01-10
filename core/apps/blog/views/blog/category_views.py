@@ -19,13 +19,13 @@ class CategoryArticlesListView(ListView):
 
     def get_queryset(self):
         category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
-        return Article.objects.filter(category=category, status=Article.PUBLISHED, deleted=False)
+        return Article.objects.filter(category=category, draft = False, deleted=False)
 
 
     def get_context_data(self, **kwargs):
         context = super(CategoryArticlesListView, self).get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
-        articles = category.articles.filter(category=category, status=Article.PUBLISHED, deleted=False)
+        articles = category.articles.filter(category=category, draft = False, deleted=False)
         
         all_tags = []#tags for articles of respective category
         for article in articles:
@@ -54,7 +54,7 @@ class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequ
     model = Category
     fields = ["name", "image"]
     template_name = 'blog/category/category_form.html'
-    success_url = reverse_lazy('blog:categories_list')  
+    success_url = reverse_lazy('home:dashboard')  
     permission_required='blog.add_category'  
 
 
