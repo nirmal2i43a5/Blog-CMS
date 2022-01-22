@@ -94,7 +94,7 @@ class ArticleDetailView(DetailView):
             self.request.session[session_key] = True
 
         kwargs['related_articles'] = \
-            Article.objects.filter(category=self.object.category)[:3]
+            Article.objects.filter(category=self.object.category)
             
         kwargs['article'] = self.object
         kwargs['tags'] = self.object.tags.all()

@@ -137,12 +137,59 @@
 					</div><!-- main-post -->
 				</div><!-- col-lg-8 col-md-12 -->
 			</div><!-- row -->
-			
+
+
+		
 		</div><!-- container -->
 	</section><!-- post-area -->
 
+	<section class="recomended-area section">
+		<div class="container">
+			
+			{% if related_articles %}
+				
+				
+			<div class="row">
+				{% for article in related_articles %}
+				<div class="col-lg-4">
+					<div class="card h-100">
+						<img src="{{ article.image.url }}"
+						style="box-shadow: 2px 4px 10px rgba(0,0,0,0.3);"
+						width="330" height="220"
+						alt="Blog Image">
+						<div class="card-body bg-white">
+						  <p class="card-title text-sm">
+							{{article.date_published}}
+						  </p>
+						  <h5 class="card-text text-primary">
+							<a href="{{ article.get_absolute_url }}">
+								<b>{{ article.title }}</b></a>
+							</h5>
+							<hr>
+							<div class="d-flex justify-content-between">
+								<div>
+									<i class="ion-ios-clock"></i> {{ article.read_time }} min read
 
+								</div>
+								<div>
+								<i class="ion-chatbubble"></i> {{ article.comments.count }} comments
 
+								</div>
+								<div>
+								<i class="ion-eye"></i> {{ article.views }} views
+
+								</div>
+								</div>
+						</div>
+					</div>
+				</div><!-- col-md-6 col-sm-12 -->
+				{% endfor %}
+			</div>
+			{% endif %}
+
+</div>
+</section>
+<br><br>
 
 	
 	<section class="comment-section center-text ">
