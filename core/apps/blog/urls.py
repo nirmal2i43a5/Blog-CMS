@@ -33,7 +33,6 @@ from core.apps.blog.views.dashboard.author.dashboard_views import (
     ArticleWriteView,
     ArticleUpdateView,
     ArticleDeleteView,
-    DashboardArticleDetailView,
     ArticlePublishView,
     AuthorWrittenArticlesView,
     AuthorPublishedArticlesView,
@@ -230,12 +229,6 @@ urlpatterns = [
         name="deleted_articles"
     ),
 
-    # /<str:slug>/
-    path(
-        route="<str:slug>/",
-        view=DashboardArticleDetailView.as_view(),
-        name='dashboard_article_detail'
 
-    ),
 
 ]

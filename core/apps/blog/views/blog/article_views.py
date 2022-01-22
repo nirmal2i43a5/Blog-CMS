@@ -1,5 +1,6 @@
 
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
@@ -34,7 +35,6 @@ class ArticleListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         articles = self.object_list#return get_queryset
-        
         page = self.request.GET.get('page', 1)
         paginator = Paginator(articles, 12)
         try:
@@ -82,7 +82,10 @@ class ArticleListView(ListView):
 class ArticleDetailView(DetailView):
     model = Article
     template_name = 'blog/article/article_detail.html'
-
+    # queryset = Article.objects.all()
+    # def get_object(self, queryset=None):
+    #     return Article.objects.get(slug=self.kwargs.get('slug'))
+    
     def get_context_data(self, **kwargs):
         session_key = f"viewed_article {self.object.slug}"
         if not self.request.session.get(session_key, False):
@@ -91,8 +94,10 @@ class ArticleDetailView(DetailView):
             self.request.session[session_key] = True
 
         kwargs['related_articles'] = \
-            Article.objects.filter(category=self.object.category).order_by('?')[:3]
+            Article.objects.filter(category=self.object.category)[:3]
+            
         kwargs['article'] = self.object
+        kwargs['tags'] = self.object.tags.all()
         # kwargs['comment_form'] = CommentForm()
         return super().get_context_data(**kwargs)
 

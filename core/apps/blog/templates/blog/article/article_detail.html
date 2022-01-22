@@ -126,7 +126,7 @@
 
                         <!-- tags -->
 							<ul class="tags">
-                                {% for tag in article.tags.all %}
+                                {% for tag in tags %}
 								<!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
 								<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="javascript:void(0)">{{ tag.name }}</a></li>
                                 {% endfor %}

@@ -37,7 +37,7 @@ class ArticleWriteView(LoginRequiredMixin,PermissionRequiredMixin, View):
             new_article.save()
             article_create_form.save_m2m()#Save tags for respective posts
             messages.success(self.request, f"Article published successfully.")
-            return redirect(to="blog:dashboard_article_detail", slug=new_article.slug)
+            return redirect(to="blog:article_detail", slug=new_article.slug)
 
     
 
@@ -69,7 +69,7 @@ class ArticleUpdateView(LoginRequiredMixin,PermissionRequiredMixin, View):
                 instance.save()
                 article_update_form.save_m2m()#Save tags for respective posts
             messages.success(self.request, f"Article published successfully.")
-            return redirect(to="blog:dashboard_article_detail", slug=article_instance.slug)
+            return redirect(to="blog:article_detail", slug=article_instance.slug)
         
 class ArticleDeleteView(LoginRequiredMixin,PermissionRequiredMixin, View):
     """
@@ -97,24 +97,7 @@ class ArticleDeleteView(LoginRequiredMixin,PermissionRequiredMixin, View):
         return redirect(to='blog:deleted_articles')
 
 
-class DashboardArticleDetailView(LoginRequiredMixin,PermissionRequiredMixin, View):
-    """
-       Displays article details.
-    """
-    permission_required = "blog.view_article"
-    def get(self, request, *args, **kwargs):
-        """
-           Returns article details.
-        """
-        template_name = 'blog/author/dashboard_article_detail.html'
-        context_object = {}
 
-        article = get_object_or_404(Article, slug=self.kwargs.get("slug"))
-
-        context_object['article_title'] = article.title
-        context_object['article'] = article
-
-        return render(request, template_name, context_object)
 
 
 class ArticlePublishView(LoginRequiredMixin,PermissionRequiredMixin, View):
@@ -137,7 +120,7 @@ class ArticlePublishView(LoginRequiredMixin,PermissionRequiredMixin, View):
         article.save()
 
         messages.success(request, f"Article Published successfully.")
-        return redirect('blog:dashboard_article_detail', slug=article.slug)
+        return redirect('blog:article_detail', slug=article.slug)
 
 
 class AuthorWrittenArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View):
@@ -152,7 +135,7 @@ class AuthorWrittenArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View
         template_name = 'dashboard/author/author_written_article_list.html'
         context_object = {}
 
-        written_articles = Article.objects.filter(author=request.user.id, deleted=False).order_by('-date_created')
+        written_articles = Article.objects.filter( deleted=False).order_by('-date_created')
         total_articles_written = len(written_articles)
 
         page = request.GET.get('page', 1)
@@ -186,7 +169,7 @@ class AuthorPublishedArticlesView(LoginRequiredMixin,PermissionRequiredMixin,Vie
         template_name = 'blog/author/author_published_article_list.html'
         context_object = {}
 
-        published_articles = Article.objects.filter(author=request.user.id,
+        published_articles = Article.objects.filter(
                                                     draft = False).order_by('-date_published')
         total_articles_published = published_articles.count()
 
@@ -222,7 +205,7 @@ class AuthorDraftedArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View
         template_name = 'blog/author/author_drafted_article_list.html'
         context_object = {}
 
-        drafted_articles = Article.objects.filter(author=request.user.id,
+        drafted_articles = Article.objects.filter(
                                                   draft = True, deleted=False).order_by('-date_created')
         total_articles_drafted = len(drafted_articles)
 
@@ -249,7 +232,7 @@ class AuthorDeletedArticlesView(LoginRequiredMixin,PermissionRequiredMixin, View
         template_name = 'blog/author/author_deleted_article_list.html'
         context_object = {}
 
-        deleted_articles = Article.objects.filter(author=request.user.id,
+        deleted_articles = Article.objects.filter(
                                                   deleted=True).order_by('-date_published')
         total_articles_deleted = len(deleted_articles)
 
