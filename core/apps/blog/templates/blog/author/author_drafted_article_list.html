@@ -64,6 +64,7 @@
                                       <div class="dropdown-menu">
                                           <a class="dropdown-item" href="{% url 'blog:article_update' slug=article.slug %}">Edit Article</a>
                                           <div class="dropdown-divider w-100" ></div>
+                                          <a data-toggle="modal" data-target="#publishModel" class="dropdown-item" href="javascript:void(0)">Publish Article</a>
                                           <a data-toggle="modal" data-target="#deleteModal" class="dropdown-item" href="javascript:void(0)">Delete Article</a>
                                       </div>
                                       <!-- <span class="comment"><a href="#">{{ article.comments.count }} comment{{article.comments.count|pluralize }}</a></span> -->

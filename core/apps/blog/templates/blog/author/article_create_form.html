@@ -28,6 +28,7 @@
                     <form method="POST" action="{% url 'blog:article_write' %}" id="articleForm" enctype="multipart/form-data"
                           novalidate>
                         {% csrf_token %}
+                        {{article_create_form.media}}
                              {{article_create_form|crispy}}
                             <div class="form-group float-right">
                                 <button type="reset" class="btn btn-danger">Reset Form</button>

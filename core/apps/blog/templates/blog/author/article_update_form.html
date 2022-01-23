@@ -31,7 +31,7 @@
         <form method="POST" action="{% url 'blog:article_update'  slug=article.slug %}" enctype="multipart/form-data"
               novalidate>
             {% csrf_token %}
-
+                {{article_update_form.media}}
             {{article_update_form|crispy}}
 
                 <div class="form-group float-right">

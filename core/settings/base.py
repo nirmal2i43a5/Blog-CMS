@@ -188,6 +188,7 @@ CKEDITOR_CONFIGS = {
         'default':
             {
                 'toolbar': 'Custom',
+                
             #  'width': 'auto',
                  'height': 500,
                 'width': 1040,
@@ -206,6 +207,7 @@ CKEDITOR_CONFIGS = {
                  'youtube', 
                 #  'justify'
              ]),
+                 
                 'codeSnippet_theme' : 'github',
                 
                 # 
