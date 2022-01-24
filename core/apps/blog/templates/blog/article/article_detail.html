@@ -121,16 +121,16 @@
 
 						<div class="post-bottom-area">
 
-                        <!-- article body -->
-                            <p class="para">{{ article.body | safe }}</p>
+                       		 <!-- article body -->
+							{{ article.body | safe }}
 
-                        <!-- tags -->
-							<ul class="tags">
-                                {% for tag in tags %}
-								<!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
-								<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="javascript:void(0)">{{ tag.name }}</a></li>
-                                {% endfor %}
-							</ul>
+							<!-- tags -->
+								<ul class="tags">
+									{% for tag in tags %}
+									<!-- <li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="{% url 'blog:tag_articles' tag_name=tag.name %}">{{ tag.name }}</a></li> -->
+									<li><a  class="badge text-uppercase text-white" style="background-color: #5E72E4;" href="javascript:void(0)">{{ tag.name }}</a></li>
+									{% endfor %}
+								</ul>
 
 						</div><!-- post-bottom-area -->
                     </figure>
@@ -218,9 +218,12 @@
 	</section>
 	{% include "includes/blog_footer.html" %}
 
+
+	<
 {% compress css %}
 
 <style>
+
 	/*for mobile*/
 	@media (max-width: 991px	) {
 		.article-image {

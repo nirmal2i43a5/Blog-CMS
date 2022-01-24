@@ -1,4 +1,5 @@
-
+{% load static %}
+{% load compress %}
 <section class="newsletter"  style="background-color: #f5f5f5;" >
     <div class="container" style="background-color: white;padding-bottom:30px;">
         <div class="row">
@@ -55,7 +56,10 @@
         }
 </style>
 
+{% compress js %}
+<script src="{% static '/assets/js/common-js/jquery-3.5.min.js' %}"></script>
 <script>
+    
     $(document).ready(function () {
 
         $("#id_email").keyup(function(){
@@ -96,3 +100,4 @@
     
     });
 </script>
+{% endcompress %}
