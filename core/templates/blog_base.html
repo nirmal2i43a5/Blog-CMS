@@ -93,21 +93,13 @@
   }
   
 </style>
-<script>
-  $('div.docSection').find('ol').each( function() {
-    var list_style_type = $( this ).css("list-style-type");
-    $( this ).find('li').each( function () {
-    $( this ).css("list-style-type", list_style_type);
-    });
-  });
-</script>
+
 {% compress js %}
   <script src="{% static '/assets/js/common-js/jquery-3.5.min.js' %}"></script>
   <script src="{% static '/assets/js/bootstrap/bootstrap.min.js' %}"></script>
   <script src="{% static '/assets/js/common-js/tether.min.js' %}"></script>
 
   <script>
-    
     $(document).ready(function(){
 
      
